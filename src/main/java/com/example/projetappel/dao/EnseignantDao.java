@@ -4,23 +4,17 @@ import com.example.projetappel.model.Enseignant;
 
 public class EnseignantDao extends DAO<Enseignant> {
 
-    @Override
-    public Enseignant find(long id) {
-        return null;
+    public EnseignantDao() {
+        super.setEntity(Enseignant.class);
     }
 
-    @Override
-    public Enseignant create(Enseignant obj) {
-        return null;
-    }
+    public static void main(String[] args) {
 
-    @Override
-    public Enseignant update(Enseignant obj) {
-        return null;
-    }
+        Enseignant enseignant = new Enseignant("Nathalie", "Valles");
 
-    @Override
-    public void delete(Enseignant obj) {
+        EnseignantDao enseignantDao = new EnseignantDao();
+        enseignantDao.create(enseignant);
+
 
     }
 

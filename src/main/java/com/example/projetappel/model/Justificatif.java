@@ -1,14 +1,19 @@
 package com.example.projetappel.model;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
-public class Cours {
+public class Justificatif {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false)
-    private String libelle;
+    private String texte;
+
+    private Date date;
+
+    private boolean validee;
+
 }
