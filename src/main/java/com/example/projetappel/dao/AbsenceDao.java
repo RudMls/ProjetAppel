@@ -1,4 +1,9 @@
 package com.example.projetappel.dao;
 
-public class AbsenceDao {
+import com.example.projetappel.model.Absence;
+
+public class AbsenceDao extends DAO<Absence> {
+    public AbsenceDao() {
+        super.setEntity(Absence.class);
+    }
 }

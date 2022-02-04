@@ -1,9 +1,7 @@
 package com.example.projetappel.util;
 
-import com.example.projetappel.dao.EnseignantDao;
-import com.example.projetappel.dao.EtudiantDao;
-import com.example.projetappel.model.Enseignant;
-import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.dao.UtilisateurDao;
+import com.example.projetappel.model.Utilisateur;
 import com.github.javafaker.Faker;
 
 import java.util.Locale;
@@ -20,17 +18,12 @@ public class FakeData {
 
     public static void genererEtudiantsEnseignants() {
 
-        EtudiantDao etudiantDao = new EtudiantDao();
-        EnseignantDao enseignantDao = new EnseignantDao();
+        UtilisateurDao utilisateurDao = new UtilisateurDao();
 
         for (int i = 0; i < 10; i++) {
-            etudiantDao.create(new Etudiant(
+            utilisateurDao.create(new Utilisateur(
                 FAKER.name().firstName(),
                 FAKER.name().lastName()
-            ));
-            enseignantDao.create(new Enseignant(
-                    FAKER.name().firstName(),
-                    FAKER.name().lastName()
             ));
         }
     }

@@ -1,5 +1,6 @@
 package com.example.projetappel.config;
 
+import com.example.projetappel.model.Utilisateur;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -21,11 +22,11 @@ public class HibernateUtil {
             System.out.println("Hibernate Configuration loaded");
 
 			// Entités
-			configuration.addAnnotatedClass(com.example.projetappel.model.Enseignant.class);
+			configuration.addAnnotatedClass(Utilisateur.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.Cours.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.CoursInstance.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.Justificatif.class);
-			configuration.addAnnotatedClass(com.example.projetappel.model.Etudiant.class);
+			configuration.addAnnotatedClass(com.example.projetappel.model.Utilisateur.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.Absence.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();

@@ -1,9 +1,11 @@
 package com.example.projetappel.model;
 
+import com.example.projetappel.enumtype.Role;
+
 import javax.persistence.*;
 
 @Entity
-public class Enseignant {
+public class Utilisateur {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,14 +17,17 @@ public class Enseignant {
     @Column(nullable = false)
     private String nom;
 
-    public Enseignant() {}
+    @Enumerated()
+    private Role role;
 
-    public Enseignant(String prenom, String nom) {
+    public Utilisateur() {}
+
+    public Utilisateur(String prenom, String nom) {
         this.prenom = prenom;
         this.nom = nom;
     }
 
-    public Enseignant(int id, String prenom, String nom) {
+    public Utilisateur(int id, String prenom, String nom) {
         this.id = id;
         this.prenom = prenom;
         this.nom = nom;

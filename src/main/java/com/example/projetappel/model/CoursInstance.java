@@ -21,6 +21,6 @@ public class CoursInstance {
     private Cours cours;
 
     @ManyToOne
-    private Enseignant enseignant;
+    private Utilisateur enseignant;
 
 }

@@ -10,7 +10,7 @@ public class Absence {
     private int id;
 
     @ManyToOne
-    private Enseignant enseignant;
+    private Utilisateur enseignant;
 
     @ManyToOne
     private CoursInstance coursInstance;
