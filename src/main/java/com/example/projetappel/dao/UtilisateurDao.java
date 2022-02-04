@@ -8,6 +8,4 @@ public class UtilisateurDao extends DAO<Utilisateur> {
         super.setEntity(Utilisateur.class);
     }
 
-
-
 }

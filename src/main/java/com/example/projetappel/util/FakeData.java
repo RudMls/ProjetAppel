@@ -1,31 +1,59 @@
 package com.example.projetappel.util;
 
+import com.example.projetappel.dao.FormationDao;
+import com.example.projetappel.dao.GroupeDao;
 import com.example.projetappel.dao.UtilisateurDao;
+import com.example.projetappel.enumtype.Role;
+import com.example.projetappel.model.Formation;
+import com.example.projetappel.model.Groupe;
 import com.example.projetappel.model.Utilisateur;
 import com.github.javafaker.Faker;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 
 public class FakeData {
 
     public static final Faker FAKER = new Faker(new Locale("fr"));
+    public static FormationDao formationDao = new FormationDao();
+    public static GroupeDao groupeDao = new GroupeDao();
+    public static UtilisateurDao utilisateurDao = new UtilisateurDao();
 
     public static void main(String[] args) {
 
-        genererEtudiantsEnseignants();
+        genererFormations();
+        genererGroupes();
+        //genererEtudiantsEnseignants();
 
     }
 
-    public static void genererEtudiantsEnseignants() {
+    public static void genererFormations() {
+        ArrayList<Formation> formations = new ArrayList<>(Arrays.asList(
+                new Formation("Master 2 IPM"),
+                new Formation("Master 2 ISIAD")
+        ));
+        formations.forEach(formationDao::create);
+    }
 
-        UtilisateurDao utilisateurDao = new UtilisateurDao();
+    public static void genererGroupes() {
+        ArrayList<Groupe> groupes = new ArrayList<>(Arrays.asList(
+                new Groupe("FI", formationDao.find(1)),
+                new Groupe("FA", formationDao.find(2))
+        ));
+        groupes.forEach(groupeDao::create);
+    }
 
-        for (int i = 0; i < 10; i++) {
-            utilisateurDao.create(new Utilisateur(
-                FAKER.name().firstName(),
-                FAKER.name().lastName()
-            ));
-        }
+    public static void genererUtilisateurs() {
+
+        ArrayList<Utilisateur> utilisateurs = new ArrayList<>(Arrays.asList(
+                new Utilisateur("Cindy", "Bosques", "" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Annie", "Dago", "" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT)
+        ));
+
     }
 
 }

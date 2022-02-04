@@ -28,6 +28,8 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(com.example.projetappel.model.Justificatif.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.Utilisateur.class);
 			configuration.addAnnotatedClass(com.example.projetappel.model.Absence.class);
+			configuration.addAnnotatedClass(com.example.projetappel.model.Groupe.class);
+			configuration.addAnnotatedClass(com.example.projetappel.model.Formation.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");
