@@ -25,7 +25,7 @@ public class Utilisateur {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated()
+    @Enumerated(EnumType.STRING)
     private Role role;
 
 //    @ManyToMany(mappedBy = "utilisateurs")
@@ -89,7 +89,19 @@ public class Utilisateur {
         this.role = role;
     }
 
-//    public Set<Groupe> getGroupes() {
+    @Override
+    public String toString() {
+        return "Utilisateur{" +
+                "id=" + id +
+                ", prenom='" + prenom + '\'' +
+                ", nom='" + nom + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    //    public Set<Groupe> getGroupes() {
 //        return groupes;
 //    }
 //

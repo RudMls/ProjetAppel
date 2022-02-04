@@ -24,7 +24,8 @@ public class FakeData {
 
         genererFormations();
         genererGroupes();
-        //genererEtudiantsEnseignants();
+        genererUtilisateurs();
+        utilisateurDao.verifierUtilisatuer("cindy@gmail.com","pwd");
 
     }
 
@@ -39,21 +40,21 @@ public class FakeData {
     public static void genererGroupes() {
         ArrayList<Groupe> groupes = new ArrayList<>(Arrays.asList(
                 new Groupe("FI", formationDao.find(1)),
-                new Groupe("FA", formationDao.find(2))
+                new Groupe("FA", formationDao.find(1))
         ));
         groupes.forEach(groupeDao::create);
     }
 
     public static void genererUtilisateurs() {
-
         ArrayList<Utilisateur> utilisateurs = new ArrayList<>(Arrays.asList(
-                new Utilisateur("Cindy", "Bosques", "" , "pwd", Role.ETUDIANT_ALTERNANT),
-                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT),
-                new Utilisateur("Annie", "Dago", "" , "pwd", Role.ETUDIANT_ALTERNANT),
-                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT),
-                new Utilisateur("Ruddy", "Monlouis", "" , "pwd", Role.ETUDIANT_ALTERNANT)
+                new Utilisateur("Cindy", "Bosques", "cindy@gmail.com" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Ruddy", "Monlouis", "ruddy@gmail.com" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Annie", "Dago", "annie@gmail.com" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Vlada", "Stegarescu", "vlada@gmail.com" , "pwd", Role.ETUDIANT_ALTERNANT),
+                new Utilisateur("Manel", "El Nouali", "manel@gmail.com" , "pwd", Role.ETUDIANT_ALTERNANT)
         ));
 
+        utilisateurs.forEach(utilisateurDao::create);
     }
 
 }

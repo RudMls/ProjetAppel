@@ -6,11 +6,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-
         UtilisateurDao utilisateurDao = new UtilisateurDao();
 
-
-
+        utilisateurDao.verifierUtilisatuer("cindy@gmail.com","pwd");
 
     }
 }
