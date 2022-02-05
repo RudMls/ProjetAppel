@@ -9,30 +9,29 @@
 <html>
 <head>
     <title>Title</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
 </head>
 <body>
     <%
         String email = request.getParameter("email") == null ? "" : request.getParameter("email");
-        String password = request.getParameter("password") == null ? "" : request.getParameter("password");
         String emailErreur = request.getAttribute("email_erreur") == null ? "" : (String) request.getAttribute("email_erreur");
         String passwordErreur = request.getAttribute("password_erreur") == null ? "" : (String) request.getAttribute("password_erreur");
+        String generaleErreur = request.getAttribute("generale_erreur") == null ? "" : (String) request.getAttribute("generale_erreur");
     %>
     <h1>Connexion</h1>
-    <form method="post" action="ConnexionController">
+    <form method="post">
         <div>
             <label for="email">Email</label>
-            <input type="text" id="email" name="email" value="<%= email %>" autocomplete="off">
+            <input type="text" id="email" name="email" value="<%= email %>" spellcheck="false" autocomplete="off">
             <span><%= emailErreur %></span>
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" value="<%= password %>" autocomplete="off">
+            <input type="password" id="password" name="password" spellcheck="false" autocomplete="off">
             <span><%= passwordErreur %></span>
         </div>
         <div>
             <input type="submit" value="Se connecter">
-            <span></span>
+            <span><%= generaleErreur %></span>
         </div>
     </form>
 </body>

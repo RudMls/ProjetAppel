@@ -1,13 +1,11 @@
 package com.example.projetappel.model;
 
-import com.example.projetappel.enumtype.Role;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
+import java.io.Serializable;
 
 @Entity
-public class Utilisateur {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Utilisateur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,21 +23,27 @@ public class Utilisateur {
     @Column(nullable = false)
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    private Role role;
-
+//    @Enumerated(EnumType.STRING)
+//    private Role role;
 
 //    @ManyToMany(mappedBy = "utilisateurs")
 //    private Set<Groupe> groupes = new HashSet<>();
 
     public Utilisateur() {}
 
-    public Utilisateur(String prenom, String nom, String email, String password, Role role) {
+    public Utilisateur(String prenom, String nom, String email, String password) {
         this.prenom = prenom;
         this.nom = nom;
         this.email = email;
         this.password = password;
-        this.role = role;
+    }
+
+    public Utilisateur(int id, String prenom, String nom, String email, String password) {
+        this.id = id;
+        this.prenom = prenom;
+        this.nom = nom;
+        this.email = email;
+        this.password = password;
     }
 
     public int getId() {
@@ -81,32 +85,4 @@ public class Utilisateur {
     public void setPassword(String password) {
         this.password = password;
     }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public String toString() {
-        return "Utilisateur{" +
-                "id=" + id +
-                ", prenom='" + prenom + '\'' +
-                ", nom='" + nom + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                '}';
-    }
-
-    //    public Set<Groupe> getGroupes() {
-//        return groupes;
-//    }
-//
-//    public void setGroupes(Set<Groupe> groupes) {
-//        this.groupes = groupes;
-//    }
 }
