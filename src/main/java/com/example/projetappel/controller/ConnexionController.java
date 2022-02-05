@@ -33,15 +33,22 @@ public class ConnexionController extends HttpServlet {
         }
 
         if (erreurs.isEmpty()) {
-            UtilisateurDao utilisateurDao = new UtilisateurDao();
-            Utilisateur utilisateur = utilisateurDao.loginUtilisateur(email, password);
-            if (utilisateur == null) {
-                request.setAttribute("generale_erreur", "Email ou mot de passe incorrect");
+            try {
+                UtilisateurDao utilisateurDao = new UtilisateurDao();
+                Integer utilisateurId = utilisateurDao.loginUtilisateur(email, password);
+                if (utilisateurId == null) {
+                    request.setAttribute("generale_erreur", "Email ou mot de passe incorrect");
+                    request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
+                } else {
+                    request.getSession().setAttribute("auth", utilisateurId);
+                    response.sendRedirect("/accueil");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                request.setAttribute("generale_erreur", "Erreur technique");
                 request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
-            } else {
-                request.getSession().setAttribute("auth", utilisateur.getId());
-                response.sendRedirect("/home");
             }
+
         } else {
             erreurs.forEach(request::setAttribute);
             request.getRequestDispatcher("view/connexion.jsp").forward(request, response);

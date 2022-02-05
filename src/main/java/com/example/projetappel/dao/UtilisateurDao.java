@@ -13,24 +13,24 @@ public class UtilisateurDao extends DAO<Utilisateur> {
         super.setEntity(Utilisateur.class);
     }
 
-    public Utilisateur loginUtilisateur(String email, String pwd) {
-        Utilisateur utilisateurs = null;
+    public Integer loginUtilisateur(String email, String pwd) {
+
+        Integer utilisateurId = null;
         try (Session session = getSession()) {
             getTransaction(session);
-            Query<Utilisateur> query = session.createQuery("select u " +
+            Query<Integer> query = session.createQuery("select u.id " +
                     "from Utilisateur u " +
                     "where u.email = :email " +
                     "and u.password = :password");
             query.setParameter("email", email);
             query.setParameter("password", pwd);
             if (query.getResultList().size() != 0) {
-                utilisateurs = query.getResultList().get(0);
+                utilisateurId = query.uniqueResult();
             }
-            System.out.println(utilisateurs);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return utilisateurs;
+        return utilisateurId;
     }
 
     public boolean emailExiste(String email) {
@@ -47,5 +47,7 @@ public class UtilisateurDao extends DAO<Utilisateur> {
         }
         return false;
     }
+
+
 
 }

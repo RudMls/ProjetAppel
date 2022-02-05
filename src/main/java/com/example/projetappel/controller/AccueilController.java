@@ -4,13 +4,12 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.HashMap;
 
-@WebServlet(name = "HomeController", value = "/")
-public class HomeController extends HttpServlet {
+@WebServlet(name = "AccueilController", value = "/accueil")
+public class AccueilController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("view/home.jsp").forward(request, response);
+        request.getRequestDispatcher("view/accueil.jsp").forward(request, response);
     }
 
     @Override
