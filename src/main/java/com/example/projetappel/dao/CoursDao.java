@@ -1,4 +1,11 @@
 package com.example.projetappel.dao;
 
-public class CoursDao {
+import com.example.projetappel.model.Cours;
+
+public class CoursDao extends DAO<Cours> {
+
+    public CoursDao() {
+        super.setEntity(Cours.class);
+    }
+
 }

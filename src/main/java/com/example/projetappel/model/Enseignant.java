@@ -1,31 +1,19 @@
 package com.example.projetappel.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.PrimaryKeyJoinColumn;
+import java.io.Serializable;
 
 @Entity
-public class Enseignant {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(nullable = false)
-    private String prenom;
-
-    @Column(nullable = false)
-    private String nom;
+@PrimaryKeyJoinColumn(name = "utilisateur_id")
+public class Enseignant extends Utilisateur implements Serializable {
 
     public Enseignant() {}
 
-    public Enseignant(String prenom, String nom) {
-        this.prenom = prenom;
-        this.nom = nom;
-    }
 
-    public Enseignant(int id, String prenom, String nom) {
-        this.id = id;
-        this.prenom = prenom;
-        this.nom = nom;
+
+    public Enseignant(String prenom, String nom, String email, String password) {
+        super(prenom, nom, email, password);
     }
 
 }

@@ -7,5 +7,4 @@ public class EtudiantDao extends DAO<Etudiant> {
     public EtudiantDao() {
         super.setEntity(Etudiant.class);
     }
-
 }

@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
 /**
- * Cette classe implémente plusieurs méthodes abstraites qui permettront d'interagir avec la base de données.
+ * Cette classe implémente plusieurs méthodes qui permettront d'interagir avec la base de données.
  * @param <T> L'objet qui représente le modèle dans la base de données
  */
 public abstract class DAO<T> {
