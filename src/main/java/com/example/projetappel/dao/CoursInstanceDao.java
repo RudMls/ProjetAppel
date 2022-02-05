@@ -16,5 +16,12 @@
 
 package com.example.projetappel.dao;
 
-public class CoursInstanceDao {
+import com.example.projetappel.model.CoursInstance;
+
+public class CoursInstanceDao extends DAO<CoursInstance> {
+
+    public CoursInstanceDao() {
+        super.setEntity(CoursInstance.class);
+    }
+
 }

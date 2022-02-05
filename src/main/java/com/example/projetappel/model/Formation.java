@@ -14,7 +14,11 @@ public class Formation {
     @Column(nullable = false)
     private String libelle;
 
-    @OneToMany
+    @OneToMany(
+            mappedBy = "formation",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
     private Set<Groupe> groupes = new HashSet<>();
 
     public Formation() {

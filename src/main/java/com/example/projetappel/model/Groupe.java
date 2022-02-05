@@ -17,14 +17,12 @@ public class Groupe {
     @ManyToOne
     private Formation formation;
 
-//    @ManyToMany
-//    @JoinTable(
-//        name = "appartenir",
-//        joinColumns = @JoinColumn(name = "groupe_code"),
-//        inverseJoinColumns = @JoinColumn(name = "utilisateur_code")
-//    )
-//    private Set<Utilisateur> utilisateurs = new HashSet<>();
-
+    @OneToMany(
+        mappedBy = "groupe",
+        cascade = CascadeType.ALL,
+        fetch = FetchType.EAGER
+    )
+    private Set<Etudiant> etudiants = new HashSet<>();
 
     public Groupe() {}
 

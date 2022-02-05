@@ -16,4 +16,6 @@ public class Justificatif {
 
     private boolean validee;
 
+    @ManyToOne
+    private Scolarite scolarite;
 }
