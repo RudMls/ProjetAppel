@@ -14,11 +14,12 @@
 <body>
     <%
         String email = request.getParameter("email") == null ? "" : request.getParameter("email");
+        String password = request.getParameter("password") == null ? "" : request.getParameter("password");
         String emailErreur = request.getAttribute("email_erreur") == null ? "" : (String) request.getAttribute("email_erreur");
         String passwordErreur = request.getAttribute("password_erreur") == null ? "" : (String) request.getAttribute("password_erreur");
     %>
     <h1>Connexion</h1>
-    <form method="post">
+    <form method="post" action="ConnexionController">
         <div>
             <label for="email">Email</label>
             <input type="text" id="email" name="email" value="<%= email %>" autocomplete="off">
@@ -26,7 +27,7 @@
         </div>
         <div>
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" autocomplete="off">
+            <input type="password" id="password" name="password" value="<%= password %>" autocomplete="off">
             <span><%= passwordErreur %></span>
         </div>
         <div>

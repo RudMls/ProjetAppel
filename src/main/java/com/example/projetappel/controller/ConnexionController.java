@@ -36,6 +36,13 @@ public class ConnexionController extends HttpServlet {
             UtilisateurDao utilisateurDao = new UtilisateurDao();
             Utilisateur utilisateur = utilisateurDao.loginUtilisateur(email, password);
 
+            if(utilisateur == null){
+                erreurs.put("compte_erreur", "Veillez entrer l'email ou mot de passe correcte");
+            }else {
+
+            }
+
+
         } else {
             erreurs.forEach(request::setAttribute);
             request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
