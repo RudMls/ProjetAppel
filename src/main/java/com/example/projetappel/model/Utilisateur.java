@@ -28,6 +28,7 @@ public class Utilisateur {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
 //    @ManyToMany(mappedBy = "utilisateurs")
 //    private Set<Groupe> groupes = new HashSet<>();
 

@@ -8,7 +8,7 @@ public class Main {
 
         UtilisateurDao utilisateurDao = new UtilisateurDao();
 
-        utilisateurDao.verifierUtilisatuer("cindy@gmail.com","pwd");
+        utilisateurDao.loginUtilisateur("cindy@gmail.com","pwd");
 
     }
 }

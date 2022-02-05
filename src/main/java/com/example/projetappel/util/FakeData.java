@@ -25,7 +25,7 @@ public class FakeData {
         genererFormations();
         genererGroupes();
         genererUtilisateurs();
-        utilisateurDao.verifierUtilisatuer("cindy@gmail.com","pwd");
+        utilisateurDao.loginUtilisateur("cindy@gmail.com","pwd");
 
     }
 

@@ -13,7 +13,7 @@ public class UtilisateurDao extends DAO<Utilisateur> {
         super.setEntity(Utilisateur.class);
     }
 
-    public Utilisateur verifierUtilisatuer(String email, String pwd) {
+    public Utilisateur loginUtilisateur(String email, String pwd) {
         List<Utilisateur> utilisateurs = null;
         try (Session session = getSession()) {
             getTransaction(session);
