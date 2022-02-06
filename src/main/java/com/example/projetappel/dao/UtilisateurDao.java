@@ -2,10 +2,7 @@ package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Utilisateur;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.hibernate.query.Query;
-
-import java.util.List;
 
 public class UtilisateurDao extends DAO<Utilisateur> {
 
@@ -14,7 +11,6 @@ public class UtilisateurDao extends DAO<Utilisateur> {
     }
 
     public Integer loginUtilisateur(String email, String pwd) {
-
         Integer utilisateurId = null;
         try (Session session = getSession()) {
             getTransaction(session);
@@ -24,7 +20,7 @@ public class UtilisateurDao extends DAO<Utilisateur> {
                     "and u.password = :password");
             query.setParameter("email", email);
             query.setParameter("password", pwd);
-            if (query.getResultList().size() != 0) {
+            if (!query.getResultList().isEmpty()) {
                 utilisateurId = query.uniqueResult();
             }
         } catch (Exception e) {
@@ -39,7 +35,7 @@ public class UtilisateurDao extends DAO<Utilisateur> {
             getTransaction(session);
             Query<Utilisateur> query = session.createQuery(hql, Utilisateur.class);
             query.setParameter("email", email);
-            if (query.getResultList().size() != 0) {
+            if (!query.getResultList().isEmpty()) {
                 return true;
             }
         } catch (Exception e) {
@@ -47,7 +43,5 @@ public class UtilisateurDao extends DAO<Utilisateur> {
         }
         return false;
     }
-
-
 
 }
