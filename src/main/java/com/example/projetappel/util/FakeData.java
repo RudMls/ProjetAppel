@@ -24,6 +24,7 @@ public class FakeData {
     public static CoursDao coursDao = new CoursDao();
     public static FicheAppelDao ficheAppelDao = new FicheAppelDao();
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+    public static AbsenceDao absenceDao = new AbsenceDao();
 
     public static void main(String[] args) {
 
@@ -35,6 +36,7 @@ public class FakeData {
         genererEtudiant();
         genererFicheAppel();
         genererCoursInstance();
+        genererAbsence();
 
     }
 
@@ -119,6 +121,18 @@ public class FakeData {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+    }
+    public static void genererAbsence(){
+        ArrayList<Absence> absences = null;
+
+        absences = new ArrayList<>(Arrays.asList(
+                new Absence(etudiantDao.find(6),ficheAppelDao.find(1)),
+                new Absence(etudiantDao.find(6),ficheAppelDao.find(2)),
+                new Absence(etudiantDao.find(7),ficheAppelDao.find(2)),
+                new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+        ));
+        absences.forEach(absenceDao::create);
+
     }
 
 }
