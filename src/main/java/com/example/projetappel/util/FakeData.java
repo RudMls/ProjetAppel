@@ -1,7 +1,6 @@
 package com.example.projetappel.util;
 
 import com.example.projetappel.dao.*;
-import com.example.projetappel.enumtype.Role;
 import com.example.projetappel.enumtype.TypeEtudiant;
 import com.example.projetappel.model.*;
 import com.github.javafaker.Faker;
@@ -67,6 +66,7 @@ public class FakeData {
         }
     }
 
+
     public static void genererEnseignant() {
         ArrayList<Enseignant> enseignants = new ArrayList<>(Arrays.asList(
                 new Enseignant("Nathalie", "Valles", "nathalie.valles@ut-capitole.fr", "pwd"),
@@ -120,7 +120,5 @@ public class FakeData {
             e.printStackTrace();
         }
     }
-
-
 
 }

@@ -23,25 +23,26 @@
         String generaleErreur = request.getAttribute("generale_erreur") == null ? "" : (String) request.getAttribute("generale_erreur");
     %>
     <section class="login-dark">
-        <form method="post">
-            <h2 class="visually-hidden">Login Form</h2>
+        <form method="post" autocomplete="off">
+            <h2 class="sr-only">Login Form</h2>
             <div class="illustration">
                 <i class="icon ion-ios-locked-outline"></i>
             </div>
             <div class="mb-3">
                 <input class="form-control" type="email" name="email" value="<%= email %>" placeholder="Email">
-                <small class="text-danger"><%= emailErreur %></small>
+                <small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= emailErreur %></small>
             </div>
             <div class="mb-3">
                 <input class="form-control" type="password" name="password" placeholder="Mot de passe">
-                <small class="text-danger"><%= passwordErreur %></small>
+                <small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= passwordErreur %></small>
             </div>
             <div class="mb-3">
-                <small class="text-danger"><%= generaleErreur %></small>
-                <button class="btn btn-primary d-block w-100" type="submit">Se connecter</button>
+                <small class="d-flex d-sm-flex justify-content-center justify-content-sm-center text-danger erreur"><%= generaleErreur %></small>
+                <button class="btn btn-primary btn-block bg-dark" type="submit">Se connecter</button>
             </div>
         </form>
     </section>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>
