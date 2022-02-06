@@ -5,13 +5,17 @@ import com.example.projetappel.enumtype.TypeEtudiant;
 import com.example.projetappel.model.*;
 import com.github.javafaker.Faker;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class FakeData {
+@WebListener
+public class FakeData implements ServletContextListener {
 
     public static final Faker FAKER = new Faker(new Locale("fr"));
     public static final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -26,7 +30,15 @@ public class FakeData {
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
 
     public static void main(String[] args) {
+        generer();
+    }
 
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        generer();
+    }
+
+    public static void generer() {
         genererCours();
         genererFormations();
         genererGroupes();
@@ -35,7 +47,6 @@ public class FakeData {
         genererEtudiant();
         genererFicheAppel();
         genererCoursInstance();
-
     }
 
     public static void genererFormations() {
@@ -56,16 +67,21 @@ public class FakeData {
 
     public static void genererEtudiant() {
         String prenom, nom, email;
+        TypeEtudiant typeEtudiant;
         for (int i = 0; i < 50; i++) {
+            if (i % 3 == 0) {
+                typeEtudiant = TypeEtudiant.ALTERNANT;
+            } else {
+                typeEtudiant = TypeEtudiant.INITIAL;
+            }
             do {
                 prenom = FAKER.name().firstName();
                 nom = FAKER.name().lastName();
                 email = prenom + "." + nom + "@ut-capitole.fr";
             } while (utilisateurDao.emailExiste(email));
-            etudiantDao.create(new Etudiant(prenom, nom, email, "pwd",TypeEtudiant.ALTERNANT));
+            etudiantDao.create(new Etudiant(prenom, nom, email, "pwd", typeEtudiant));
         }
     }
-
 
     public static void genererEnseignant() {
         ArrayList<Enseignant> enseignants = new ArrayList<>(Arrays.asList(

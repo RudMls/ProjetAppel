@@ -4,11 +4,13 @@ import com.example.projetappel.enumtype.TypeEtudiant;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Blob;
 import java.util.Set;
 
 @Entity
 @PrimaryKeyJoinColumn(name = "utilisateur_id")
 public class Etudiant extends Utilisateur implements Serializable {
+
 
     private String imageUrl;
 

@@ -14,7 +14,7 @@ public class ConnexionController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/connexion.jsp").forward(request, response);
     }
 
     @Override
@@ -38,20 +38,20 @@ public class ConnexionController extends HttpServlet {
                 Integer utilisateurId = utilisateurDao.loginUtilisateur(email, password);
                 if (utilisateurId == null) {
                     request.setAttribute("generale_erreur", "Email ou mot de passe incorrect");
-                    request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
+                    request.getRequestDispatcher("/view/connexion.jsp").forward(request, response);
                 } else {
                     request.getSession().setAttribute("auth", utilisateurId);
-                    response.sendRedirect("/accueil");
+                    response.sendRedirect("/compte");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
                 request.setAttribute("generale_erreur", "Erreur technique");
-                request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
+                request.getRequestDispatcher("/view/connexion.jsp").forward(request, response);
             }
 
         } else {
             erreurs.forEach(request::setAttribute);
-            request.getRequestDispatcher("view/connexion.jsp").forward(request, response);
+            request.getRequestDispatcher("/view/connexion.jsp").forward(request, response);
         }
     }
 
