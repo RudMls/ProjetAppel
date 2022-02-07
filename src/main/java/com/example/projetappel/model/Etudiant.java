@@ -46,4 +46,21 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public TypeEtudiant getTypeEtudiant() {
+        return typeEtudiant;
+    }
+
+    public void setTypeEtudiant(TypeEtudiant typeEtudiant) {
+        this.typeEtudiant = typeEtudiant;
+    }
+
+
 }

@@ -30,6 +30,7 @@ public class FakeData implements ServletContextListener {
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
     public static AppartenirDao appartenirDao = new AppartenirDao();
     public static JustificatifDao justificatifDao = new JustificatifDao();
+    public static AbsenceDao absenceDao = new AbsenceDao();
 
     public static void main(String[] args) {
         generer();
@@ -50,7 +51,6 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
-        //genererNotification();
     }
 
     public static void genererFormations() {
@@ -157,21 +157,18 @@ public class FakeData implements ServletContextListener {
         }
     }
 
-//    public static void genererNotification(){
-//        ArrayList<Notification> notifications;
-//        try {
-//            Scolarite scolarite = scolariteDao.find(4);
-//            Justificatif justificatif = justificatifDao.find(1);
+
+//    public static void genererAbsence(){
+//        ArrayList<Absence> absences = null;
 //
-//            NotificationId notificationId = new NotificationId(scolarite.getId(), justificatif.getId());
+//        absences = new ArrayList<>(Arrays.asList(
+//                new Absence(etudiantDao.find(6),ficheAppelDao.find(1)),
+//                new Absence(etudiantDao.find(6),ficheAppelDao.find(2)),
+//                new Absence(etudiantDao.find(7),ficheAppelDao.find(2)),
+//                new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+//        ));
+//        absences.forEach(absenceDao::create);
 //
-//            notifications = new ArrayList<>(Arrays.asList(
-//                    new Notification(notificationId, false, scolarite, justificatif)
-//            ));
-//            notifications.forEach(notificationDao::create);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
 //    }
 
 }
