@@ -35,7 +35,6 @@ public class HibernateUtil {
 			configuration.addAnnotatedClass(Groupe.class);
 			configuration.addAnnotatedClass(Formation.class);
 			configuration.addAnnotatedClass(Appartenir.class);
-			configuration.addAnnotatedClass(Notification.class);
 
             ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
             System.out.println("Hibernate serviceRegistry created");

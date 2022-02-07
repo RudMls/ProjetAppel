@@ -28,9 +28,6 @@ public class FakeData implements ServletContextListener {
     public static CoursDao coursDao = new CoursDao();
     public static FicheAppelDao ficheAppelDao = new FicheAppelDao();
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
-    public static AppartenirDao appartenirDao = new AppartenirDao();
-    public static JustificatifDao justificatifDao = new JustificatifDao();
-    public static NotificationDao notificationDao = new NotificationDao();
 
     public static void main(String[] args) {
         generer();
@@ -51,7 +48,6 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
-        genererNotification();
     }
 
     public static void genererFormations() {
@@ -92,7 +88,8 @@ public class FakeData implements ServletContextListener {
         ArrayList<Enseignant> enseignants = new ArrayList<>(Arrays.asList(
                 new Enseignant("Nathalie", "Valles", "nathalie.valles@ut-capitole.fr", "pwd"),
                 new Enseignant("Franck", "Ravat", "franck.ravat@ut-capitole.fr", "pwd"),
-                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd")
+                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd"),
+                new Enseignant("Bour", "Raphaëlle", "raphaelle.bour@ut-capitole.fr", "pwd")
         ));
         enseignants.forEach(enseignantDao::create);
     }
@@ -110,9 +107,12 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void genererAppartenir() {
-        ArrayList<Appartenir> appartenirs;
-        try {
-            Etudiant etudiant = etudiantDao.find(6);
+
+        Etudiant etudiant = null;
+        Groupe groupe = null;
+        Formation formation = null;
+        /*try {
+            Etudiant etudiant = etudiantDao.find(7);
             Groupe groupe = groupeDao.find(1);
             Formation formation = formationDao.find(1);
 
@@ -122,7 +122,10 @@ public class FakeData implements ServletContextListener {
             appartenirs.forEach(appartenirDao::create);
         } catch (Exception e) {
             e.printStackTrace();
-        }
+        }*/
+
+
+
     }
 
     public static void genererCours() {
@@ -154,23 +157,6 @@ public class FakeData implements ServletContextListener {
             ));
             coursInstances.forEach(coursInstanceDao::create);
         } catch (ParseException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void genererNotification(){
-        ArrayList<Notification> notifications;
-        try {
-            Scolarite scolarite = scolariteDao.find(4);
-            Justificatif justificatif = justificatifDao.find(1);
-
-            NotificationId notificationId = new NotificationId(scolarite.getId(), justificatif.getId());
-
-            notifications = new ArrayList<>(Arrays.asList(
-                    new Notification(notificationId, false, scolarite, justificatif)
-            ));
-            notifications.forEach(notificationDao::create);
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

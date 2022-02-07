@@ -11,14 +11,6 @@ import java.util.Set;
 @PrimaryKeyJoinColumn(name = "scolarite_id")
 public class Scolarite extends Utilisateur implements Serializable {
 
-    @OneToMany(
-            mappedBy = "scolarite",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    @MapKeyColumn (name = "justificatif_id", updatable = false, insertable = false)
-    private Map<Justificatif, Notification> justificatifsNotification = new HashMap<>(0);
-
     public Scolarite() {}
 
     public Scolarite(String prenom, String nom, String email, String password) {

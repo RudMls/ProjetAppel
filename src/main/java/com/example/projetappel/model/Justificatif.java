@@ -18,23 +18,14 @@ public class Justificatif {
 
     private boolean validee;
 
-    @OneToMany(
-            mappedBy = "justificatif",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    @MapKeyColumn (name = "scolarite_id", updatable = false, insertable = false)
-    private Map<Scolarite, Notification> scolariteNotification = new HashMap<>(0);
-
     public Justificatif() {
     }
 
-    public Justificatif(int id, String texte, Date date, boolean validee, Map<Scolarite, Notification> scolariteNotification) {
+    public Justificatif(int id, String texte, Date date, boolean validee) {
         this.id = id;
         this.texte = texte;
         this.date = date;
         this.validee = validee;
-        this.scolariteNotification = scolariteNotification;
     }
 
     public int getId() {
@@ -68,14 +59,5 @@ public class Justificatif {
     public void setValidee(boolean validee) {
         this.validee = validee;
     }
-
-    public Map<Scolarite, Notification> getScolariteNotification() {
-        return scolariteNotification;
-    }
-
-    public void setScolariteNotification(Map<Scolarite, Notification> scolariteNotification) {
-        this.scolariteNotification = scolariteNotification;
-    }
-
 
 }
