@@ -1,8 +1,6 @@
 package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Etudiant;
-import com.example.projetappel.model.Utilisateur;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 

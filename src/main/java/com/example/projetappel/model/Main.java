@@ -1,5 +1,6 @@
 package com.example.projetappel.model;
 
+import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.dao.UtilisateurDao;
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
         UtilisateurDao utilisateurDao = new UtilisateurDao();
 
         utilisateurDao.loginUtilisateur("cindy@gmail.com","pwd");
+
 
     }
 }
