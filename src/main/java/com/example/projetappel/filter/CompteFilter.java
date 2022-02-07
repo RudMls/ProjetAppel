@@ -1,6 +1,9 @@
 package com.example.projetappel.filter;
 
 import com.example.projetappel.dao.UtilisateurDao;
+import com.example.projetappel.model.Enseignant;
+import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.Scolarite;
 import com.example.projetappel.model.Utilisateur;
 
 import javax.servlet.*;
@@ -26,7 +29,21 @@ public class CompteFilter implements Filter {
             UtilisateurDao utilisateurDao = new UtilisateurDao();
             Utilisateur utilisateur = utilisateurDao.find(userID);
             request.setAttribute("utilisateur", utilisateur);
+            request.setAttribute("status", getStatus(utilisateur));
             chain.doFilter(request, response);
         }
+    }
+
+    private String getStatus(Utilisateur utilisateur) {
+        String status = "";
+        if (utilisateur instanceof Enseignant) {
+            status = "Enseignant";
+        }
+        else if (utilisateur instanceof Scolarite) {
+            status = "Scolarité";
+        } else if (utilisateur instanceof Etudiant) {
+            status = ((Etudiant) utilisateur).getTypeEtudiant().toString();
+        }
+        return status;
     }
 }
