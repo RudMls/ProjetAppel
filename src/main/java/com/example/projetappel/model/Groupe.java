@@ -16,8 +16,11 @@ public class Groupe {
     @Column(nullable = false)
     private String libelle;
 
-    @OneToMany(mappedBy = "groupe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "groupe")
     private Set<Appartenir> appartenirs = new HashSet<>();
+
+    @OneToMany(mappedBy = "groupe")
+    private Set<CoursInstance> coursInstances = new HashSet<>();
 
     public Groupe() {}
 

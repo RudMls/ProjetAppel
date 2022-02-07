@@ -30,7 +30,6 @@ public class FakeData implements ServletContextListener {
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
     public static AppartenirDao appartenirDao = new AppartenirDao();
     public static JustificatifDao justificatifDao = new JustificatifDao();
-    public static NotificationDao notificationDao = new NotificationDao();
 
     public static void main(String[] args) {
         generer();
@@ -51,7 +50,7 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
-        genererNotification();
+        //genererNotification();
     }
 
     public static void genererFormations() {
@@ -158,21 +157,21 @@ public class FakeData implements ServletContextListener {
         }
     }
 
-    public static void genererNotification(){
-        ArrayList<Notification> notifications;
-        try {
-            Scolarite scolarite = scolariteDao.find(4);
-            Justificatif justificatif = justificatifDao.find(1);
-
-            NotificationId notificationId = new NotificationId(scolarite.getId(), justificatif.getId());
-
-            notifications = new ArrayList<>(Arrays.asList(
-                    new Notification(notificationId, false, scolarite, justificatif)
-            ));
-            notifications.forEach(notificationDao::create);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public static void genererNotification(){
+//        ArrayList<Notification> notifications;
+//        try {
+//            Scolarite scolarite = scolariteDao.find(4);
+//            Justificatif justificatif = justificatifDao.find(1);
+//
+//            NotificationId notificationId = new NotificationId(scolarite.getId(), justificatif.getId());
+//
+//            notifications = new ArrayList<>(Arrays.asList(
+//                    new Notification(notificationId, false, scolarite, justificatif)
+//            ));
+//            notifications.forEach(notificationDao::create);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 }

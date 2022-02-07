@@ -13,18 +13,10 @@ public class FicheAppel {
 
     private boolean validee = false;
 
-    @OneToMany(
-            mappedBy = "ficheAppel",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @OneToMany(mappedBy = "ficheAppel")
     private Set<Presence> presences = new HashSet<>();
 
-    @OneToMany(
-            mappedBy = "ficheAppel",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
+    @OneToMany(mappedBy = "ficheAppel")
     private Set<Absence> absences = new HashSet<>();
 
     @OneToOne(mappedBy = "ficheAppel")

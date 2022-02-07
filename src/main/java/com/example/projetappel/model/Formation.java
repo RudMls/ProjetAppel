@@ -20,6 +20,9 @@ public class Formation {
     @OneToMany(mappedBy = "formation")
     private Set<Appartenir> appartenirs = new HashSet<>();
 
+    @OneToMany(mappedBy = "formation")
+    private Set<Cours> cours = new HashSet<>();
+
     public Formation() {
     }
 

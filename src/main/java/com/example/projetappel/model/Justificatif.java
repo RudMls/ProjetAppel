@@ -1,9 +1,9 @@
 package com.example.projetappel.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Justificatif {
@@ -14,28 +14,21 @@ public class Justificatif {
 
     private String texte;
 
+    @CreationTimestamp
     private Date date;
 
-    private boolean validee;
+    private boolean validee = false;
 
-    @OneToMany(
-            mappedBy = "justificatif",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    @MapKeyColumn (name = "scolarite_id", updatable = false, insertable = false)
-    private Map<Scolarite, Notification> scolariteNotification = new HashMap<>(0);
+    @ManyToOne
+    private Fichier fichier;
 
-    public Justificatif() {
-    }
+    @ManyToOne
+    private Scolarite scolarite;
 
-    public Justificatif(int id, String texte, Date date, boolean validee, Map<Scolarite, Notification> scolariteNotification) {
-        this.id = id;
-        this.texte = texte;
-        this.date = date;
-        this.validee = validee;
-        this.scolariteNotification = scolariteNotification;
-    }
+    @OneToMany (mappedBy = "justificatif")
+    private Set<Absence> absences = new HashSet<>();
+
+    public Justificatif() {}
 
     public int getId() {
         return id;
@@ -69,13 +62,7 @@ public class Justificatif {
         this.validee = validee;
     }
 
-    public Map<Scolarite, Notification> getScolariteNotification() {
-        return scolariteNotification;
-    }
 
-    public void setScolariteNotification(Map<Scolarite, Notification> scolariteNotification) {
-        this.scolariteNotification = scolariteNotification;
-    }
 
 
 }

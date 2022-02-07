@@ -12,6 +12,9 @@ public class Cours {
     @Column(nullable = false)
     private String libelle;
 
+    @ManyToOne
+    private Formation formation;
+
     public Cours() {}
 
     public Cours(String libelle) {
