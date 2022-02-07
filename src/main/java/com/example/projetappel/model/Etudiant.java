@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "etudiant_id")
+@PrimaryKeyJoinColumn
 public class Etudiant extends Utilisateur implements Serializable {
 
 
@@ -19,6 +19,12 @@ public class Etudiant extends Utilisateur implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private TypeEtudiant typeEtudiant;
+
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Presence> presences = new HashSet<>();
+
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Absence> absences = new HashSet<>();
 
     @OneToMany(mappedBy = "etudiant")
     private Set<Appartenir> appartenirs = new HashSet<>();

@@ -1,9 +1,9 @@
 package com.example.projetappel.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 public class Justificatif {
@@ -14,19 +14,21 @@ public class Justificatif {
 
     private String texte;
 
+    @CreationTimestamp
     private Date date;
 
-    private boolean validee;
+    private boolean validee = false;
 
-    public Justificatif() {
-    }
+    @ManyToOne
+    private Fichier fichier;
 
-    public Justificatif(int id, String texte, Date date, boolean validee) {
-        this.id = id;
-        this.texte = texte;
-        this.date = date;
-        this.validee = validee;
-    }
+    @ManyToOne
+    private Scolarite scolarite;
+
+    @OneToMany (mappedBy = "justificatif")
+    private Set<Absence> absences = new HashSet<>();
+
+    public Justificatif() {}
 
     public int getId() {
         return id;
@@ -59,5 +61,8 @@ public class Justificatif {
     public void setValidee(boolean validee) {
         this.validee = validee;
     }
+
+
+
 
 }

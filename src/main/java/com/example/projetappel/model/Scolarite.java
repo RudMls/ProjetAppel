@@ -8,8 +8,15 @@ import java.util.Map;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "scolarite_id")
+@PrimaryKeyJoinColumn
 public class Scolarite extends Utilisateur implements Serializable {
+
+    @OneToMany(
+            mappedBy = "scolarite",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private Set<Justificatif> justificatifs = new HashSet<>();
 
     public Scolarite() {}
 
