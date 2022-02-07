@@ -31,8 +31,13 @@ public class JustificatifController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        File file;
         HashMap<String, String> erreurs = new HashMap<>();
         String libelle = request.getParameter("libelle");
+
+        if (libelle == null || libelle.isEmpty()) {
+            erreurs.put("libelle_erreur", "Veillez renseigner le libellé");
+        }
 
         String contentType = request.getContentType();
 
@@ -42,6 +47,7 @@ public class JustificatifController extends HttpServlet {
             factory.setRepository(new File("c:\\temp"));
             ServletFileUpload upload = new ServletFileUpload(factory);
             upload.setSizeMax(MAX_FILE_SIZE);
+            upload.setHeaderEncoding("UTF-8");
 
             try {
                 List fileItems = upload.parseRequest(request);
@@ -53,6 +59,8 @@ public class JustificatifController extends HttpServlet {
                         String fileName = fileItem.getName();
                         boolean isInMemery = fileItem.isInMemory();
                         long sizzInBytes = fileItem.getSize();
+                        file = new File("");
+                        file = new File("");
                     }
                 }
             } catch (FileUploadException e) {
@@ -60,9 +68,7 @@ public class JustificatifController extends HttpServlet {
             }
         }
 
-        if (libelle == null || libelle.isEmpty()) {
-            erreurs.put("libelle_erreur", "Veillez renseigner le libellé");
-        }
+
 
     }
 }

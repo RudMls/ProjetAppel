@@ -17,6 +17,10 @@ public class Cours {
 
     public Cours() {}
 
+    public Cours(String libelle) {
+        this.libelle = libelle;
+    }
+
     public Cours(String libelle, Formation formation) {
         this.libelle = libelle;
         this.formation = formation;

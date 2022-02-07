@@ -1,27 +1,21 @@
 
-function loadPlanning(event) {
-    event.preventDefault()
+function loadPlanning() {
 
-    let date = document.getElementById("date")
-
-    const xhr = new XMLHttpRequest()
-    xhr.open("POST", "planning", true)
-
-    xhr.onload = () => {
-
-        if (xhr.status === 200) {
-
+    let date = document.getElementById("date").value
+    console.log(date)
+        const xhr = new XMLHttpRequest()
+        xhr.open("POST", "/compte/planning", true)
+        xhr.onload = () => {
+            if (xhr.status === 200) {
+                let responseJson = JSON.parse(xhr.responseText)
+                console.log(responseJson)
+            }
         }
-    }
-
-    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
-    xhr.send()
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+        xhr.send("date=" + date)
 }
 
 
-document.getElementById("filter").addEventListener("submit", loadPlanning)
-
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("test");
-    //document.getElementById("zone").addEventListener("keyup", existeMot)
+    document.getElementById("rechercher").addEventListener("click", loadPlanning)
 });

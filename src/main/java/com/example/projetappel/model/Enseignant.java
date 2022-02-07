@@ -20,4 +20,11 @@ public class Enseignant extends Utilisateur implements Serializable {
         super(prenom, nom, email, password);
     }
 
+    public Set<CoursInstance> getCoursInstances() {
+        return coursInstances;
+    }
+
+    public void setCoursInstances(Set<CoursInstance> coursInstances) {
+        this.coursInstances = coursInstances;
+    }
 }
