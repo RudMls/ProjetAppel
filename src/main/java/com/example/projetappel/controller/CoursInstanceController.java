@@ -5,7 +5,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "CoursInstanceController", value = "/cours-isntance")
+@WebServlet(name = "CoursInstanceController", value = "/cours-instance")
 public class CoursInstanceController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
