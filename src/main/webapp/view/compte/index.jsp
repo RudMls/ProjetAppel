@@ -30,7 +30,7 @@
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'planning' ? 'active' : ''}" href="/compte/planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'cours' ? 'active' : ''}" href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'presence-absence' ? 'active' : ''}" href="login.html"><i class="fas fa-clock"></i><span>Absence/Présence</span></a></li>
+                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Consulter mes absences</span></a></li>
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
                 </div>
@@ -149,6 +149,9 @@
                             </c:when>
                             <c:when test = "${requestScope.page eq 'profile'}">
                                 <jsp:include page = "./page/profile.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'consultation-etudiant'}">
+                                <jsp:include page = "page/consultation-etudiant.jsp"/>
                             </c:when>
                         </c:choose>
                     </div>

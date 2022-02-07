@@ -40,4 +40,51 @@ public class CoursInstance {
         this.ficheAppel = ficheAppel;
     }
 
+    public Date getDateDebut() {
+        return dateDebut;
+    }
+
+    public void setDateDebut(Date dateDebut) {
+        this.dateDebut = dateDebut;
+    }
+
+    public Date getDateFin() {
+        return dateFin;
+    }
+
+    public void setDateFin(Date dateFin) {
+        this.dateFin = dateFin;
+    }
+
+    public Cours getCours() {
+        return cours;
+    }
+
+    public void setCours(Cours cours) {
+        this.cours = cours;
+    }
+
+    public Enseignant getEnseignant() {
+        return enseignant;
+    }
+
+    public void setEnseignant(Enseignant enseignant) {
+        this.enseignant = enseignant;
+    }
+
+    public Groupe getGroupe() {
+        return groupe;
+    }
+
+    public void setGroupe(Groupe groupe) {
+        this.groupe = groupe;
+    }
+
+    public FicheAppel getFicheAppel() {
+        return ficheAppel;
+    }
+
+    public void setFicheAppel(FicheAppel ficheAppel) {
+        this.ficheAppel = ficheAppel;
+    }
 }

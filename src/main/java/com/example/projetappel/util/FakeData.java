@@ -28,6 +28,8 @@ public class FakeData implements ServletContextListener {
     public static CoursDao coursDao = new CoursDao();
     public static FicheAppelDao ficheAppelDao = new FicheAppelDao();
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+    public static AppartenirDao appartenirDao = new AppartenirDao();
+    public static JustificatifDao justificatifDao = new JustificatifDao();
 
     public static void main(String[] args) {
         generer();
@@ -48,6 +50,7 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
+        genererNotification();
     }
 
     public static void genererFormations() {
@@ -122,11 +125,8 @@ public class FakeData implements ServletContextListener {
             appartenirs.forEach(appartenirDao::create);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
-
-
-
-    }
+        }
+    }*/
 
     public static void genererCours() {
         ArrayList<Cours> cours = new ArrayList<>(Arrays.asList(
@@ -160,5 +160,19 @@ public class FakeData implements ServletContextListener {
             e.printStackTrace();
         }
     }
+
+        public static void genererAbsence(){
+            ArrayList<Absence> absences = null;
+
+            absences = new ArrayList<>(Arrays.asList(
+                    new Absence(etudiantDao.find(6),ficheAppelDao.find(1)),
+                    new Absence(etudiantDao.find(6),ficheAppelDao.find(2)),
+                    new Absence(etudiantDao.find(7),ficheAppelDao.find(2)),
+                    new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+            ));
+            absences.forEach(absenceDao::create);
+
+        }
+
 
 }
