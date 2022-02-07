@@ -170,7 +170,8 @@ public class FakeData implements ServletContextListener {
         ArrayList<CoursInstance> coursInstances = null;
         try {
             coursInstances = new ArrayList<>(Arrays.asList(
-                    new CoursInstance(SDF.parse("07-02-2022 09:30:00"), SDF.parse("07-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(1))
+                    new CoursInstance(SDF.parse("07-02-2022 09:30:00"), SDF.parse("07-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(1)),
+                    new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(6), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(2))
             ));
             coursInstances.forEach(coursInstanceDao::create);
         } catch (ParseException e) {
