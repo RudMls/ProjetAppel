@@ -5,13 +5,17 @@ import com.example.projetappel.enumtype.TypeEtudiant;
 import com.example.projetappel.model.*;
 import com.github.javafaker.Faker;
 
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-public class FakeData {
+@WebListener
+public class FakeData implements ServletContextListener {
 
     public static final Faker FAKER = new Faker(new Locale("fr"));
     public static final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -27,7 +31,15 @@ public class FakeData {
     public static AbsenceDao absenceDao = new AbsenceDao();
 
     public static void main(String[] args) {
+        generer();
+    }
 
+    @Override
+    public void contextInitialized(ServletContextEvent sce) {
+        generer();
+    }
+
+    public static void generer() {
         genererCours();
         genererFormations();
         genererGroupes();
@@ -37,7 +49,6 @@ public class FakeData {
         genererFicheAppel();
         genererCoursInstance();
         genererAbsence();
-
     }
 
     public static void genererFormations() {

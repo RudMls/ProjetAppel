@@ -14,17 +14,19 @@ public class AbsenceDao extends DAO<Absence> {
         super.setEntity(Absence.class);
     }
 
-    public ArrayList<Absence> getAbsences(Integer etudiantId) {
-            String hql = "select e from Etudiant e, Absence a where a.etudiant = :etudiantId";
+    public List<Absence> getAbsences(Integer etudiantId) {
+            String hql = "select a from  Absence a where a.etudiant.id = :etudiantId";
         List<Absence> absences = new ArrayList<>();
         try (Session session = getSession()){
             getTransaction(session);
-            Query<Utilisateur> query = session.createQuery(hql);
-           
-
+            Query<Absence> query = session.createQuery(hql);
+            query.setParameter("etudiantId",etudiantId);
+            if (!query.getResultList().isEmpty()) {
+                absences = query.getResultList();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (ArrayList<Absence>) absences;
+        return absences;
     }
 }
