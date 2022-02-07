@@ -46,6 +46,8 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
+
+
     public String getImageUrl() {
         return imageUrl;
     }
