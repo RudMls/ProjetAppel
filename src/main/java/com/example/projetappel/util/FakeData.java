@@ -28,6 +28,9 @@ public class FakeData implements ServletContextListener {
     public static CoursDao coursDao = new CoursDao();
     public static FicheAppelDao ficheAppelDao = new FicheAppelDao();
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+    public static AppartenirDao appartenirDao = new AppartenirDao();
+    public static JustificatifDao justificatifDao = new JustificatifDao();
+    public static AbsenceDao absenceDao = new AbsenceDao();
 
     public static void main(String[] args) {
         generer();
@@ -47,6 +50,7 @@ public class FakeData implements ServletContextListener {
         genererEtudiant();
         genererFicheAppel();
         genererCoursInstance();
+        genererAppartenir();
     }
 
     public static void genererFormations() {
@@ -59,8 +63,8 @@ public class FakeData implements ServletContextListener {
 
     public static void genererGroupes() {
         ArrayList<Groupe> groupes = new ArrayList<>(Arrays.asList(
-                new Groupe("FA", formationDao.find(1)),
-                new Groupe("FI", formationDao.find(1))
+                new Groupe("FA"),
+                new Groupe("FI")
         ));
         groupes.forEach(groupeDao::create);
     }
@@ -87,7 +91,8 @@ public class FakeData implements ServletContextListener {
         ArrayList<Enseignant> enseignants = new ArrayList<>(Arrays.asList(
                 new Enseignant("Nathalie", "Valles", "nathalie.valles@ut-capitole.fr", "pwd"),
                 new Enseignant("Franck", "Ravat", "franck.ravat@ut-capitole.fr", "pwd"),
-                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd")
+                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd"),
+                new Enseignant("Bour", "Raphaëlle", "raphaelle.bour@ut-capitole.fr", "pwd")
         ));
         enseignants.forEach(enseignantDao::create);
     }
@@ -102,6 +107,42 @@ public class FakeData implements ServletContextListener {
             } while (utilisateurDao.emailExiste(email));
             scolariteDao.create(new Scolarite(prenom, nom, email, "pwd"));
         }
+    }
+
+    public static void genererAppartenir() {
+
+        for(int i = 7; i < 15; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 15; i < 30; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 30; i < 45; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 45; i < 56; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
     }
 
     public static void genererCours() {
@@ -137,5 +178,19 @@ public class FakeData implements ServletContextListener {
             e.printStackTrace();
         }
     }
+
+        public static void genererAbsence(){
+            ArrayList<Absence> absences = null;
+
+            absences = new ArrayList<>(Arrays.asList(
+                    new Absence(etudiantDao.find(6),ficheAppelDao.find(1)),
+                    new Absence(etudiantDao.find(6),ficheAppelDao.find(2)),
+                    new Absence(etudiantDao.find(7),ficheAppelDao.find(2)),
+                    new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+            ));
+            absences.forEach(absenceDao::create);
+
+        }
+
 
 }
