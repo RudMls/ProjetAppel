@@ -1,10 +1,7 @@
 package com.example.projetappel.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -19,6 +16,9 @@ public class Formation {
 
     @OneToMany(mappedBy = "formation")
     private Set<Appartenir> appartenirs = new HashSet<>();
+
+    @OneToMany(mappedBy = "formation")
+    private Set<Cours> cours = new HashSet<>();
 
     public Formation() {
     }

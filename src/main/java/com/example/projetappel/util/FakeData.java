@@ -42,8 +42,9 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void generer() {
-        genererCours();
+
         genererFormations();
+        genererCours();
         genererGroupes();
         genererEnseignant();
         genererScolarite();
@@ -146,16 +147,20 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void genererCours() {
+
+        Formation formation1 = formationDao.find(1);
+        Formation formation2 = formationDao.find(2);
+
         ArrayList<Cours> cours = new ArrayList<>(Arrays.asList(
-                new Cours("Démarche de développement agile"),
-                new Cours("Accompagnement Client"),
-                new Cours("Développement d'application internet"),
-                new Cours("Anglais"),
-                new Cours("Ingénierie des Processus Métiers"),
-                new Cours("Management Agile"),
-                new Cours("Données, conception, manipulation"),
-                new Cours("Programmation Objet"),
-                new Cours("Analyse et conception objet des SI")
+                new Cours("Démarche de développement agile", formation1),
+                new Cours("Accompagnement Client", formation1),
+                new Cours("Développement d'application internet,", formation1),
+                new Cours("Anglais", formation1),
+                new Cours("Ingénierie des Processus Métiers", formation2),
+                new Cours("Management Agile", formation2),
+                new Cours("Données, conception, manipulation", formation1),
+                new Cours("Programmation Objet", formation2),
+                new Cours("Analyse et conception objet des SI", formation2)
         ));
         cours.forEach(coursDao::create);
     }
