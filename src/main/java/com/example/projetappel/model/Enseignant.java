@@ -5,7 +5,7 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "utilisateur_id")
+@PrimaryKeyJoinColumn(name = "enseignant_id")
 public class Enseignant extends Utilisateur implements Serializable {
 
     public Enseignant() {}

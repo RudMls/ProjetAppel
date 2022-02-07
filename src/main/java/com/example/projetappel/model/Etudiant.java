@@ -1,24 +1,27 @@
 package com.example.projetappel.model;
 
 import com.example.projetappel.enumtype.TypeEtudiant;
+import com.github.javafaker.App;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "utilisateur_id")
+@PrimaryKeyJoinColumn(name = "etudiant_id")
 public class Etudiant extends Utilisateur implements Serializable {
-
 
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)
     private TypeEtudiant typeEtudiant;
 
-    @ManyToOne
-    private Groupe groupe;
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Appartenir> appartenirs = new HashSet<>();
 
     public Etudiant() {}
 
@@ -26,11 +29,10 @@ public class Etudiant extends Utilisateur implements Serializable {
         super(id, prenom, nom, email, password);
     }
 
-    public Etudiant(int id, String prenom, String nom, String email, String password, String imageUrl, TypeEtudiant typeEtudiant, Groupe groupe) {
+    public Etudiant(int id, String prenom, String nom, String email, String password, String imageUrl, TypeEtudiant typeEtudiant) {
         super(id, prenom, nom, email, password);
         this.imageUrl = imageUrl;
         this.typeEtudiant = typeEtudiant;
-        this.groupe = groupe;
     }
 
     public Etudiant(String prenom, String nom, String email, String password, TypeEtudiant typeEtudiant) {
@@ -54,11 +56,5 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
-    public Groupe getGroupe() {
-        return groupe;
-    }
 
-    public void setGroupe(Groupe groupe) {
-        this.groupe = groupe;
-    }
 }

@@ -1,7 +1,10 @@
 package com.example.projetappel.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
@@ -14,23 +17,14 @@ public class Formation {
     @Column(nullable = false)
     private String libelle;
 
-    @OneToMany(
-            mappedBy = "formation",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    private Set<Groupe> groupes = new HashSet<>();
+    @OneToMany(mappedBy = "formation")
+    private Set<Appartenir> appartenirs = new HashSet<>();
 
     public Formation() {
     }
 
     public Formation(String libelle) {
         this.libelle = libelle;
-    }
-
-    public Formation(String libelle, Set<Groupe> groupes) {
-        this.libelle = libelle;
-        this.groupes = groupes;
     }
 
     public int getId() {
@@ -49,11 +43,4 @@ public class Formation {
         this.libelle = libelle;
     }
 
-    public Set<Groupe> getGroupes() {
-        return groupes;
-    }
-
-    public void setGroupes(Set<Groupe> groupes) {
-        this.groupes = groupes;
-    }
 }
