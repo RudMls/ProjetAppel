@@ -6,6 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
+import java.util.List;
+
 /**
  * Cette classe implémente plusieurs méthodes qui permettront d'interagir avec la base de données.
  * @param <T> L'objet qui représente le modèle dans la base de données
@@ -100,6 +102,19 @@ public abstract class DAO<T> {
             }
             e.printStackTrace();
         }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public List<T> findAll() {
+        List<T> entities;
+        try (Session session = this.getSession()) {
+            Transaction transaction = getTransaction(session);
+            entities = session.createQuery("from " + this.entity.getName()).list();
+        }
+        return entities;
     }
 
     /**

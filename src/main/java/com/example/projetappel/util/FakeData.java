@@ -111,14 +111,12 @@ public class FakeData implements ServletContextListener {
     public static void genererAppartenir() {
         ArrayList<Appartenir> appartenirs;
         try {
-            Etudiant etudiant = etudiantDao.find(6);
+            ArrayList<Etudiant> etudiants = (ArrayList<Etudiant>) etudiantDao.findAll();
             Groupe groupe = groupeDao.find(1);
             Formation formation = formationDao.find(1);
-
-            appartenirs = new ArrayList<>(Arrays.asList(
-                    new Appartenir(etudiant, groupe, formation)
-            ));
-            appartenirs.forEach(appartenirDao::create);
+            for (Etudiant etudiant : etudiants) {
+                appartenirDao.create(new Appartenir(etudiant, groupe, formation));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

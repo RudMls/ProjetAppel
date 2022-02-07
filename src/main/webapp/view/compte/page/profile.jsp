@@ -65,7 +65,7 @@
                                             <div class="form-group"><label
                                                     for="username"><strong>Statut</strong></label><input
                                                     class="form-control" type="text" id="username"
-                                                    placeholder=${requestScope.status} name="username"></div>
+                                                    placeholder=${requestScope.role} name="username"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="email"><strong>Adresse E-mail</strong></label><input
