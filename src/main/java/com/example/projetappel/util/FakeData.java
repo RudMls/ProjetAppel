@@ -30,6 +30,7 @@ public class FakeData implements ServletContextListener {
     public static CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
     public static AppartenirDao appartenirDao = new AppartenirDao();
     public static JustificatifDao justificatifDao = new JustificatifDao();
+    public static AbsenceDao absenceDao = new AbsenceDao();
 
     public static void main(String[] args) {
         generer();
@@ -50,7 +51,6 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
-        genererNotification();
     }
 
     public static void genererFormations() {
@@ -111,22 +111,39 @@ public class FakeData implements ServletContextListener {
 
     public static void genererAppartenir() {
 
-        Etudiant etudiant = null;
-        Groupe groupe = null;
-        Formation formation = null;
-        /*try {
-            Etudiant etudiant = etudiantDao.find(7);
-            Groupe groupe = groupeDao.find(1);
-            Formation formation = formationDao.find(1);
+        for(int i = 7; i < 15; i++){
 
-            appartenirs = new ArrayList<>(Arrays.asList(
-                    new Appartenir(etudiant, groupe, formation)
-            ));
-            appartenirs.forEach(appartenirDao::create);
-        } catch (Exception e) {
-            e.printStackTrace();
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
         }
-    }*/
+
+        for(int i = 15; i < 30; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 30; i < 45; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 45; i < 56; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+    }
 
     public static void genererCours() {
         ArrayList<Cours> cours = new ArrayList<>(Arrays.asList(
