@@ -5,11 +5,11 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 
-@WebServlet(name = "ProfileController", value = "/compte/profile")
-public class ProfileController extends HttpServlet {
+@WebServlet(name = "ProfilController", value = "/compte/profil")
+public class ProfilController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "profile");
+        request.setAttribute("page", "profil");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
 

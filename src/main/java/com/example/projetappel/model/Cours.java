@@ -17,8 +17,9 @@ public class Cours {
 
     public Cours() {}
 
-    public Cours(String libelle) {
+    public Cours(String libelle, Formation formation) {
         this.libelle = libelle;
+        this.formation = formation;
     }
 
     public int getId() {
@@ -33,8 +34,9 @@ public class Cours {
         return libelle;
     }
 
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
+    public void setLibelle(String libelle) {this.libelle = libelle;}
 
+    public Formation getFormation() {return formation;}
+
+    public void setFormation(Formation formation) {this.formation = formation;}
 }

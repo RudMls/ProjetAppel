@@ -1,7 +1,6 @@
 package com.example.projetappel.model;
 
 import com.example.projetappel.enumtype.TypeEtudiant;
-import com.github.javafaker.App;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +13,7 @@ import java.util.Set;
 @Entity
 @PrimaryKeyJoinColumn
 public class Etudiant extends Utilisateur implements Serializable {
+
 
     private String imageUrl;
 
@@ -61,6 +61,5 @@ public class Etudiant extends Utilisateur implements Serializable {
     public void setTypeEtudiant(TypeEtudiant typeEtudiant) {
         this.typeEtudiant = typeEtudiant;
     }
-
 
 }
