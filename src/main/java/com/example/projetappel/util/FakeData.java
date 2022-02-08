@@ -51,6 +51,7 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
+        genererAbsence();
     }
 
     public static void genererFormations() {

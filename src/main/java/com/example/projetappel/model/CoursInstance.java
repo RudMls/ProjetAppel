@@ -1,6 +1,7 @@
 package com.example.projetappel.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity
@@ -86,5 +87,12 @@ public class CoursInstance {
 
     public void setFicheAppel(FicheAppel ficheAppel) {
         this.ficheAppel = ficheAppel;
+    }
+
+    public String getParseDateDebut(){
+       return  new SimpleDateFormat("dd-MMM-yyyy à hh:mm").format(this.getDateDebut());
+    }
+    public String getParseDateFin(){
+        return  "- "+ new SimpleDateFormat("hh:mm").format(this.getDateFin());
     }
 }

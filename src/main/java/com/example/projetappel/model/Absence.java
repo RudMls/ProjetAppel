@@ -26,6 +26,10 @@ public class Absence {
         return etudiant;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public void setEtudiant(Etudiant etudiant) {
         this.etudiant = etudiant;
     }
@@ -49,5 +53,16 @@ public class Absence {
     public Absence(Etudiant etudiant, FicheAppel ficheAppel) {
         this.etudiant = etudiant;
         this.ficheAppel = ficheAppel;
+    }
+    public Absence(int id, Etudiant etudiant, FicheAppel ficheAppel) {
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+        this.id=id;
+    }
+    public Absence(int id, Etudiant etudiant, FicheAppel ficheAppel, Justificatif justificatif) {
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+        this.id=id;
+        this.justificatif=justificatif;
     }
 }
