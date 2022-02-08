@@ -49,4 +49,25 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
         return coursInstances;
     }
 
+    public List<CoursInstance> getCiCours(Integer etudiantId, Integer coursId) {
+        String hql = "select ci from  CoursInstance ci, Appartenir a, Groupe g " +
+                " where a.etudiant.id = :etudiantId " +
+                " and ci.cours.id = :coursId " +
+                " and a.groupe.id = g.id " +
+                " and g.id = ci.groupe.id " ;
+        List<CoursInstance> coursInstances = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<CoursInstance> query = session.createQuery(hql);
+            query.setParameter("etudiantId",etudiantId);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                coursInstances = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coursInstances;
+    }
+
 }
