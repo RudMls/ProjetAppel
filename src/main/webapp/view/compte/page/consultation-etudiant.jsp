@@ -21,7 +21,7 @@
                </tr>
                </thead>
                <tbody>
-               <c:forEach items="${ requestScope.listAbsences}" var="absences" >
+               <c:forEach items="${requestScope.listAbsences}" var="absences" >
                <tr>
                        <th scope="row"><input type="checkbox"  value="<c:out value="${ absences.getId() }"/>"
                           <c:if test="${absences.getJustificatif() ==! null}">disabled</c:if>

@@ -48,6 +48,7 @@ public class Etudiant extends Utilisateur implements Serializable {
 
 
 
+
     public String getImageUrl() {
         return imageUrl;
     }

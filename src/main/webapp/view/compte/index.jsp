@@ -39,8 +39,13 @@
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'planning' ? 'active' : ''}" href="/compte/planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'cours' ? 'active' : ''}" href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'liste-etudiant' ? 'active' : ''}" href="/compte/liste-etudiant"><i class="fas fa-user-graduate"></i><span>Etudiants</span></a></li>
 
                         </c:when>
+                        <c:when test = "${requestScope.role== Role.SCOLARITE}">
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
+                        </c:when>
+
                     </c:choose>
 
 
@@ -165,6 +170,9 @@
                             </c:when>
                             <c:when test = "${requestScope.page eq 'consultation-etudiant'}">
                                 <jsp:include page = "page/consultation-etudiant.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'liste-etudiant'}">
+                                <jsp:include page = "./page/liste-etudiant.jsp"/>
                             </c:when>
                         </c:choose>
                     </div>

@@ -12,12 +12,16 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "ProfileController", value = "/compte/profile")
-public class ProfileController extends HttpServlet {
+@WebServlet(name = "ProfileEtudiantChercheController", value = "/compte/profile")
+public class ProfileEtudiantChercheController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if ((Role) request.getAttribute("role") == Role.ETUDIANT ) {
+
+
+
+
+        /*if ((Role) request.getAttribute("role") == Role.ETUDIANT ) {
             Etudiant etudiant = (Etudiant) request.getAttribute("utilisateur");
 
             EtudiantDao etudiantDao = new EtudiantDao();
@@ -44,9 +48,12 @@ public class ProfileController extends HttpServlet {
         request.setAttribute("page", "profile");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
 
+         */
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 }
+
