@@ -42,8 +42,9 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void generer() {
-        genererCours();
+
         genererFormations();
+        genererCours();
         genererGroupes();
         genererEnseignant();
         genererScolarite();
@@ -51,6 +52,7 @@ public class FakeData implements ServletContextListener {
         genererFicheAppel();
         genererCoursInstance();
         genererAppartenir();
+        genererAbsence();
     }
 
     public static void genererFormations() {
@@ -91,7 +93,8 @@ public class FakeData implements ServletContextListener {
         ArrayList<Enseignant> enseignants = new ArrayList<>(Arrays.asList(
                 new Enseignant("Nathalie", "Valles", "nathalie.valles@ut-capitole.fr", "pwd"),
                 new Enseignant("Franck", "Ravat", "franck.ravat@ut-capitole.fr", "pwd"),
-                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd")
+                new Enseignant("Eric", "Andonoff", "eric.andonoff@ut-capitole.fr", "pwd"),
+                new Enseignant("Bour", "Raphaëlle", "raphaelle.bour@ut-capitole.fr", "pwd")
         ));
         enseignants.forEach(enseignantDao::create);
     }
@@ -109,30 +112,56 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void genererAppartenir() {
-        ArrayList<Appartenir> appartenirs;
-        try {
-            ArrayList<Etudiant> etudiants = (ArrayList<Etudiant>) etudiantDao.findAll();
-            Groupe groupe = groupeDao.find(1);
-            Formation formation = formationDao.find(1);
-            for (Etudiant etudiant : etudiants) {
-                appartenirDao.create(new Appartenir(etudiant, groupe, formation));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        for(int i = 7; i < 15; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
         }
+
+        for(int i = 15; i < 30; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(1);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 30; i < 45; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
+        for(int i = 45; i < 56; i++){
+
+            Etudiant etudiant = etudiantDao.find(i);
+            Groupe groupe1 = groupeDao.find(2);
+            Formation formation1 = formationDao.find(2);
+            appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
+        }
+
     }
 
     public static void genererCours() {
+
+        Formation formation1 = formationDao.find(1);
+        Formation formation2 = formationDao.find(2);
+
         ArrayList<Cours> cours = new ArrayList<>(Arrays.asList(
-                new Cours("Démarche de développement agile"),
-                new Cours("Accompagnement Client"),
-                new Cours("Développement d'application internet"),
-                new Cours("Anglais"),
-                new Cours("Ingénierie des Processus Métiers"),
-                new Cours("Management Agile"),
-                new Cours("Données, conception, manipulation"),
-                new Cours("Programmation Objet"),
-                new Cours("Analyse et conception objet des SI")
+                new Cours("Démarche de développement agile", formation1),
+                new Cours("Accompagnement Client", formation1),
+                new Cours("Développement d'application internet,", formation1),
+                new Cours("Anglais", formation1),
+                new Cours("Ingénierie des Processus Métiers", formation2),
+                new Cours("Management Agile", formation2),
+                new Cours("Données, conception, manipulation", formation1),
+                new Cours("Programmation Objet", formation2),
+                new Cours("Analyse et conception objet des SI", formation2)
         ));
         cours.forEach(coursDao::create);
     }
@@ -148,8 +177,9 @@ public class FakeData implements ServletContextListener {
         try {
             coursInstances = new ArrayList<>(Arrays.asList(
                     new CoursInstance(SDF.parse("07-02-2022 09:30:00"), SDF.parse("07-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(1)),
-                    new CoursInstance(SDF.parse("09-02-2022 14:00:00"), SDF.parse("09-02-2022 17:00:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(2)),
-                    new CoursInstance(SDF.parse("10-02-2022 09:30:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(3))
+                    new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(6), enseignantDao.find(2), groupeDao.find(2), ficheAppelDao.find(2)),
+                    new CoursInstance(SDF.parse("09-02-2022 14:00:00"), SDF.parse("09-02-2022 17:00:00"), coursDao.find(2), enseignantDao.find(3), groupeDao.find(2), ficheAppelDao.find(3)),
+                    new CoursInstance(SDF.parse("10-02-2022 09:30:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(7), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(4))
             ));
             coursInstances.forEach(coursInstanceDao::create);
         } catch (ParseException e) {
@@ -161,13 +191,14 @@ public class FakeData implements ServletContextListener {
         ArrayList<Absence> absences = null;
 
         absences = new ArrayList<>(Arrays.asList(
-                new Absence(etudiantDao.find(6),ficheAppelDao.find(1)),
-                new Absence(etudiantDao.find(6),ficheAppelDao.find(2)),
-                new Absence(etudiantDao.find(7),ficheAppelDao.find(2)),
-                new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+                new Absence(etudiantDao.find(7),ficheAppelDao.find(1)),
+                new Absence(etudiantDao.find(45),ficheAppelDao.find(2)),
+                new Absence(etudiantDao.find(47),ficheAppelDao.find(2))
+                //new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
         ));
         absences.forEach(absenceDao::create);
 
-    }
+        }
+
 
 }
