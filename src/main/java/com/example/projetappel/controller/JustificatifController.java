@@ -36,7 +36,7 @@ public class JustificatifController extends HttpServlet {
         String libelle = request.getParameter("libelle");
 
         if (libelle == null || libelle.isEmpty()) {
-            erreurs.put("libelle_erreur", "Veillez renseigner le libellé");
+            erreurs.put("libelle_erreur", "Veuillez renseigner le libellé");
         }
 
         String contentType = request.getContentType();

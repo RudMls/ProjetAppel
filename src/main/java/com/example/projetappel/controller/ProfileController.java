@@ -1,11 +1,10 @@
 package com.example.projetappel.controller;
 
+import com.example.projetappel.dao.AbsenceDao;
+import com.example.projetappel.dao.CoursInstanceDao;
 import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.enumtype.Role;
-import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Cours;
-import com.example.projetappel.model.Etudiant;
-import com.example.projetappel.model.Utilisateur;
+import com.example.projetappel.model.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,9 +19,21 @@ public class ProfileController extends HttpServlet {
 
         if ((Role) request.getAttribute("role") == Role.ETUDIANT ) {
             Etudiant etudiant = (Etudiant) request.getAttribute("utilisateur");
+
             EtudiantDao etudiantDao = new EtudiantDao();
-            //ArrayList<Absence> absences = (ArrayList<Absence>) etudiantDao.
-            ArrayList<Cours> cours = (ArrayList<Cours>) etudiantDao.findCours(etudiant.getId());
+
+            AbsenceDao absenceDao = new AbsenceDao();
+            ArrayList<Absence> absences = (ArrayList<Absence>) absenceDao.getAbsences(etudiant.getId());
+            float nbAbs = ((ArrayList<Absence>) absenceDao.getAbsences(etudiant.getId())).size();
+
+            CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+            ArrayList<CoursInstance> coursInstances = (ArrayList<CoursInstance>) coursInstanceDao.getCoursInstances(etudiant.getId());
+            float nbInstances = ((ArrayList<CoursInstance>) coursInstanceDao.getCoursInstances((etudiant.getId()))).size();
+
+            float txAbsGen = (nbAbs / nbInstances) * 100;
+
+            request.setAttribute("txAbsGen", txAbsGen);
+
         }
 
         request.setAttribute("page", "profile");
