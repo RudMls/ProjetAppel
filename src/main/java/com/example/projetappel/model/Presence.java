@@ -16,4 +16,41 @@ public class Presence {
 
     @ManyToOne
     private FicheAppel ficheAppel;
+
+    public Presence() {}
+
+    public Presence(Boolean retard , Etudiant etudiant, FicheAppel ficheAppel) {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isRetard() {
+        return retard;
+    }
+
+    public void setRetard(boolean retard) {
+        this.retard = retard;
+    }
+
+    public Etudiant getEtudiant() {
+        return etudiant;
+    }
+
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
+    }
+
+    public FicheAppel getFicheAppel() {
+        return ficheAppel;
+    }
+
+    public void setFicheAppel(FicheAppel ficheAppel) {
+        this.ficheAppel = ficheAppel;
+    }
 }

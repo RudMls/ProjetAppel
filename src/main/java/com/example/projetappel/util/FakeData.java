@@ -31,6 +31,8 @@ public class FakeData implements ServletContextListener {
     public static AppartenirDao appartenirDao = new AppartenirDao();
     public static JustificatifDao justificatifDao = new JustificatifDao();
     public static AbsenceDao absenceDao = new AbsenceDao();
+    public static PresenceDao presenceDao = new PresenceDao();
+
 
     public static void main(String[] args) {
         generer();
@@ -53,6 +55,7 @@ public class FakeData implements ServletContextListener {
         genererCoursInstance();
         genererAppartenir();
         genererAbsence();
+        genererPresence();
     }
 
     public static void genererFormations() {
@@ -179,7 +182,8 @@ public class FakeData implements ServletContextListener {
                     new CoursInstance(SDF.parse("07-02-2022 09:30:00"), SDF.parse("07-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(1)),
                     new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(6), enseignantDao.find(2), groupeDao.find(2), ficheAppelDao.find(2)),
                     new CoursInstance(SDF.parse("09-02-2022 14:00:00"), SDF.parse("09-02-2022 17:00:00"), coursDao.find(2), enseignantDao.find(3), groupeDao.find(2), ficheAppelDao.find(3)),
-                    new CoursInstance(SDF.parse("10-02-2022 09:30:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(7), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(4))
+                    new CoursInstance(SDF.parse("10-02-2022 09:30:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(7), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(4)),
+                    new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(5))
             ));
             coursInstances.forEach(coursInstanceDao::create);
         } catch (ParseException e) {
@@ -198,6 +202,19 @@ public class FakeData implements ServletContextListener {
         absences.forEach(absenceDao::create);
 
         }
+
+    public static void genererPresence(){
+        ArrayList<Presence> presences = null;
+
+        presences = new ArrayList<>(Arrays.asList(
+                new Presence(true, etudiantDao.find(7),ficheAppelDao.find(1)),
+                new Presence(true, etudiantDao.find(45),ficheAppelDao.find(2)),
+                new Presence(true, etudiantDao.find(47),ficheAppelDao.find(2))
+                //new Absence(etudiantDao.find(8),ficheAppelDao.find(2))
+        ));
+        presences.forEach(presenceDao::create);
+
+    }
 
 
 }
