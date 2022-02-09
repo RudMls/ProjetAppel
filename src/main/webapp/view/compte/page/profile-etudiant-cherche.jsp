@@ -21,9 +21,7 @@
 
                         <%
                             float txAbsGen = (float) request.getAttribute("txAbsGen");
-                            float txAbsCours = (float) request.getAttribute("txAbsCours");
                             float txRetGen = (float) request.getAttribute("txRetGen");
-                            float txRetCours = (float) request.getAttribute("txRetCours");
                         %>
                         <div class="card shadow mb-4">
                             <div class="card-header py-3">
@@ -38,16 +36,6 @@
                                     <div class="progress-bar bg-danger" aria-valuenow="<%= txAbsGen%>%" aria-valuemin="0" aria-valuemax="100"
                                          style="width: <%= txAbsGen%>%;"><span class="sr-only"><%= txAbsGen%>%</span></div>
                                 </div>
-
-                                <h4 class="small font-weight-bold">Taux d'absences de Nom Matière
-                                    <span class="float-right">
-                                            <%= txAbsCours%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="<%= txAbsCours%>%" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: <%= txAbsCours%>%;"><span class="sr-only"><%= txAbsCours%>%</span></div>
-                                </div>
-
                                 <h4 class="small font-weight-bold">Taux général de retards
                                     <span class="float-right">
                                             <%= txRetGen%>%
@@ -55,15 +43,6 @@
                                 <div class="progress progress-sm mb-3">
                                     <div class="progress-bar bg-primary" aria-valuenow="<%= txRetGen%>" aria-valuemin="0"
                                          aria-valuemax="100" style="width: <%= txRetGen%>%;"><span class="sr-only"><%= txRetGen%>%</span></div>
-                                </div>
-
-                                <h4 class="small font-weight-bold">Taux de retards de Nom Matière
-                                    <span class="float-right">
-                                            <%= txRetCours%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-info" aria-valuenow="<%= txRetCours%>" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: <%= txRetCours%>%;"><span class="sr-only"><%= txRetCours%>%</span></div>
                                 </div>
                             </div>
                         </div>

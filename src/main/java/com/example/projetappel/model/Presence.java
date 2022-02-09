@@ -12,14 +12,24 @@ public class Presence {
     private boolean retard;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private Etudiant etudiant;
 
     @ManyToOne
+    @JoinColumn(nullable = false)
     private FicheAppel ficheAppel;
 
     public Presence() {}
 
-    public Presence(Boolean retard , Etudiant etudiant, FicheAppel ficheAppel) {
+    public Presence(Etudiant etudiant, FicheAppel ficheAppel) {
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+    }
+
+    public Presence(boolean retard, Etudiant etudiant, FicheAppel ficheAppel) {
+        this.retard = retard;
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
     }
 
     public int getId() {
