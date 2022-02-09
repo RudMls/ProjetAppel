@@ -15,7 +15,7 @@ public class CoursDao extends DAO<Cours> {
     }
 
     public List<Cours> getCours(Integer enseignantId) {
-        String hql = " select c from  Cours c, CoursInstance ci " +
+        String hql = " select distinct c from  Cours c, CoursInstance ci " +
                      " where ci.enseignant.id = :enseignantId " +
                      " and ci.cours.id = c.id ";
         List<Cours> cours = new ArrayList<>();
