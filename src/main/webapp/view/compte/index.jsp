@@ -178,7 +178,9 @@
                                 <jsp:include page = "./page/profile-etudiant-cherche.jsp">
                                     <jsp:param name="etudiantId" value="${etudiantId}"/>
                                 </jsp:include>
-
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'cours-instance'}">
+                                <jsp:include page = "./page/fiche-appel.jsp"/>
                             </c:when>
                         </c:choose>
                     </div>

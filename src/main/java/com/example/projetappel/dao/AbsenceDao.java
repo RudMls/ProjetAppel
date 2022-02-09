@@ -1,6 +1,9 @@
 package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
+import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.FicheAppel;
+import com.example.projetappel.model.Presence;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -49,6 +52,11 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
-
+    public void setAbsenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
+        Boolean retard =true;
+        AbsenceDao absenceDao = new AbsenceDao();
+        absenceDao.create(new Absence(etudiantPrensent,ficheAppel));
+        List<Absence> absencesCours = new ArrayList<>();
+    }
 
 }
