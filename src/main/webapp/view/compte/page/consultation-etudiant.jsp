@@ -31,7 +31,7 @@
                            <c:out  value="${absences.getFicheAppel().getCoursInstance().getParseDateDebut()}"/>
                            <c:out  value="${absences.getFicheAppel().getCoursInstance().getParseDateFin()}"/>
                        </td>
-                       <td> Justificatif </td>
+                       <td> Justificatif </td>-
 
                </tr>
                </c:forEach>

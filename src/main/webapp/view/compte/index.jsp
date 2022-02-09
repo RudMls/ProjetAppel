@@ -174,6 +174,12 @@
                             <c:when test = "${requestScope.page eq 'liste-etudiant'}">
                                 <jsp:include page = "./page/liste-etudiant.jsp"/>
                             </c:when>
+                            <c:when test = "${requestScope.page eq 'profile-etudiant-cherche'}">
+                                <jsp:include page = "./page/profile-etudiant-cherche.jsp">
+                                    <jsp:param name="etudiantId" value="${etudiantId}"/>
+                                </jsp:include>
+
+                            </c:when>
                         </c:choose>
                     </div>
 
