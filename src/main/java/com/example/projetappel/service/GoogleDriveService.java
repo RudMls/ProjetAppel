@@ -67,8 +67,6 @@ public class GoogleDriveService {
         return files;
     }
 
-
-
     public static void deleteFile(String fileId) {
         try {
             DRIVE_SERVICE.files().delete(fileId).execute();
@@ -77,11 +75,11 @@ public class GoogleDriveService {
         }
     }
 
-    public static String createFile(String fileName, String contentType, java.io.File filePath) {
-        String folderId = "0BwwA4oUTeiV1TGRPeTVjaWRDY1E";
+    public static String createFile(String fileName, String contentType, java.io.File filePath, String directoryId) {
+//        String folderId = "0BwwA4oUTeiV1TGRPeTVjaWRDY1E";
         File fileMetadata = new File();
         fileMetadata.setName(fileName);
-//        fileMetadata.setParents(Collections.singletonList(folderId));
+        fileMetadata.setParents(Collections.singletonList(directoryId));
 //        java.io.File filePath = new java.io.File("/photo.png");
         FileContent mediaContent = new FileContent(contentType, filePath);
         File file = new File();
@@ -97,13 +95,14 @@ public class GoogleDriveService {
 
     public static void main(String[] args) {
 
-        for (int i = 0; i < 10; i++) {
-            createDirectory(String.valueOf(i));
-        }
+//        for (int i = 0; i < 10; i++) {
+//            createDirectory(String.valueOf(i));
+//        }
 
-//        getFiles().forEach(file -> {
-//            System.out.println(file.getId());
-//        });
+        getFiles().forEach(file -> {
+//            deleteFile(file.getId());
+            System.out.println(file.getName());
+        });
 
         //createFile();
 

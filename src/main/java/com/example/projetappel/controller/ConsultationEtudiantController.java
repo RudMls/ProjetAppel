@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 @WebServlet(name = "ConsultationEtudiantController", value = "/compte/consultation-etudiant")
 public class ConsultationEtudiantController extends HttpServlet {
@@ -27,12 +28,23 @@ public class ConsultationEtudiantController extends HttpServlet {
         request.setAttribute("listAbsences", absences);
         request.setAttribute("page","consultation-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
-
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        String[] absencesIds = request.getParameterValues("abscence_ids");
+        if (absencesIds == null || absencesIds.length == 0) {
+            doGet(request, response);
+        } else {
+            AbsenceDao absenceDao = new AbsenceDao();
+            ArrayList<Absence> absences = new ArrayList<>();
+            Arrays.asList(absencesIds).forEach(s -> {
+                absences.add(absenceDao.find(Integer.parseInt(s)));
+            });
+            request.getSession().setAttribute("absences", absences);
+            response.sendRedirect("/compte/justificatif");
+        }
 
     }
 }

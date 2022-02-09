@@ -165,6 +165,9 @@
                             <c:when test = "${requestScope.page eq 'cours'}">
                                 <jsp:include page = "./page/cours.jsp"/>
                             </c:when>
+                            <c:when test = "${requestScope.page eq 'justificatif'}">
+                                <jsp:include page = "./page/justificatif.jsp"/>
+                            </c:when>
                             <c:when test = "${requestScope.page eq 'profile'}">
                                 <jsp:include page = "./page/profile.jsp"/>
                             </c:when>
