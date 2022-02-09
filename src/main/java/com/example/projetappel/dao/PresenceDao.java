@@ -1,6 +1,8 @@
 package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
+import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.FicheAppel;
 import com.example.projetappel.model.Presence;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
@@ -30,7 +32,6 @@ public class PresenceDao extends DAO<Presence>{
         return presences;
     }
 
-
     public List<Presence> getPresCours(Integer etudiantId, Integer coursId) {
         String hql = " select p from  Presence p, FicheAppel fa, CoursInstance ci" +
                 " where p.ficheAppel.id = fa.id " +
@@ -52,5 +53,19 @@ public class PresenceDao extends DAO<Presence>{
         }
         return presencesCours;
     }
+    public void setPresenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
+        Boolean retard =false;
+        PresenceDao presenceDao = new PresenceDao();
+        presenceDao.create(new Presence(retard,etudiantPrensent,ficheAppel));
+        List<Presence> presencesCours = new ArrayList<>();
+    }
+    public void setRetardCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
+        Boolean retard =true;
+        PresenceDao presenceDao = new PresenceDao();
+        presenceDao.create(new Presence(retard,etudiantPrensent,ficheAppel));
+        List<Presence> presencesCours = new ArrayList<>();
+
+    }
+
 
 }
