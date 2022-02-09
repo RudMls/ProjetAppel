@@ -1,13 +1,12 @@
 package com.example.projetappel.controller;
 
 import com.example.projetappel.enumtype.ResponseType;
-import com.example.projetappel.model.CoursInstance;
-import com.example.projetappel.model.Enseignant;
-import com.example.projetappel.model.Utilisateur;
+import com.example.projetappel.model.*;
 import com.example.projetappel.util.DatePlanning;
 import com.example.projetappel.util.DateValidatorUsingDateFormat;
 import com.example.projetappel.util.ResponseJSON;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import org.apache.commons.validator.routines.DateValidator;
 
 import javax.servlet.*;
@@ -16,57 +15,164 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @WebServlet(name = "PlanningController", value = "/compte/planning")
 public class PlanningController extends HttpServlet {
 
-    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("dd-MM-yyyy");
+    private static final SimpleDateFormat SDF_OLD_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat SDF_NEW_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+
+    private void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+        Enseignant enseignant = (Enseignant) utilisateur;
+        Date date = new Date();
+        String erreur = null;
+        int dayOfWeek;
+        String strDate = request.getParameter("date");
+        Calendar calendar = Calendar.getInstance();
+        String planningAction = request.getParameter("planning_action");
+        DatePlanning datePlanning = null;
+        HashMap<Integer, ArrayList<CoursInstance>> coursInstanceFilter = new HashMap<>();
+        for (int i = 2; i <= 7; i++) {
+            coursInstanceFilter.put(i, new ArrayList<>());
+        }
+        try {
+            if (!(planningAction == null || planningAction.isEmpty()) && !(strDate == null || strDate.isEmpty())) {
+                date = SDF_OLD_FORMAT.parse(strDate);
+                calendar.setTime(date);
+                switch (planningAction) {
+                    case "search" :
+                        datePlanning = new DatePlanning(date);
+                        break;
+                    case "previous" :
+                        calendar.add(Calendar.WEEK_OF_MONTH, -1);
+                        date = calendar.getTime();
+                        break;
+                    case "next" :
+                        calendar.add(Calendar.WEEK_OF_MONTH, 1);
+                        date = calendar.getTime();
+                        break;
+                }
+            }
+            datePlanning = new DatePlanning(date);
+            Date firstDayOfWeek = datePlanning.getFirstDayOfWeek();
+            Date lastDayOfWeek = datePlanning.getLastDayOfWeek();
+            Set<CoursInstance> coursInstances = enseignant.getCoursInstances();
+            for (CoursInstance coursInstance : coursInstances) {
+                if (datePlanning.isWithinRange(coursInstance.getDateDebut(), firstDayOfWeek, lastDayOfWeek)) {
+                    calendar.setTime(coursInstance.getDateDebut());
+                    dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+                    if (coursInstanceFilter.containsKey(dayOfWeek)) {
+                        coursInstanceFilter.get(dayOfWeek).add(coursInstance);
+                    } else {
+                        coursInstanceFilter.put(dayOfWeek, new ArrayList<>(Collections.singletonList(coursInstance)));
+                    }
+                }
+            }
+            request.setAttribute("date", DatePlanning.getStrFormat(date, "yyyy-MM-dd"));
+            request.setAttribute("coursInstanceFilter", coursInstanceFilter);
+            request.setAttribute("page", "planning");
+            request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("page", "planning");
-        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+
+        processRequest(request, response);
+//        Date date = new Date();
+//        int hour = date.getHours();
+//        int dayOfWeek;
+//        HashMap<Integer, ArrayList<CoursInstance>> coursInstanceFilter = new HashMap<>();
+//        for (int i = 2; i <= 7; i++) {
+//            coursInstanceFilter.put(i, new ArrayList<>());
+//        }
+//        Calendar calendar = Calendar.getInstance();
+//        Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+//        Enseignant enseignant = (Enseignant) utilisateur;
+//        DatePlanning datePlanning = new DatePlanning(date);
+//        Date firstDayOfWeek = datePlanning.getFirstDayOfWeek();
+//        Date lastDayOfWeek = datePlanning.getLastDayOfWeek();
+//        Set<CoursInstance> coursInstances = enseignant.getCoursInstances();
+//        for (CoursInstance coursInstance : coursInstances) {
+//            if (datePlanning.isWithinRange(coursInstance.getDateDebut(), firstDayOfWeek, lastDayOfWeek)) {
+//                calendar.setTime(coursInstance.getDateDebut());
+//                dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+//                if (coursInstanceFilter.containsKey(dayOfWeek)) {
+//                    coursInstanceFilter.get(dayOfWeek).add(coursInstance);
+//                } else {
+//                    coursInstanceFilter.put(dayOfWeek, new ArrayList<>(Collections.singletonList(coursInstance)));
+//                }
+//            }
+//        }
+//        request.setAttribute("coursInstanceFilter", coursInstanceFilter);
+//        request.setAttribute("page", "planning");
+//        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-        ResponseJSON responseJSON = new ResponseJSON();
-        String erreur = "";
-        String date = request.getParameter("date");
-
-        if (date == null || date.trim().isEmpty()) {
-            responseJSON.setResponseType(ResponseType.ERREUR);
-            responseJSON.setBody("Veillez renseigner une date");
-            DateValidator validator = new DateValidatorUsingDateFormat("dd/MM/yyyy");
-            if (validator.isValid(date)) {
-                responseJSON.setResponseType(ResponseType.SUCCES);
-                Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
-                if (utilisateur instanceof Enseignant) {
-                    try {
-                        DatePlanning datePlanning = new DatePlanning(SDF.parse(date));
-                        Date firstDayOfWeek = datePlanning.getFirstDayOfWeek();
-                        Date lastDayOfWeek = datePlanning.getLastDayOfWeek();
-
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    Enseignant enseignant = (Enseignant) utilisateur;
-                    Set<CoursInstance> coursInstances = enseignant.getCoursInstances();
-//                    coursInstances.stream()
-//                            .filter(coursInstance -> coursInstance.getDateDebut() = );
-                }
-
-            } else {
-                responseJSON.setResponseType(ResponseType.ERREUR);
-                responseJSON.setBody("Veillez renseigner un champ");
-            }
-        }
-        String json = new Gson().toJson(responseJSON);
-        response.getWriter().write(json);
+        processRequest(request, response);
+//        DateValidatorUsingDateFormat validator = new DateValidatorUsingDateFormat("dd-MM-yyyy");
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        ArrayList<CoursInstance> coursInstancesResponse = new ArrayList<>();
+//        HashMap<String, Object> hashMapResponse = new HashMap<>();
+//        GsonBuilder gsonBuilder = new GsonBuilder();
+//        Gson gson = gsonBuilder.create();
+//        String json = null;
+//        ResponseJSON responseJSON = new ResponseJSON();
+//        String dateParam = request.getParameter("date");
+//        if (dateParam == null || dateParam.trim().isEmpty()) {
+//            responseJSON.setResponseType(ResponseType.ERREUR);
+//            responseJSON.setBody("Veillez renseigner un champ");
+//        } else if (!validator.isValid(dateParam)) {
+//            responseJSON.setResponseType(ResponseType.ERREUR);
+//            responseJSON.setBody("Veillez renseigner une date valide");
+//        } else {
+//            try {
+//                Date date = SDF_OLD_FORMAT.parse(dateParam);
+//                responseJSON.setResponseType(ResponseType.SUCCES);
+//                Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+//                Enseignant enseignant = (Enseignant) utilisateur;
+//                DatePlanning datePlanning = new DatePlanning(date);
+//                Date firstDayOfWeek = datePlanning.getFirstDayOfWeek();
+//                Date lastDayOfWeek = datePlanning.getLastDayOfWeek();
+//                Set<CoursInstance> coursInstances = enseignant.getCoursInstances();
+//                for (CoursInstance coursInstance : coursInstances) {
+//                    if (datePlanning.isWithinRange(coursInstance.getDateDebut(), firstDayOfWeek, lastDayOfWeek)) {
+//                        coursInstancesResponse.add(
+//                                new CoursInstance(
+//                                        coursInstance.getId(),
+//                                        coursInstance.getDateDebut(),
+//                                        coursInstance.getDateFin(),
+//                                        new Cours(
+//                                                coursInstance.getCours().getLibelle()
+//                                        )
+//                                )
+//                        );
+//                    }
+//                }
+//                ArrayList<CoursInstance> coursInstanceFiltre = coursInstances.stream()
+//                        .filter(coursInstance -> datePlanning.isWithinRange(date, firstDayOfWeek, lastDayOfWeek))
+//                        .collect(Collectors.toCollection(ArrayList::new));
+//                responseJSON.setBody(coursInstancesResponse);
+//                json = gson.toJson(responseJSON);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        response.getWriter().write(json);
     }
 }

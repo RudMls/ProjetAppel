@@ -43,4 +43,19 @@ public class Formation {
         this.libelle = libelle;
     }
 
+    public Set<Appartenir> getAppartenirs() {
+        return appartenirs;
+    }
+
+    public void setAppartenirs(Set<Appartenir> appartenirs) {
+        this.appartenirs = appartenirs;
+    }
+
+    public Set<Cours> getCours() {
+        return cours;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        this.cours = cours;
+    }
 }

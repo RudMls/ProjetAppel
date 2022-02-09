@@ -1,32 +1,43 @@
 package com.example.projetappel.controller;
 
-import com.example.projetappel.dao.AbsenceDao;
-import com.example.projetappel.dao.CoursDao;
 import com.example.projetappel.dao.CoursInstanceDao;
-import com.example.projetappel.dao.EtudiantDao;
-import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Etudiant;
-import com.example.projetappel.model.Utilisateur;
+import com.example.projetappel.model.CoursInstance;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
 
-@WebServlet(name = "CoursInstanceController", value = "/cours-instance")
+@WebServlet(name = "CoursInstanceController", value = "/compte/cours-instance")
 public class CoursInstanceController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Integer coursInstanceId = (Integer) request.getAttribute("coursInstanceId");
-        EtudiantDao etudiantDao = new EtudiantDao();
-        ArrayList<Etudiant> listEtudiant = (ArrayList<Etudiant>) etudiantDao.getEtudiantCoursInstance(coursInstanceId);
-        request.setAttribute("listEtudiant", listEtudiant);
-        request.getRequestDispatcher("/view/compte/fiche-appel.jsp").forward(request, response);
+
+        String id = request.getParameter("id");
+        if (id != null && !id.isEmpty()) {
+            Integer coursIntanceId = stringToInteger(id);
+            if (coursIntanceId != null) {
+                CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+                CoursInstance coursInstance = coursInstanceDao.find(coursIntanceId);
+                request.setAttribute("coursInstance", coursInstance);
+                request.setAttribute("page", "cours-instance");
+                request.getRequestDispatcher("/view/compte/index.jsp");
+            }
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+    }
+
+    public Integer stringToInteger(String toParse) {
+        Integer result;
+        try {
+            result = Integer.parseInt(toParse);
+        } catch (NumberFormatException e) {
+            result = null;
+        }
+        return result;
     }
 }

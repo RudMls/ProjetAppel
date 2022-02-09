@@ -12,9 +12,11 @@ public class CoursInstance {
     private int id;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateDebut;
 
     @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dateFin;
 
     @ManyToOne
@@ -32,6 +34,13 @@ public class CoursInstance {
 
     public CoursInstance() {}
 
+    public CoursInstance(int id, Date dateDebut, Date dateFin, Cours cours) {
+        this.id = id;
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.cours = cours;
+    }
+
     public CoursInstance(Date dateDebut, Date dateFin, Cours cours, Enseignant enseignant, Groupe groupe, FicheAppel ficheAppel) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
@@ -39,6 +48,14 @@ public class CoursInstance {
         this.enseignant = enseignant;
         this.groupe = groupe;
         this.ficheAppel = ficheAppel;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public Date getDateDebut() {

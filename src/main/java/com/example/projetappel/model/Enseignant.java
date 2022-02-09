@@ -1,6 +1,7 @@
 package com.example.projetappel.model;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import java.io.Serializable;
@@ -11,7 +12,7 @@ import java.util.Set;
 @PrimaryKeyJoinColumn
 public class Enseignant extends Utilisateur implements Serializable {
 
-    @OneToMany(mappedBy = "enseignant")
+    @OneToMany(mappedBy = "enseignant", fetch = FetchType.EAGER)
     private Set<CoursInstance> coursInstances = new HashSet<>();
 
     public Enseignant() {}
@@ -27,4 +28,6 @@ public class Enseignant extends Utilisateur implements Serializable {
     public void setCoursInstances(Set<CoursInstance> coursInstances) {
         this.coursInstances = coursInstances;
     }
+
+
 }

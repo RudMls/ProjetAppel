@@ -65,4 +65,27 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
+    public Set<Presence> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presence> presences) {
+        this.presences = presences;
+    }
+
+    public Set<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(Set<Absence> absences) {
+        this.absences = absences;
+    }
+
+    public Set<Appartenir> getAppartenirs() {
+        return appartenirs;
+    }
+
+    public void setAppartenirs(Set<Appartenir> appartenirs) {
+        this.appartenirs = appartenirs;
+    }
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 public class DatePlanning {
 
     private static final SimpleDateFormat SDP = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private static final SimpleDateFormat SDP_HOUR_MINUTE = new SimpleDateFormat("HH:mm:ss");
     private Date firstDayOfWeek;
     private Date lastDayOfWeek;
 
@@ -16,12 +17,14 @@ public class DatePlanning {
         loadDayOfWeek(date);
     }
 
+
     private void loadDayOfWeek(Date date) {
         // Get calendar set to current date and time
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         // Set the calendar to monday of the current week
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        c.set(Calendar.HOUR_OF_DAY, 0);
         // Print dates of the current week starting on Monday
         DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         this.firstDayOfWeek = c.getTime();
@@ -31,33 +34,47 @@ public class DatePlanning {
         this.lastDayOfWeek = c.getTime();
     }
 
-    public static boolean isWithinRange(Date date, Date startDate, Date endDate) {
+    public boolean isWithinRange(Date date, Date startDate, Date endDate) {
         return !(date.before(startDate) || date.after(endDate));
     }
 
-    public static int getDayNumberOld(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        return cal.get(Calendar.DAY_OF_WEEK);
+    public static String getDayOfWeek(int value) {
+        String day = "";
+        switch (value) {
+            case 1:
+                day = "Dimanche";
+                break;
+            case 2:
+                day = "Lundi";
+                break;
+            case 3:
+                day = "Mardi";
+                break;
+            case 4:
+                day = "Mercredi";
+                break;
+            case 5:
+                day = "Jeudi";
+                break;
+            case 6:
+                day = "Vendredi";
+                break;
+            case 7:
+                day = "Samedi";
+                break;
+        }
+        return day;
     }
 
+    public static String getStrFormat(Date date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
+    }
     public static void main(String[] args) throws ParseException {
 
-        // Get calendar set to current date and time
-        Calendar c = Calendar.getInstance();
-        c.setTime(SDP.parse("09-02-2022 14:00:00"));
-
-        // Set the calendar to monday of the current week
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        System.out.println();
-        // Print dates of the current week starting on Monday
-        DateFormat df = new SimpleDateFormat("EEE dd/MM/yyyy");
-        System.out.println(df.format(c.getTime()));
-        for (int i = 0; i <6; i++) {
-            c.add(Calendar.DATE, 1);
-        }
-        System.out.println(df.format(c.getTime()));
-        System.out.println();
+        Date date = new Date();
+        String dateStr = SDP_HOUR_MINUTE.format(date);
+        System.out.println(dateStr);
     }
 
     public Date getFirstDayOfWeek() {
