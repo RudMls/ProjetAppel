@@ -209,8 +209,8 @@ public class FakeData implements ServletContextListener {
         ArrayList<Presence> presences = null;
 
         presences = new ArrayList<>(Arrays.asList(
-                new Presence(true, etudiantDao.find(7),ficheAppelDao.find(1)),
-                new Presence(true, etudiantDao.find(45),ficheAppelDao.find(2)),
+                new Presence(true, etudiantDao.find(7),ficheAppelDao.find(2)),
+                new Presence(true, etudiantDao.find(45),ficheAppelDao.find(1)),
                 new Presence(true, etudiantDao.find(47),ficheAppelDao.find(2))
         ));
         presences.forEach(presenceDao::create);
