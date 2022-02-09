@@ -49,7 +49,6 @@ public class FakeData implements ServletContextListener {
         genererEtudiant();
         genererCoursInstance();
         genererAppartenir();
-
     }
 
     public static void genererFormations() {
@@ -163,6 +162,7 @@ public class FakeData implements ServletContextListener {
         cours.forEach(coursDao::create);
     }
 
+
     public static void genererCoursInstance() {
         ArrayList<CoursInstance> coursInstances = null;
         try {
@@ -180,5 +180,6 @@ public class FakeData implements ServletContextListener {
             e.printStackTrace();
         }
     }
+
 
 }
