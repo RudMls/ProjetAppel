@@ -14,23 +14,17 @@ public class Formation {
     @Column(nullable = false)
     private String libelle;
 
-    @OneToMany(
-            mappedBy = "formation",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER
-    )
-    private Set<Groupe> groupes = new HashSet<>();
+    @OneToMany(mappedBy = "formation")
+    private Set<Appartenir> appartenirs = new HashSet<>();
+
+    @OneToMany(mappedBy = "formation")
+    private Set<Cours> cours = new HashSet<>();
 
     public Formation() {
     }
 
     public Formation(String libelle) {
         this.libelle = libelle;
-    }
-
-    public Formation(String libelle, Set<Groupe> groupes) {
-        this.libelle = libelle;
-        this.groupes = groupes;
     }
 
     public int getId() {
@@ -49,11 +43,19 @@ public class Formation {
         this.libelle = libelle;
     }
 
-    public Set<Groupe> getGroupes() {
-        return groupes;
+    public Set<Appartenir> getAppartenirs() {
+        return appartenirs;
     }
 
-    public void setGroupes(Set<Groupe> groupes) {
-        this.groupes = groupes;
+    public void setAppartenirs(Set<Appartenir> appartenirs) {
+        this.appartenirs = appartenirs;
+    }
+
+    public Set<Cours> getCours() {
+        return cours;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        this.cours = cours;
     }
 }

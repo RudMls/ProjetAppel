@@ -6,12 +6,14 @@ import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
+import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 
 import java.io.FileNotFoundException;
@@ -35,7 +37,7 @@ public class DriveQuickstart {
      * Global instance of the scopes required by this quickstart.
      * If modifying these scopes, delete your previously saved tokens/ folder.
      */
-    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE_METADATA_READONLY);
+    private static final List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
     private static final String CREDENTIALS_FILE_PATH = "/credentials.json";
 
     /**
@@ -64,19 +66,58 @@ public class DriveQuickstart {
         return credential;
     }
 
-    public static void main(String[] args) throws IOException, GeneralSecurityException {
+    public static Drive getDrive() {
         // Build a new authorized API client service.
-        final NetHttpTransport HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
-        Drive service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
-                .setApplicationName(APPLICATION_NAME)
-                .build();
+        final NetHttpTransport HTTP_TRANSPORT;
+        Drive service = null;
+        try {
+            HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+            service = new Drive.Builder(HTTP_TRANSPORT, JSON_FACTORY, getCredentials(HTTP_TRANSPORT))
+                    .setApplicationName(APPLICATION_NAME)
+                    .build();
+        } catch (GeneralSecurityException | IOException e) {
+            e.printStackTrace();
+        }
+        return service;
+    }
 
+
+
+    public static void main(String[] args) throws IOException, GeneralSecurityException {
+
+
+//        File fileMetadata = new File();
+//        fileMetadata.setName("photo.jpg");
+//        java.io.File filePath = new java.io.File("files/photo.jpg");
+//        FileContent mediaContent = new FileContent("image/jpeg", filePath);
+//        File file = getDrive().files().create(fileMetadata, mediaContent)
+//                .setFields("id")
+//                .execute();
+//        System.out.println("File ID: " + file.getId());
         // Print the names and IDs for up to 10 files.
-        FileList result = service.files().list()
-                .setPageSize(10)
-                .setFields("nextPageToken, files(id, name)")
-                .execute();
+//        FileList result = getDrive().files().list()
+//                .setPageSize(10)
+//                .setFields("nextPageToken, files(id, name)")
+//                .execute();
+//
+//        List<File> files = result.getFiles();
+//        if (files == null || files.isEmpty()) {
+//            System.out.println("No files found.");
+//        } else {
+//            System.out.println("Files:");
+//            for (File file : files) {
+//                System.out.printf("%s (%s)\n", file.getName(), file.getId());
+//            }
+//        }
 
+        File fileMetadata = new File();
+        fileMetadata.setName("annie");
+        fileMetadata.setMimeType("application/vnd.google-apps.folder");
+
+        File file = getDrive().files().create(fileMetadata)
+                .setFields("id")
+                .execute();
+        System.out.println("Folder ID: " + file.getId());
 
     }
 }

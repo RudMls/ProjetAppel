@@ -5,10 +5,13 @@ import com.example.projetappel.enumtype.TypeEtudiant;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(name = "utilisateur_id")
+@PrimaryKeyJoinColumn
 public class Etudiant extends Utilisateur implements Serializable {
 
 
@@ -17,8 +20,14 @@ public class Etudiant extends Utilisateur implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypeEtudiant typeEtudiant;
 
-    @ManyToOne
-    private Groupe groupe;
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Presence> presences = new HashSet<>();
+
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Absence> absences = new HashSet<>();
+
+    @OneToMany(mappedBy = "etudiant")
+    private Set<Appartenir> appartenirs = new HashSet<>();
 
     public Etudiant() {}
 
@@ -26,11 +35,10 @@ public class Etudiant extends Utilisateur implements Serializable {
         super(id, prenom, nom, email, password);
     }
 
-    public Etudiant(int id, String prenom, String nom, String email, String password, String imageUrl, TypeEtudiant typeEtudiant, Groupe groupe) {
+    public Etudiant(int id, String prenom, String nom, String email, String password, String imageUrl, TypeEtudiant typeEtudiant) {
         super(id, prenom, nom, email, password);
         this.imageUrl = imageUrl;
         this.typeEtudiant = typeEtudiant;
-        this.groupe = groupe;
     }
 
     public Etudiant(String prenom, String nom, String email, String password, TypeEtudiant typeEtudiant) {
@@ -38,4 +46,46 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
+
+
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public TypeEtudiant getTypeEtudiant() {
+        return typeEtudiant;
+    }
+
+    public void setTypeEtudiant(TypeEtudiant typeEtudiant) {
+        this.typeEtudiant = typeEtudiant;
+    }
+
+    public Set<Presence> getPresences() {
+        return presences;
+    }
+
+    public void setPresences(Set<Presence> presences) {
+        this.presences = presences;
+    }
+
+    public Set<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(Set<Absence> absences) {
+        this.absences = absences;
+    }
+
+    public Set<Appartenir> getAppartenirs() {
+        return appartenirs;
+    }
+
+    public void setAppartenirs(Set<Appartenir> appartenirs) {
+        this.appartenirs = appartenirs;
+    }
 }

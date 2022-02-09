@@ -7,11 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="com.example.projetappel.enumtype.Role" %>
 <html>
 <head>
     <title>${requestScope.page}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="viewport" charset=UTF-8" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <link rel="stylesheet" href="/assets/compte/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
     <link rel="stylesheet" href="/assets/compte/fonts/fontawesome-all.min.css">
     <link rel="stylesheet" href="/assets/compte/fonts/font-awesome.min.css">
@@ -20,17 +23,32 @@
 
     <body id="page-top">
         <div id="wrapper">
-            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0">
+            <nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 toggled">
                 <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
                     <div class="sidebar-brand-icon"><i class="fas fa-university"></i></div>
                     <div class="sidebar-brand-text mx-3"><span>Gestion appel</span></div>
                 </a>
                     <hr class="sidebar-divider my-0">
                     <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <c:choose>
+                        <c:when test = "${requestScope.role== Role.ETUDIANT}">
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'planning' ? 'active' : ''}" href="/compte/planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'cours' ? 'active' : ''}" href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'presence-absence' ? 'active' : ''}" href="login.html"><i class="fas fa-clock"></i><span>Absence/Présence</span></a></li>
+                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Mes absences/Mes justificatifs</span></a></li>
+                        </c:when>
+                        <c:when test = "${requestScope.role== Role.ENSEIGNANT}">
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'planning' ? 'active' : ''}" href="/compte/planning"><i class="fas fa-calendar-alt"></i><span>Planning</span></a></li>
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'cours' ? 'active' : ''}" href="/compte/cours"><i class="fas fa-chalkboard-teacher"></i><span>Cours</span></a></li>
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'liste-etudiant' ? 'active' : ''}" href="/compte/liste-etudiant"><i class="fas fa-user-graduate"></i><span>Etudiants</span></a></li>
+
+                        </c:when>
+                        <c:when test = "${requestScope.role== Role.SCOLARITE}">
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
+                        </c:when>
+
+                    </c:choose>
+
+
                     </ul>
                     <div class="text-center d-none d-md-inline"><button class="btn rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
                 </div>
@@ -149,6 +167,18 @@
                             </c:when>
                             <c:when test = "${requestScope.page eq 'profile'}">
                                 <jsp:include page = "./page/profile.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'consultation-etudiant'}">
+                                <jsp:include page = "page/consultation-etudiant.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'liste-etudiant'}">
+                                <jsp:include page = "./page/liste-etudiant.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'profile-etudiant-cherche'}">
+                                <jsp:include page = "./page/profile-etudiant-cherche.jsp">
+                                    <jsp:param name="etudiantId" value="${etudiantId}"/>
+                                </jsp:include>
+
                             </c:when>
                         </c:choose>
                     </div>

@@ -1,4 +1,10 @@
 package com.example.projetappel.dao;
 
-public class JustificatifDao {
+import com.example.projetappel.model.Justificatif;
+
+public class JustificatifDao extends DAO<Justificatif>{
+
+    public JustificatifDao(){
+        super.setEntity(Justificatif.class);
+    }
 }
