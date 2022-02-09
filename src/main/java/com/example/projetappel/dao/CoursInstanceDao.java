@@ -3,6 +3,7 @@ package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
 import com.example.projetappel.model.CoursInstance;
+import com.example.projetappel.model.FicheAppel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -54,5 +55,18 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
         }
         return coursInstances;
     }
+
+    public void updateFicheAppel(CoursInstance coursInstanceChoose, FicheAppel ficheAppel) {
+        CoursInstance coursInstance = new CoursInstance();
+        CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            coursInstanceChoose.setFicheAppel(ficheAppel);
+            coursInstanceDao.update(coursInstanceChoose);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

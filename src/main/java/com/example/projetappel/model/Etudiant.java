@@ -88,4 +88,9 @@ public class Etudiant extends Utilisateur implements Serializable {
     public void setAppartenirs(Set<Appartenir> appartenirs) {
         this.appartenirs = appartenirs;
     }
+
+    public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
+        Boolean presence= false;
+
+    }
 }

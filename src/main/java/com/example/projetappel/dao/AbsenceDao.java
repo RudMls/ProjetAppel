@@ -55,8 +55,13 @@ public class AbsenceDao extends DAO<Absence> {
     public void setAbsenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
         Boolean retard =true;
         AbsenceDao absenceDao = new AbsenceDao();
-        absenceDao.create(new Absence(etudiantPrensent,ficheAppel));
-        List<Absence> absencesCours = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            absenceDao.create(new Absence(etudiantPrensent,ficheAppel));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
 }

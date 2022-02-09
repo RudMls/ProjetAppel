@@ -53,17 +53,29 @@ public class PresenceDao extends DAO<Presence>{
         }
         return presencesCours;
     }
-    public void setPresenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
+    public void setPresenceCours(Etudiant etudiantPresent, FicheAppel ficheAppel) {
         Boolean retard =false;
         PresenceDao presenceDao = new PresenceDao();
-        presenceDao.create(new Presence(retard,etudiantPrensent,ficheAppel));
-        List<Presence> presencesCours = new ArrayList<>();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            presenceDao.create(new Presence(retard,etudiantPresent,ficheAppel));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
     }
-    public void setRetardCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
+    public void setRetardCours(Etudiant etudiantPresent, FicheAppel ficheAppel) {
         Boolean retard =true;
         PresenceDao presenceDao = new PresenceDao();
-        presenceDao.create(new Presence(retard,etudiantPrensent,ficheAppel));
-        List<Presence> presencesCours = new ArrayList<>();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            presenceDao.create(new Presence(retard,etudiantPresent,ficheAppel));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+
 
     }
 
