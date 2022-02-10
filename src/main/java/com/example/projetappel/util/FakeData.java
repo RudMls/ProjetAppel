@@ -40,7 +40,7 @@ public class FakeData implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-//        generer();
+        generer();
     }
 
     public static void generer() {

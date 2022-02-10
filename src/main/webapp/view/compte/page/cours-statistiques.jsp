@@ -18,12 +18,15 @@
                             <div class="col mr-2">
                                 <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Nombre moyen d'absences</span></div>
                                 <div class="row no-gutters align-items-center">
+                                    <%
+                                        float txAbsCours = (float) request.getAttribute("txAbsCours");
+                                    %>
                                     <div class="col-auto">
-                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span>50%</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><%= txAbsCours%>%</span></div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm">
-                                            <div class="progress-bar bg-info" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;"><span class="sr-only">50%</span></div>
+                                            <div class="progress-bar bg-info" aria-valuenow="<%= txAbsCours%>" aria-valuemin="0" aria-valuemax="100" style="width: <%= txAbsCours%>%;"><span class="sr-only"><%= txAbsCours%>%</span></div>
                                         </div>
                                     </div>
                                 </div>
@@ -80,26 +83,20 @@
                         <h6 class="text-primary font-weight-bold m-0">Etudiants avec plus de 3 absences injustifiées</h6>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <div class="row align-items-center no-gutters">
-                                <div class="col mr-2">
-                                    <h6 class="mb-0"><strong>Nom Etudiant 1</strong></h6>
+                        <c:forEach items="${requestScope.listeEtudiantsAbsInj}" var="etudiants" >
+                            <li class="list-group-item">
+                                <div class="row align-items-center no-gutters">
+                                    <div class="col mr-2">
+                                        <h6 class="mb-0"><strong><c:out value="${etudiants.getNom()}"/> <c:out value="${etudiants.getPrenom()}"/></strong></h6>
+                                    </div>
+                                    <div class="col-auto">
+                                        <span class="text-xs">
+                                            <c:out value="${requestScope.listeNbAbsInj}"/>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="col-auto">
-                                    <span class="text-xs">5</span>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="list-group-item">
-                            <div class="row align-items-center no-gutters">
-                                <div class="col mr-2">
-                                    <h6 class="mb-0"><strong>Nom Etudiant 2</strong></h6>
-                                </div>
-                                <div class="col-auto">
-                                    <span class="text-xs">4</span>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        </c:forEach>
                     </ul>
                 </div>
             </div>

@@ -52,6 +52,26 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
+
+    public List<Absence> getAbsTotCours(Integer coursId) {
+        String hql = " select a from  Absence a, FicheAppel fa, CoursInstance ci" +
+                " where a.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " +
+                " and ci.cours.id = :coursId " ;
+        List<Absence> absencesCours = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Absence> query = session.createQuery(hql);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                absencesCours = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return absencesCours;
+    }
+
     public void setAbsenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
         Boolean retard =true;
         AbsenceDao absenceDao = new AbsenceDao();

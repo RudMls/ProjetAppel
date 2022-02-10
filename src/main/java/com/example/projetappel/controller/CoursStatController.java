@@ -1,5 +1,10 @@
 package com.example.projetappel.controller;
 
+import com.example.projetappel.dao.AbsenceDao;
+import com.example.projetappel.dao.EtudiantDao;
+import com.example.projetappel.model.Absence;
+import com.example.projetappel.model.Cours;
+import com.example.projetappel.model.Etudiant;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +22,26 @@ public class CoursStatController extends HttpServlet {
 //        ArrayList<Appartenir> listInscription = (ArrayList<Appartenir>) appartenirDao.getInscriptions();
 //        request.setAttribute("listInscription", listInscription);
 
-          request.setAttribute("page","cours-statistiques");
+        String cours = request.getParameter("coursId");
+        int coursId = Integer.parseInt(cours);
+        EtudiantDao etudiantDao = new EtudiantDao();
+        AbsenceDao absenceDao = new AbsenceDao();
+        ArrayList<Etudiant> listeEtudiantsAbsInj = (ArrayList<Etudiant>) etudiantDao.getEtudiantAbsInj(coursId);
+        request.setAttribute("listeEtudiantsAbsInj", listeEtudiantsAbsInj);
+        for (int i = 0; i < listeEtudiantsAbsInj.size(); i++) {
+            ArrayList<Integer> listeNbAbsInj = (ArrayList<Integer>) etudiantDao.getNbAbsInj(coursId, listeEtudiantsAbsInj.get(i).getId());
+        }
+
+        float nbEtudPresCours = ((ArrayList<Etudiant>) etudiantDao.getEtudiantCours(coursId)).size();
+        float nbEtudAbsCours = ((ArrayList<Absence>) absenceDao.getAbsTotCours(coursId)).size();
+        float txAbsCours = (nbEtudAbsCours / (nbEtudPresCours + nbEtudAbsCours)) * 100 ;
+        request.setAttribute("txAbsCours", txAbsCours);
+
+
+
+
+
+        request.setAttribute("page","cours-statistiques");
           request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
 
