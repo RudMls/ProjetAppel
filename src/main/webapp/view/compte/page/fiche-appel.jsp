@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.projetappel.util.FileManager" %>
+<%@ page import="com.example.projetappel.util.Constants" %>
 <%@ page import="com.example.projetappel.model.Absence" %>
 <%@ page import="java.util.ArrayList" %>
 <%
@@ -40,7 +42,7 @@
             <c:forEach items="${requestScope.listEtudiant}" var="etudiant" >
 
                 <tr>
-                    <td><c:out value="${etudiant.getImageUrl()}" /></td>
+                    <td><img class="border rounded-circle img-profile" src="${etudiant.getFichier() != null ? FileManager.getFichier(etudiant.getFichier) : Constants.DEFAULT_IMAGE_URL}"></td>
                     <td>
                         <c:out  value="${etudiant.getNom()}"/>
                         <c:out  value="${etudiant.getPrenom()}"/>
