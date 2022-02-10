@@ -21,7 +21,6 @@ public class Absence {
     private Justificatif justificatif;
 
     public Absence() {
-
     }
 
     public Etudiant getEtudiant() {
