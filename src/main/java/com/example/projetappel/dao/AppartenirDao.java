@@ -30,14 +30,13 @@ public class AppartenirDao extends DAO<Appartenir>{
         return inscriptions;
     }
 
-    public List<Etudiant> findByEtudiant(int etudiantId) {
+    public List<Etudiant> findEtudiant() {
         List<Etudiant> etudiants = null;
         try (Session session = getSession()) {
             getTransaction(session);
             Query<Etudiant> query = session.createQuery("select distinct a.etudiant " +
-                    "from Appartenir a " +
-                    "where a.etudiant.id = :etudiantId ");
-            query.setParameter("etudiantId", etudiantId);
+                    "from Appartenir a, Etudiant e " +
+                    "where a.etudiant.id = e.id ");
             if (!query.getResultList().isEmpty()) {
                 etudiants = query.getResultList();
             }

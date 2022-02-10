@@ -20,20 +20,8 @@ public class ListeEtudiantController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AppartenirDao appartenirDao = new AppartenirDao();
         EtudiantDao etudiantDao = new EtudiantDao();
-        Etudiant etudiant = (Etudiant) request.getAttribute("utilisateur");
-        ArrayList<Appartenir> listInscription = (ArrayList<Appartenir>) appartenirDao.findAll();
+        ArrayList<Etudiant> listInscription = (ArrayList<Etudiant>) appartenirDao.findEtudiant();
         request.setAttribute("listInscription", listInscription);
-
-        String source = "";
-        if (etudiant.getImageUrl() == null) {
-            source = "/assets/compte/img/avatars/avatar1.jpeg";
-        }else {
-            source = etudiant.getImageUrl();
-        }
-        return source;
-
-        String source = (String) etudiantDao.getUrlImg(etudiant);
-        request.setAttribute("source", source);
         request.setAttribute("page","liste-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
 
