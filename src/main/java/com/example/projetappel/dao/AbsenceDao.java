@@ -63,6 +63,7 @@ public class AbsenceDao extends DAO<Absence> {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

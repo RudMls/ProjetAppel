@@ -34,7 +34,108 @@ public class EtudiantDao extends DAO<Etudiant> {
         }
         return etudiants;
     }
-    //Cette méthode renvoie la liste des cours pour un étudiant passé en paramètre
+
+    public List<Etudiant> getEtudiantCours(int coursId){
+        String hql = "select e" +
+                " from Presence p, Etudiant e, FicheAppel fa, CoursInstance ci " +
+                " where ci.cours.id = :coursId" +
+                " and e.id = p.etudiant.id " +
+                " and p.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " ;
+        List<Etudiant> etudiantsc = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Etudiant> query = session.createQuery(hql);
+            query.setParameter("coursId", coursId);
+            if (!query.getResultList().isEmpty()) {
+                etudiantsc = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return etudiantsc;
+    }
+
+    /*    public HashMap<Etudiant, Integer> getEtudiantAbsInj(Integer coursId) {
+        String hql = " select e.id, count(a) " +
+                     " from  Etudiant e , Absence a, FicheAppel fa, CoursInstance ci " +
+                     " where ci.cours.id = :coursId " +
+                     " and e.id = a.etudiant.id " +
+                     " and a.ficheAppel.id = fa.id " +
+                     " and fa.id = ci.ficheAppel.id " +
+//                     " and a.justificatif.id = null " +
+                     " group by e" ;
+//                     " having count(a) > 3 ";
+        HashMap<Etudiant, Integer> etudiants = new HashMap<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query query = session.createQuery(hql);
+            query.setParameter("coursId", coursId);
+            if (!query.getResultList().isEmpty()) {
+                for (Object[] object : query.list()) {
+                    etudiants.put(
+                            (Etudiant) object[0],
+                            (Integer) object[1]
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return etudiants;
+    }*/
+
+    public List<Etudiant> getEtudiantAbsInj(Integer coursId) {
+        String hql = " select e " +
+                " from  Etudiant e , Absence a, FicheAppel fa, CoursInstance ci " +
+                " where ci.cours.id = :coursId " +
+                " and e.id = a.etudiant.id " +
+                " and a.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " +
+                " and a.justificatif.id is NULL " +
+                " group by e" +
+                " having count(a) > 1 ";
+        List<Etudiant> etudiants = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Etudiant> query = session.createQuery(hql);
+            query.setParameter("coursId", coursId);
+            if (!query.getResultList().isEmpty()) {
+                etudiants = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return etudiants;
+    }
+
+    public List<Integer> getNbAbsInj(Integer coursId, Integer etudiantId) {
+        String hql = " select count(a) " +
+                " from  Etudiant e , Absence a, FicheAppel fa, CoursInstance ci " +
+                " where ci.cours.id = :coursId " +
+                "and e.id = :etudiantId" +
+                " and e.id = a.etudiant.id " +
+                " and a.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " +
+                " and a.justificatif.id is NULL " +
+                " group by e" +
+                " having count(a) > 1 ";
+        List<Integer> nbabs = new ArrayList<>();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            Query<Integer> query = session.createQuery(hql);
+            query.setParameter("coursId", coursId);
+            query.setParameter("etudiantId", etudiantId);
+            if (!query.getResultList().isEmpty()) {
+                nbabs = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return nbabs;
+    }
+
+        //Cette méthode renvoie la liste des cours pour un étudiant passé en paramètre
     public List<Cours> findCours (Integer etudiantId) {
         String hql = " select c from  Cours c, CoursInstance ci, Appartenir a, Groupe g" +
                      " where a.etudiant.id = :Id " +

@@ -4,9 +4,16 @@
 <%@ page import="com.example.projetappel.model.Scolarite" %>
 <%@ page import="com.example.projetappel.model.Etudiant" %>
 <%@ page import="com.example.projetappel.enumtype.Role" %>
+<%@ page import="com.example.projetappel.util.FileManager" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
-
+<%--<%--%>
+<%--    Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");--%>
+<%--    String imageUrl = "/files/default.png";--%>
+<%--    if (utilisateur.getFichier() != null) {--%>
+<%--        imageUrl = FileManager.getFichier(utilisateur.getFichier());--%>
+<%--    }--%>
+<%--%>--%>
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <div class="container-fluid">
         <h3 class="text-dark mb-0">Profil</h3>
@@ -16,10 +23,9 @@
                 <div class="card mb-3">
                     <form method="POST" enctype="multipart/form-data">
                         <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
-                                                                       src="/dogs/image2.jpeg" width="160" height="160">
+                                                                       src="${requestScope.utilisateur_image}" width="160" height="160">
                             <div class="mb-3">
-                                <label class="form-label" for="customFile">Default file input example</label>
-                                <input type="file" class="form-control" id="customFile" />
+                                <input name ="fichier" type="file" class="form-control" id="customFile" />
                                 <button class="btn btn-primary btn-sm" type="submit">Change Photo</button>
                             </div>
                         </div>

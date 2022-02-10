@@ -13,6 +13,9 @@ public class DatePlanning {
     private Date firstDayOfWeek;
     private Date lastDayOfWeek;
 
+    public DatePlanning() {
+    }
+
     public DatePlanning(Date date) {
         loadDayOfWeek(date);
     }
@@ -34,8 +37,14 @@ public class DatePlanning {
         this.lastDayOfWeek = c.getTime();
     }
 
-    public boolean isWithinRange(Date date, Date startDate, Date endDate) {
+    public static boolean isWithinRange(Date date, Date startDate, Date endDate) {
         return !(date.before(startDate) || date.after(endDate));
+    }
+
+    public static int getWeektoMillis(long date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(date);
+        return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
     public static String getDayOfWeek(int value) {
@@ -69,6 +78,12 @@ public class DatePlanning {
     public static String getStrFormat(Date date, String format) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
+    }
+
+    public static String getStringToLong(Long date, String format) {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
+        return simpleDateFormat.format(date);
+
     }
     public static void main(String[] args) throws ParseException {
 
