@@ -104,6 +104,21 @@ public abstract class DAO<T> {
         }
     }
 
+    public void createOrUpdate(T entity) {
+        Transaction transaction = null;
+        try (Session session = this.getSession()) {
+            transaction = this.getTransaction(session);
+            session.saveOrUpdate(entity);
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        }
+    }
+
+
     /**
      *
      * @return

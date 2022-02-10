@@ -79,14 +79,16 @@
         </style>
         <div class="container d-flex justify-content-center">
             <ul class="list-group mt-5 text-white">
-                <c:forEach items="${requestScope.listCours}" var="cours" >
-                <li class="list-group-item d-flex justify-content-between align-content-center">
-                    <div class="d-flex flex-row"> <img src="https://img.icons8.com/color/100/000000/folder-invoices.png" width="40" />
-                        <div class="ml-2">
-                            <h6 class="mb-0"><c:out  value="${cours.getCours().getLibelle()}"/></h6>
+                <c:forEach items="${requestScope.listeCours}" var="cours" >
+                    <li class="list-group-item d-flex justify-content-between align-content-center">
+                        <div class="d-flex flex-row"> <img src="https://img.icons8.com/color/100/000000/folder-invoices.png" width="40" />
+                            <div class="ml-2">
+                                <a href="/compte/cours-statistiques?coursId=<c:out value="${cours.getId()}"/>">
+                                    <h6 class="mb-0"><c:out value="${cours.getLibelle()}"/></h6>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
                 </c:forEach>
             </ul>
         </div>

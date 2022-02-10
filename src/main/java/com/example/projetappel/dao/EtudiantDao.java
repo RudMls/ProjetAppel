@@ -12,6 +12,7 @@ public class EtudiantDao extends DAO<Etudiant> {
     public EtudiantDao() {
         super.setEntity(Etudiant.class);
     }
+
     public List<Etudiant> getEtudiantCoursInstance(int coursInstanceId){
         String hql = "select e" +
                 " from Appartenir a, Cours c, CoursInstance i, Etudiant e " +

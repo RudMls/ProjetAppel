@@ -25,10 +25,25 @@ public class Justificatif {
     @ManyToOne
     private Scolarite scolarite;
 
-    @OneToMany (mappedBy = "justificatif")
-    private Set<Absence> absences = new HashSet<>();
+    @OneToMany(
+            mappedBy = "justificatif",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<Absence> absences = new ArrayList<>();
 
-    public Justificatif() {}
+    public Justificatif() {
+    }
+
+
+    public Justificatif(Fichier fichier) {
+        this.fichier = fichier;
+    }
+
+    public Justificatif(Fichier fichier, List<Absence> absences) {
+        this.fichier = fichier;
+        this.absences = absences;
+    }
 
     public int getId() {
         return id;
@@ -62,7 +77,27 @@ public class Justificatif {
         this.validee = validee;
     }
 
+    public Fichier getFichier() {
+        return fichier;
+    }
 
+    public void setFichier(Fichier fichier) {
+        this.fichier = fichier;
+    }
 
+    public Scolarite getScolarite() {
+        return scolarite;
+    }
 
+    public void setScolarite(Scolarite scolarite) {
+        this.scolarite = scolarite;
+    }
+
+    public List<Absence> getAbsences() {
+        return absences;
+    }
+
+    public void setAbsences(List<Absence> absences) {
+        this.absences = absences;
+    }
 }

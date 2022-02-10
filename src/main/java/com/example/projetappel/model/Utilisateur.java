@@ -26,11 +26,8 @@ public class Utilisateur implements Serializable {
     @Column(nullable = false)
     private String password;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
-
-//    @ManyToMany(mappedBy = "utilisateurs")
-//    private Set<Groupe> groupes = new HashSet<>();
+    @ManyToOne
+    private Fichier fichier;
 
     public Utilisateur() {}
 
@@ -100,5 +97,13 @@ public class Utilisateur implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public Fichier getFichier() {
+        return fichier;
+    }
+
+    public void setFichier(Fichier fichier) {
+        this.fichier = fichier;
     }
 }
