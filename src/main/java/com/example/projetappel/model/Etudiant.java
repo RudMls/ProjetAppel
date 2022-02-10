@@ -89,8 +89,7 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.appartenirs = appartenirs;
     }
 
-    public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
-        Boolean presence= false;
+    //public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
 
-    }
+    //}
 }

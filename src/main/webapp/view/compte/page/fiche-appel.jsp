@@ -7,8 +7,7 @@
 %>
 <form action="/compte/cours-instance" method="post">
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Appel pour le cours ${requestScope.coursInstance.getCours().getLibelle()} ${requestScope.coursInstance.getParseDateDebut()}</h3>
-
+    <h3 class="text-dark mb-0">Appel pour le cours ${requestScope.coursInstance.getCours().getLibelle()} </h3>
     <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="submit"
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Enregistrer">Enregistrer
@@ -17,10 +16,13 @@
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Valider">Valider
     </button>
-
-
 </div>
-    <input type="hidden" name="coursInstance" value="<c:out  value="${requestScope.coursInstance.getId()}"/>" >
+<div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <h5>${requestScope.coursInstance.getCours().getFormation().getLibelle()} </br>
+        Groupe ${requestScope.coursInstance.getGroupe().getLibelle()} </h5>
+    <h5>${requestScope.coursInstance.getParseDateDebut()}</h5>
+</div>
+<input type="hidden" name="coursInstance" value="<c:out  value="${requestScope.coursInstance.getId()}"/>" >
 <div class="table-responsive" id="no-more-tables">
         <span><%= generaleErreur %></span>
         <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
