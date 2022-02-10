@@ -78,12 +78,9 @@
                                 </a>
                             </li>
                         </c:forEach>
-
                     </ul>
                 </li>
-
             </c:forEach>
-
 
 <%--            <li class="events-group">--%>
 <%--                <div class="top-info"><span>Tuesday</span></div>--%>

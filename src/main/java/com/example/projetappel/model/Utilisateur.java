@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -25,11 +26,8 @@ public class Utilisateur implements Serializable {
     @Column(nullable = false)
     private String password;
 
-//    @Enumerated(EnumType.STRING)
-//    private Role role;
-
-//    @ManyToMany(mappedBy = "utilisateurs")
-//    private Set<Groupe> groupes = new HashSet<>();
+    @ManyToOne
+    private Fichier fichier;
 
     public Utilisateur() {}
 
@@ -86,5 +84,26 @@ public class Utilisateur implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Utilisateur that = (Utilisateur) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    public Fichier getFichier() {
+        return fichier;
+    }
+
+    public void setFichier(Fichier fichier) {
+        this.fichier = fichier;
     }
 }

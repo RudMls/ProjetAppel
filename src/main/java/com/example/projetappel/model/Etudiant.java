@@ -92,4 +92,5 @@ public class Etudiant extends Utilisateur implements Serializable {
     public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
         Boolean presence= false;
 
+    }
 }

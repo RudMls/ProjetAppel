@@ -1,8 +1,6 @@
 package com.example.projetappel.dao;
 
-import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Cours;
-import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.*;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -14,6 +12,7 @@ public class EtudiantDao extends DAO<Etudiant> {
     public EtudiantDao() {
         super.setEntity(Etudiant.class);
     }
+
     public List<Etudiant> getEtudiantCoursInstance(int coursInstanceId){
         String hql = "select e" +
                 " from Appartenir a, Cours c, CoursInstance i, Etudiant e " +
@@ -35,7 +34,7 @@ public class EtudiantDao extends DAO<Etudiant> {
         }
         return etudiants;
     }
-
+    //Cette méthode renvoie la liste des cours pour un étudiant passé en paramètre
     public List<Cours> findCours (Integer etudiantId) {
         String hql = " select c from  Cours c, CoursInstance ci, Appartenir a, Groupe g" +
                      " where a.etudiant.id = :Id " +
@@ -55,7 +54,51 @@ public class EtudiantDao extends DAO<Etudiant> {
             }
             return coursEtudiant;
         }
+    //Cette méthode renvoie la liste des presences pour un étudiant passé en paramètre pour une instance de cours donné
+    public List<Presence> getPresenceEtudiantCours (Etudiant etudiant, CoursInstance coursInstance) {
+            String hql = " select p from  Presence p" +
+                " where p.etudiant.id = :etudiantId " +
+                " and p.ficheAppel.id = :ficheAppelId ";
+        List<Presence> presenceEtudiant = new ArrayList<>();
+        if(coursInstance.getFicheAppel()!=null){
+            int ficheAppelCours= coursInstance.getFicheAppel().getId();
+            try (Session session = getSession()) {
+                getTransaction(session);
+                Query<Presence> query = session.createQuery(hql);
+                query.setParameter("etudiantId",etudiant.getId());
+                query.setParameter("ficheAppelId",ficheAppelCours);
+                if (!query.getResultList().isEmpty()) {
+                    presenceEtudiant = query.getResultList();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
+        return presenceEtudiant;
+    }
+    //Cette méthode renvoie la liste des absences pour un étudiant passé en paramètre pour un cours donné
+    public List<Absence> getAbsenceEtudiantCours (Etudiant etudiant, CoursInstance coursInstance) {
+        String hql = " select a from  Absence a" +
+                " where a.etudiant.id = :etudiantId " +
+                " and a.ficheAppel.id = :ficheAppelId ";
+        List<Absence> absenceEtudiant = new ArrayList<>();
+        if(coursInstance.getFicheAppel()!=null){
+            int ficheAppelCours= coursInstance.getFicheAppel().getId();
+            try (Session session = getSession()) {
+                getTransaction(session);
+                Query<Absence> query = session.createQuery(hql);
+                query.setParameter("etudiantId",etudiant.getId());
+                query.setParameter("ficheAppelId",ficheAppelCours);
+                if (!query.getResultList().isEmpty()) {
+                    absenceEtudiant = query.getResultList();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return absenceEtudiant;
+    }
 
 }
 

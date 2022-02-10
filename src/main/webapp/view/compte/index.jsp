@@ -165,6 +165,9 @@
                             <c:when test = "${requestScope.page eq 'cours'}">
                                 <jsp:include page = "./page/cours.jsp"/>
                             </c:when>
+                            <c:when test = "${requestScope.page eq 'justificatif'}">
+                                <jsp:include page = "./page/justificatif.jsp"/>
+                            </c:when>
                             <c:when test = "${requestScope.page eq 'profile'}">
                                 <jsp:include page = "./page/profile.jsp"/>
                             </c:when>
@@ -181,6 +184,11 @@
                             </c:when>
                             <c:when test = "${requestScope.page eq 'cours-instance'}">
                                 <jsp:include page = "./page/fiche-appel.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'cours-statistiques'}">
+                                <jsp:include page = "./page/cours-statistiques.jsp">
+                                    <jsp:param name="etudiantId" value="${etudiantId}"/>
+                                </jsp:include>
                             </c:when>
                         </c:choose>
                     </div>

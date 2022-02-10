@@ -65,4 +65,6 @@ public class Absence {
         this.id=id;
         this.justificatif=justificatif;
     }
+
+
 }
