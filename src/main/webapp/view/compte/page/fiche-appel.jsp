@@ -7,7 +7,7 @@
 %>
 <form action="/compte/cours-instance" method="post">
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Appel pour le cours du ${requestScope.coursInstance.getCours().getLibelle()} ${requestScope.coursInstance.getParseDateDebut()}</h3>
+    <h3 class="text-dark mb-0">Appel pour le cours du ${requestScope.coursInstance.getCours().getLibelle()}</h3>
     <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="submit"
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Enregistrer">Enregistrer

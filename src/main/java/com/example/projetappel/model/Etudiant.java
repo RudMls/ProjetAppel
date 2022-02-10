@@ -26,8 +26,8 @@ public class Etudiant extends Utilisateur implements Serializable {
     @OneToMany(mappedBy = "etudiant")
     private Set<Absence> absences = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant")
-    private Set<Appartenir> appartenirs = new HashSet<>();
+    @OneToOne(mappedBy = "etudiant")
+    private Appartenir appartenir;
 
     public Etudiant() {}
 
@@ -81,15 +81,14 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.absences = absences;
     }
 
-    public Set<Appartenir> getAppartenirs() {
-        return appartenirs;
+    public Appartenir getAppartenir() {
+        return appartenir;
     }
 
-    public void setAppartenirs(Set<Appartenir> appartenirs) {
-        this.appartenirs = appartenirs;
+    public void setAppartenir(Appartenir appartenir) {
+        this.appartenir = appartenir;
     }
-
-    //public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
+//public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
 
     //}
 }
