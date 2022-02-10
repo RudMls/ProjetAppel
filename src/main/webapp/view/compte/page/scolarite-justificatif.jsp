@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.example.projetappel.model.Justificatif" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.example.projetappel.util.FileManager" %>
@@ -27,7 +28,7 @@
                     result.append(String.format(
                             "<tr>" +
                                     "<th scope='row'>" +
-                                    "<input type='checkbox' name='abscence_ids' value='%1$s'/>" +
+                                    "<input type='checkbox' name='justificatifs_ids' value='%1$s'/>" +
                                     "</th>" +
                                     "<td>%2$s %3$s</td>" +
                                     "<td>%4$s</td>" +
@@ -57,7 +58,8 @@
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Justificatifs</h3>
-    <button type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
+    <button type="submit"
+            class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
 </div>
 
     <div class="table-responsive" id="no-more-tables">

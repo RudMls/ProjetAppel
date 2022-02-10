@@ -187,10 +187,13 @@
                                 <jsp:include page = "./page/fiche-appel.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'scolarite-justificatif'}">
-                                <jsp:include page = "./page/fiche-appel.jsp"/>
+                                <jsp:include page = "./page/scolarite-justificatif.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'cours-statistiques'}">
-                                <jsp:include page = "./page/scolarite-justificatif.jsp"/>
+                                <jsp:include page = "./page/cours-statistiques.jsp"/>
+                                <jsp:include page = "./page/profile-etudiant-cherche.jsp">
+                                    <jsp:param name="enseignantId" value="${enseignantId}"/>
+                                </jsp:include>
                             </c:when>
                         </c:choose>
                     </div>
