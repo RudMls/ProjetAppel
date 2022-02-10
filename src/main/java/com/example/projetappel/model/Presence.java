@@ -61,4 +61,5 @@ public class Presence {
     public void setFicheAppel(FicheAppel ficheAppel) {
         this.ficheAppel = ficheAppel;
     }
+
 }

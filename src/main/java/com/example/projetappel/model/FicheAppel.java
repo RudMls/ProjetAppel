@@ -54,6 +54,10 @@ public class FicheAppel {
         this.coursInstance = coursInstance;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public FicheAppel() {}
 
 }

@@ -46,9 +46,6 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.typeEtudiant = typeEtudiant;
     }
 
-
-
-
     public String getImageUrl() {
         return imageUrl;
     }
@@ -89,8 +86,4 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.appartenirs = appartenirs;
     }
 
-    public Boolean getPresenceEtudiantCoursIsntance(CoursInstance coursInstance){
-        Boolean presence= false;
-
-    }
 }

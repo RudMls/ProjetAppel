@@ -9,10 +9,14 @@
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Appel pour le cours ${requestScope.coursInstance.getCours().getLibelle()} ${requestScope.coursInstance.getParseDateDebut()}</h3>
 
-
-        <button class="btn btn-primary btn-sm d-none d-sm-inline-block" type="submit"
-        <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()==false}">disabled</c:if>
-        >Valider</button>
+    <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="submit"
+        <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
+        name="submit" value="Enregistrer">Enregistrer
+    </button>
+    <button class="btn btn-danger btn-sm d-none d-sm-inline-block" type="submit"
+        <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
+        name="submit" value="Valider">Valider
+    </button>
 
 
 </div>
@@ -43,13 +47,18 @@
                         <input type="hidden" name="etudiantId" value="<c:out  value="${etudiant.getId()}"/>" >
 
                         <input type="radio"  name="<c:out  value="${etudiant.getId()}"/>" value="present"
-                               <c:if test="${requestScope.etudiant().getPresenceCoursInstanceEtudiant(coursInstance)==false}">checked</c:if>/>
+                               <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'present' }">checked</c:if>
+                          required/>
                     </td>
                     <td>
-                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent"/>
+                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent"
+                            <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'absent' }">checked</c:if>
+                       />
                     </td>
                     <td>
-                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="retard"/>
+                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="retard"
+                               <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'retard' }">checked</c:if>
+                        />
                     </td>
                 </tr>
             </c:forEach>
