@@ -17,8 +17,8 @@ public class CoursInstanceController extends HttpServlet {
         String statut="";
         EtudiantDao etudiantDao = new EtudiantDao();
        if(!etudiantDao.getPresenceEtudiantCours(etudiant,coursInstance).isEmpty()){
-            Boolean presence =etudiantDao.getPresenceEtudiantCours(etudiant,coursInstance).get(0).isRetard();
-            statut = presence ? "retard": "present";
+            Boolean retard =etudiantDao.getPresenceEtudiantCours(etudiant,coursInstance).get(0).isRetard();
+            statut = retard ? "retard": "present";
        }
        else if (!etudiantDao.getAbsenceEtudiantCours(etudiant,coursInstance).isEmpty()){
             statut = "absent";
@@ -56,41 +56,47 @@ public class CoursInstanceController extends HttpServlet {
         AbsenceDao absenceDao = new AbsenceDao();
         CoursInstanceDao coursInstanceDao =new CoursInstanceDao();
         FicheAppelDao ficheAppelDao = new FicheAppelDao();
-        String[] etudiants= request.getParameterValues("etudiantId");
-        int ficheAppelId = ficheAppelDao.create(new FicheAppel());
-        FicheAppel ficheAppel= ficheAppelDao.find(ficheAppelId);
-
         HashMap<String, String> erreurs = new HashMap<>();
-        //On met à jour l'instance de cours par rapport à la fiche d'appelle crée
-        if(request.getParameter("coursInstance")!= null){
+        String[] etudiants= request.getParameterValues("etudiantId");
+
+        if(request.getParameter("submit").equals("Enregistrer")){
+            //on crée la fiche d'appel si on clic sur "enregistrer"
+            int ficheAppelId = ficheAppelDao.create(new FicheAppel());
+            FicheAppel ficheAppel= ficheAppelDao.find(ficheAppelId);
+            //On retrouve le cours choisi dans le planning
             int coursChooseId= Integer.parseInt(request.getParameter("coursInstance"));
             CoursInstance coursChoose= coursInstanceDao.find(coursChooseId);
+            //On met à jour l'instance de cours par rapport à la fiche d'appelle crée
             coursInstanceDao.updateFicheAppel(coursChoose,ficheAppel);
+            //On met à jour le statut des étudiants et si l'utilisateur clic sur valider, on modifie la valeur de la fiche d'appelle
+            for (String etudiant:etudiants) {
+                int etudiantId = Integer.parseInt(etudiant);
+                Etudiant etudiantAppel = etudiantDao.find(etudiantId);
+                //Vide la BDD pour les étudiants et la fiche d'appel
+                presenceDao.deleteByEtudiantFicheAppel(etudiantId,ficheAppelId);
+                absenceDao.deleteByEtudiantFicheAppel(etudiantId,ficheAppelId);
+                //Le nom de la radio récupère la présence
+                String presence = request.getParameter(etudiant) ==null? "":request.getParameter(etudiant);
+                if (presence.equals("present")) {
+                    presenceDao.createOrUpdate(new Presence(etudiantAppel,ficheAppel,false));
+                } else if (presence.equals("absent")) {
+                    absenceDao.createOrUpdate(new Absence(etudiantAppel,ficheAppel));
+                } else if (presence.equals("retard")) {
+                    presenceDao.createOrUpdate(new Presence(etudiantAppel,ficheAppel,true));
+                }
+            }
         }
-        //On met à jour le statut des étudiants et si l'utilisateur clic sur valider, on modifie la valeur de la fiche d'appelle
-        for (String etudiant:etudiants) {
-            int etudiantId = Integer.parseInt(etudiant);
-            Etudiant etudiantAppel = etudiantDao.find(etudiantId);
-
-            if(request.getParameter(etudiant) == null || request.getParameter(etudiant).isEmpty() ) {
-
-
-            }else{
-                if(request.getParameter("submit").equals("Enregistrer")){
-
-                }
-                else{
-                    String presence= request.getParameter(etudiant);
-                    if (presence.equals("present")) {
-                        presenceDao.setPresenceCours(etudiantAppel, ficheAppel);
-                    } else if (presence.equals("absent")) {
-                        absenceDao.setAbsenceCours(etudiantAppel, ficheAppel);
-                    } else if (presence.equals("retard")) {
-                        presenceDao.setRetardCours(etudiantAppel, ficheAppel);
+            else{
+                FicheAppel ficheAppel;
+                if(request.getParameter("coursInstance")!= null){
+                    //On retrouve le cours choisi dans le planning
+                    int coursChooseId= Integer.parseInt(request.getParameter("coursInstance"));
+                    CoursInstance coursChoose= coursInstanceDao.find(coursChooseId);
+                    if(coursChoose.getFicheAppel()!=null){
+                        int ficheAppelChoose = coursChoose.getFicheAppel().getId();
+                        ficheAppel=ficheAppelDao.find(ficheAppelChoose);
+                        ficheAppelDao.setValiderTrue(ficheAppel);
                     }
-                    ficheAppelDao.setValiderTrue(ficheAppel);
-                }
-
             }
         }
         response.sendRedirect("/compte/planning");

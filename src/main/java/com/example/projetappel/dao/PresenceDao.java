@@ -1,10 +1,8 @@
 package com.example.projetappel.dao;
 
-import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Etudiant;
-import com.example.projetappel.model.FicheAppel;
-import com.example.projetappel.model.Presence;
+import com.example.projetappel.model.*;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
@@ -53,24 +51,27 @@ public class PresenceDao extends DAO<Presence>{
         }
         return presencesCours;
     }
-    public void setPresenceCours(Etudiant etudiantPresent, FicheAppel ficheAppel) {
-        Boolean retard =false;
-        PresenceDao presenceDao = new PresenceDao();
-        try (Session session = getSession()) {
-            getTransaction(session);
-            presenceDao.create(new Presence(retard,etudiantPresent,ficheAppel));
-        }
-        catch(Exception e){
+
+    public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
+        String hql = "delete from Presence p  where p.etudiant.id = :etudiantId and p.ficheAppel.id=:ficheAppelId";
+        try (Session session = getSession()){
+            Transaction transaction=getTransaction(session);
+            Query query = session.createQuery(hql);
+            query.setParameter("etudiantId", etudiantPresent);
+            query.setParameter("ficheAppelId", ficheAppelId);
+            query.executeUpdate();
+            transaction.commit();
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
+
     public void setRetardCours(Etudiant etudiantPresent, FicheAppel ficheAppel) {
         Boolean retard =true;
         PresenceDao presenceDao = new PresenceDao();
         try (Session session = getSession()) {
             getTransaction(session);
-            presenceDao.create(new Presence(retard,etudiantPresent,ficheAppel));
+            presenceDao.createOrUpdate(new Presence(etudiantPresent,ficheAppel,retard));
         }
         catch(Exception e){
             e.printStackTrace();

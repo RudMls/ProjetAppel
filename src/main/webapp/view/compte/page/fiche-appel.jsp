@@ -7,7 +7,7 @@
 %>
 <form action="/compte/cours-instance" method="post">
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Appel pour le cours ${requestScope.coursInstance.getCours().getLibelle()} ${requestScope.coursInstance.getParseDateDebut()}</h3>
+    <h3 class="text-dark mb-0">Appel pour le cours du ${requestScope.coursInstance.getCours().getLibelle()} ${requestScope.coursInstance.getParseDateDebut()}</h3>
 
     <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="submit"
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
@@ -48,7 +48,7 @@
 
                         <input type="radio"  name="<c:out  value="${etudiant.getId()}"/>" value="present"
                                <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'present' }">checked</c:if>
-                          required/>
+                         />
                     </td>
                     <td>
                         <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent"
