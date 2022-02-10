@@ -53,3 +53,8 @@ input:-webkit-autofill:active {
     */
     #no-more-tables td:before { content: attr(data-title); }
 }
+
+table .img-profile {
+    height: 4.5rem;
+    width: 4.5rem;
+}
