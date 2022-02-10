@@ -12,6 +12,7 @@
     <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
         <thead class="thead-dark cf" >
         <tr>
+            <th scope="col">Photo</th>
             <th scope="col">Nom</th>
             <th scope="col">Formation</th>
             <th scope="col">Groupe</th>
@@ -21,6 +22,9 @@
         <tbody>
         <c:forEach items="${requestScope.listInscription}" var="inscrit" >
             <tr>
+                <td>
+                    <img class="rounded-circle mb-3 mt-4" src="<% if (inscrit.getEtudiant().getImageUrl() != null) : inscrit.getEtudiant().getImageUrl() ? src="/assets/compte/img/avatars/avatar1.jpeg"}" width="160" height="160">
+                </td>
                 <td>
                     <c:out  value="${inscrit.getEtudiant().getNom()}"/>
                     <c:out  value="${inscrit.getEtudiant().getPrenom()}"/>

@@ -22,8 +22,8 @@
             <div class="col-lg-4">
                 <div class="card mb-3">
                     <form method="POST" enctype="multipart/form-data">
-                        <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
-                                                                       src="${requestScope.utilisateur_image}" width="160" height="160">
+                        <div class="card-body text-center shadow">
+                            <img class="rounded-circle mb-3 mt-4" src="${requestScope.utilisateur_image}" width="160" height="160">
                             <div class="mb-3">
                                 <input name ="fichier" type="file" class="form-control" id="customFile" />
                                 <button class="btn btn-primary btn-sm" type="submit">Change Photo</button>
