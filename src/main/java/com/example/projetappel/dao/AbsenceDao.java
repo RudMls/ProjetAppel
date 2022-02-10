@@ -69,7 +69,7 @@ public class AbsenceDao extends DAO<Absence> {
         return absencesCours;
     }
     public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
-        String hql = "delete from Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.id=:ficheAppelId";
+        String hql = "delete Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.id=:ficheAppelId";
         try (Session session = getSession()){
             Transaction transaction=getTransaction(session);
             Query query = session.createQuery(hql);
@@ -82,5 +82,24 @@ public class AbsenceDao extends DAO<Absence> {
         }
 
     }
+
+    public Absence findByEtudiantFicheAppel(int etudiantId, int ficheAppelId) {
+        Absence absence = null;
+        String hql = "select p from Absence p where p.etudiant.id = :etudiantId and p.ficheAppel.id = :ficheAppelId";
+        try (Session session = getSession()){
+            Transaction transaction=getTransaction(session);
+            Query<Absence> query = session.createQuery(hql);
+            query.setParameter("etudiantId", etudiantId);
+            query.setParameter("ficheAppelId", ficheAppelId);
+            if (!query.getResultList().isEmpty()) {
+                absence = query.uniqueResult();
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return absence;
+    }
+
 
 }

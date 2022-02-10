@@ -18,6 +18,9 @@
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Valider">Valider
     </button>
+    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+        <button type="submit" name="submit" value="export_pdf" class="btn btn-dark btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>Export PDF</button>
+    </div>
 </div>
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h5>${requestScope.coursInstance.getCours().getFormation().getLibelle()} </br>

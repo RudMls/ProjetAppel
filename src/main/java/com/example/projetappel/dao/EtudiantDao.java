@@ -23,6 +23,7 @@ public class EtudiantDao extends DAO<Etudiant> {
                 " and a.etudiant.id = e.id";
         List<Etudiant> etudiants = new ArrayList<>();
         try (Session session = getSession()){
+
             getTransaction(session);
             Query<Etudiant> query = session.createQuery(hql);
             query.setParameter("coursInstanceId", coursInstanceId);
