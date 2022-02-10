@@ -190,6 +190,11 @@ Main Components
     font-weight: bold;
 }
 
+.cd-schedule .events .top-info > small {
+    font-size: 12px;
+    text-align: center;
+}
+
 .cd-schedule .events .events-group > ul {
     position: relative;
     padding: 0 5%;

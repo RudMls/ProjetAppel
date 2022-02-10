@@ -56,4 +56,10 @@ public class CompteFilter implements Filter {
         }
         return role;
     }
+
+    private void getNotification(Utilisateur utilisateur) {
+        if (getRole(utilisateur) == Role.ETUDIANT) {
+
+        }
+    }
 }

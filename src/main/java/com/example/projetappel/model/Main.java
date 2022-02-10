@@ -2,7 +2,9 @@ package com.example.projetappel.model;
 
 import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.dao.UtilisateurDao;
+import com.example.projetappel.util.DatePlanning;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,23 +12,19 @@ import java.util.Formatter;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ParseException {
 
-        // Create Formatter class object
-        Formatter format = new Formatter();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
-        // Creating a calendar
-        Calendar gfg_calender = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(simpleDateFormat.parse("12-02-2022"));
+        System.out.println("12-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
+        calendar.setTime(simpleDateFormat.parse("02-02-2022"));
+        System.out.println("02-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
 
-        // Displaying hour using Format clas using  format
-        // specifiers
-        // '%tl' for hours and '%tM' for minutes
-        format = new Formatter();
-        format.format("%tl:%tM", gfg_calender,
-                gfg_calender);
 
-        // Printing the current hour and minute
-        System.out.println(format);
+
+        //System.out.println(DatePlanning.getWeektoMillis(1643756400000L));
 
     }
 }

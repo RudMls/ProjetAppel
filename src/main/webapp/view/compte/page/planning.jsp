@@ -67,8 +67,8 @@
             <c:forEach var="coursInstances" items="${requestScope.coursInstanceFilter}">
                 <li class="events-group">
                     <div class="top-info">
-                        <span>${DatePlanning.getDayOfWeek(coursInstances.key)}</span>
-                        <span></span>
+                        <span>${DatePlanning.getDayOfWeek(DatePlanning.getWeektoMillis(coursInstances.key))}</span>
+                        <small>${DatePlanning.getStringToLong(coursInstances.key, "dd/MM")}</small>
                     </div>
                     <ul>
                         <c:forEach var="coursInstance" items="${coursInstances.value}">

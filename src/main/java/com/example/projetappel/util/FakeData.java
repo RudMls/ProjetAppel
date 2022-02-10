@@ -103,15 +103,11 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void genererScolarite() {
-        String prenom, nom, email;
-        for (int i = 0; i < 2; i++) {
-            do {
-                prenom = FAKER.name().firstName();
-                nom = FAKER.name().lastName();
-                email = prenom + "." + nom + "@ut-capitole.fr";
-            } while (utilisateurDao.emailExiste(email));
-            scolariteDao.create(new Scolarite(prenom, nom, email, "pwd"));
-        }
+        ArrayList<Scolarite> scolarites = new ArrayList<>(Arrays.asList(
+                new Scolarite("Elodie", "Fontana", "elodie.fontana@ut-capitole.fr", "pwd"),
+                new Scolarite("Sylvie", "Cardoso", "sylvie.cardoso@ut-capitole.fr", "pwd")
+        ));
+        scolarites.forEach(scolariteDao::create);
     }
 
     public static void genererAppartenir() {
@@ -170,7 +166,7 @@ public class FakeData implements ServletContextListener {
     }
 
     public static void genererFicheAppel() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             ficheAppelDao.create(new FicheAppel());
         }
     }
@@ -184,8 +180,10 @@ public class FakeData implements ServletContextListener {
                     new CoursInstance(SDF.parse("07-02-2022 09:30:00"), SDF.parse("07-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(3)),
                     new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(6), enseignantDao.find(2), groupeDao.find(2), ficheAppelDao.find(4)),
                     new CoursInstance(SDF.parse("09-02-2022 14:00:00"), SDF.parse("09-02-2022 17:00:00"), coursDao.find(2), enseignantDao.find(3), groupeDao.find(2), ficheAppelDao.find(5)),
-                    new CoursInstance(SDF.parse("10-02-2022 09:30:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(7), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(6)),
-                    new CoursInstance(SDF.parse("08-02-2022 09:30:00"), SDF.parse("08-02-2022 12:30:00"), coursDao.find(1), enseignantDao.find(1), groupeDao.find(1), ficheAppelDao.find(7))
+                    new CoursInstance(SDF.parse("09-02-2022 09:30:00"), SDF.parse("09-02-2022 12:30:00"), coursDao.find(2), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(6)),
+                    new CoursInstance(SDF.parse("10-02-2022 11:00:00"), SDF.parse("10-02-2022 12:30:00"), coursDao.find(2), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(7)),
+                    new CoursInstance(SDF.parse("10-02-2022 14:30:00"), SDF.parse("10-02-2022 17:30:00"), coursDao.find(2), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(8)),
+                    new CoursInstance(SDF.parse("11-02-2022 09:30:00"), SDF.parse("11-02-2022 12:30:00"), coursDao.find(2), enseignantDao.find(4), groupeDao.find(1), ficheAppelDao.find(9))
             ));
             coursInstances.forEach(coursInstanceDao::create);
         } catch (ParseException e) {
