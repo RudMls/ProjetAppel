@@ -9,6 +9,8 @@ public class Absence {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    private boolean vu;
+
     @ManyToOne
     private Etudiant etudiant;
 
@@ -65,5 +67,15 @@ public class Absence {
         this.justificatif=justificatif;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public boolean isVu() {
+        return vu;
+    }
+
+    public void setVu(boolean vu) {
+        this.vu = vu;
+    }
 }

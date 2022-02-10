@@ -6,6 +6,7 @@ import com.example.projetappel.model.Enseignant;
 import com.example.projetappel.model.Etudiant;
 import com.example.projetappel.model.Scolarite;
 import com.example.projetappel.model.Utilisateur;
+import com.example.projetappel.util.FileManager;
 
 import javax.servlet.*;
 import javax.servlet.annotation.*;
@@ -30,9 +31,18 @@ public class CompteFilter implements Filter {
             UtilisateurDao utilisateurDao = new UtilisateurDao();
             Utilisateur utilisateur = utilisateurDao.find(userID);
             request.setAttribute("utilisateur", utilisateur);
+            request.setAttribute("utilisateur_image", getImageUrl(utilisateur));
             request.setAttribute("role", getRole(utilisateur));
             chain.doFilter(request, response);
         }
+    }
+
+    private String getImageUrl(Utilisateur utilisateur) {
+        String imageUrl = "/files/default.png";
+        if (utilisateur.getFichier() != null) {
+            imageUrl = FileManager.getFichier(utilisateur.getFichier());
+        }
+        return imageUrl ;
     }
 
     private Role getRole(Utilisateur utilisateur) {
@@ -45,5 +55,11 @@ public class CompteFilter implements Filter {
             role = Role.ETUDIANT;
         }
         return role;
+    }
+
+    private void getNotification(Utilisateur utilisateur) {
+        if (getRole(utilisateur) == Role.ETUDIANT) {
+
+        }
     }
 }
