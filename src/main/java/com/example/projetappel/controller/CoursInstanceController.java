@@ -4,13 +4,17 @@ import com.example.projetappel.dao.*;
 import com.example.projetappel.model.*;
 import com.example.projetappel.util.PDFGenerator;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import javax.mail.internet.*;
+
+
 
 @WebServlet(name = "CoursInstanceController", value = "/compte/cours-instance")
 public class CoursInstanceController extends HttpServlet {
@@ -75,14 +79,7 @@ public class CoursInstanceController extends HttpServlet {
         } else {
             switch (submit) {
                 case "Enregistrer" :
-                    //on crée la fiche d'appel si on clic sur "enregistrer"
-//                    int ficheAppelId = ficheAppelDao.create(new FicheAppel());
-//                    FicheAppel ficheAppel= ficheAppelDao.find(ficheAppelId);
-//                    int coursChooseId = Integer.parseInt(request.getParameter("coursInstance"));
-//                    CoursInstance coursChoose = coursInstanceDao.find(coursChooseId);
-                    //On met à jour l'instance de cours par rapport à la fiche d'appelle crée
-//                    coursInstanceDao.updateFicheAppel(coursChoose,ficheAppel);
-                    //On met à jour le statut des étudiants et si l'utilisateur clic sur valider, on modifie la valeur de la fiche d'appelle
+
                     for (String etudiant : etudiantIds) {
                         int etudiantId = Integer.parseInt(etudiant);
                         Etudiant etudiantAppel = etudiantDao.find(etudiantId);
@@ -91,8 +88,7 @@ public class CoursInstanceController extends HttpServlet {
                         Presence presence = presenceDao.findByEtudiantFicheAppel(etudiantId, ficheAppel.getId());
                         if (absence != null) absenceDao.delete(absence);
                         if (presence != null) presenceDao.delete(presence);
-//                        presenceDao.deleteByEtudiantFicheAppel(etudiantId,ficheAppel.getId());
-//                        absenceDao.deleteByEtudiantFicheAppel(etudiantId,ficheAppel.getId());
+//
                         //Le nom de la radio récupère la présence
                         String appel = request.getParameter(etudiant) == null ? "" : request.getParameter(etudiant);
                         if (appel.equals("present")) {
@@ -102,32 +98,74 @@ public class CoursInstanceController extends HttpServlet {
                         } else if (appel.equals("retard")) {
                             presenceDao.createOrUpdate(new Presence(etudiantAppel,ficheAppel,true));
                         }
+
+
                     }
+                    response.sendRedirect("/compte/cours-instance?id="+coursInstanceId);
                     break;
                 case "Valider" :
-                    ficheAppel.setValidee(false);
+                    ficheAppel.setValidee(true);
                     ficheAppelDao.update(ficheAppel);
-//                    FicheAppel ficheAppel;
-//                    if(request.getParameter("coursInstance")!= null){
-//                        //On retrouve le cours choisi dans le planning
-//                        CoursInstance coursChoose= coursInstanceDao.find(coursInstanceId);
-//                        if(coursChoose.getFicheAppel()!=null){
-//                            int ficheAppelChoose = coursChoose.getFicheAppel().getId();
-//                            ficheAppel=ficheAppelDao.find(ficheAppelChoose);
-//                            ficheAppelDao.setValiderTrue(ficheAppel);
-//                        }
-//                    }
+                    //Envoyer le mail à l'étudiant
+                    List<Etudiant> allEtudiants= new ArrayList<>();
+                    List<Absence> absences= absenceDao.getAbsTotCours(ficheAppel.getId());
+                    for (Absence absence:absences){
+                        allEtudiants.add(absence.getEtudiant());
+                    }
+                    for(Absence absence:absences){
+                        String from="ut.capitole.desmob@gmail.com";
+                        String msg="" +
+                                "Bonjour "+absence.getEtudiant().getNom()+" "+absence.getEtudiant().getPrenom()+","+
+                                "\nVous avez une nouvelle absence pour le cours "+absence.getFicheAppel().getCoursInstance().getCours().getLibelle()+ " le "+absence.getFicheAppel().getCoursInstance().getParseDateDebut()+ "."+
+                                "\nVeuillez ajouter votre justificatif via l'application."
+                                +"\nCordialement,"+
+                                "\nLa scolarité\n"+
+                                "\nUT1 Captitole";
+
+                        String pwd="desmobAppel98";
+                        String sub="Nouvelle absence pour "+absence.getFicheAppel().getCoursInstance().getCours().getLibelle()+ " du "+absence.getFicheAppel().getCoursInstance().getParseDateDebut();
+                        String to="ut.capitole.desmob@gmail.com";
+                        send(from,pwd,to,sub,msg);
+                    }
+                    response.sendRedirect("/compte/planning");
+
                     break;
                 case "export_pdf" :
                     ArrayList<Etudiant> listEtudiant =(ArrayList<Etudiant>) etudiantDao.getEtudiantCoursInstance(coursInstanceId);
                     PDFGenerator.generer(response, coursInstanceId, request.getServletContext().getRealPath("/"));
                     break;
             }
-            response.sendRedirect("/compte/planning");
+
         }
 
     }
-
+    public static void send(String from,String pwd,String to,String sub,String msg){
+        //Propriétés
+        Properties p = new Properties();
+        p.put("mail.smtp.host", "smtp.gmail.com");
+        p.put("mail.smtp.socketFactory.port", "465");
+        p.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        p.put("mail.smtp.auth", "true");
+        p.put("mail.smtp.port", "465");
+        //Session
+        Session s = Session.getDefaultInstance(p,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(from, pwd);
+                    }
+                });
+        //composer le message
+        try {
+            MimeMessage m = new MimeMessage(s);
+            m.addRecipient(Message.RecipientType.TO,new InternetAddress(to));
+            m.setSubject(sub);
+            m.setText(msg);
+            //envoyer le message
+            Transport.send(m);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
     public Integer stringToInteger(String toParse) {
         Integer result;
         try {

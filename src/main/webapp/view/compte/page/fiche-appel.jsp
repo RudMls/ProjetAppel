@@ -29,7 +29,6 @@
 </div>
 <input type="hidden" name="coursInstance" value="<c:out  value="${requestScope.coursInstance.getId()}"/>" >
 <div class="table-responsive" id="no-more-tables">
-        <span><%= generaleErreur %></span>
         <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
             <thead class="thead-dark cf" >
             <tr>

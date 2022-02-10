@@ -14,7 +14,7 @@ public class AbsenceDao extends DAO<Absence> {
     }
 
     public List<Absence> getAbsences(Integer etudiantId) {
-            String hql = "select a from  Absence a where a.etudiant.id = :etudiantId";
+            String hql = "select a from  Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.validee=true";
         List<Absence> absences = new ArrayList<>();
         try (Session session = getSession()){
             getTransaction(session);
@@ -50,11 +50,29 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
-    public List<Absence> getAbsTotCours(Integer coursId) {
+    public List<Absence> getAbsTotCours(Integer ficheId) {
+        String hql = " select a from  Absence a where a.ficheAppel.id = :ficheId ";
+
+        List<Absence> absencesCours = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Absence> query = session.createQuery(hql);
+            query.setParameter("ficheId",ficheId);
+            if (!query.getResultList().isEmpty()) {
+                absencesCours = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return absencesCours;
+    }
+    public List<Absence> getAbsCoursAppelTermine(Integer coursId) {
         String hql = " select a from  Absence a, FicheAppel fa, CoursInstance ci" +
                 " where a.ficheAppel.id = fa.id " +
                 " and fa.id = ci.ficheAppel.id " +
-                " and ci.cours.id = :coursId " ;
+                " and ci.cours.id = :coursId " +
+                "and fa.validee=true";
+
         List<Absence> absencesCours = new ArrayList<>();
         try (Session session = getSession()){
             getTransaction(session);
