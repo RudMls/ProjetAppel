@@ -68,6 +68,36 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
+
+//    public List<Float> getAbsTotCoursMois(Integer coursId) {
+//        String hql = " select count(a) " +
+//                " from Absence a " +
+//                "(select count(a) as nbAbs" +
+//                        " from  Absence a, FicheAppel fa, CoursInstance ci" +
+//                        " where a.ficheAppel.id = fa.id " +
+//                        " and fa.id = ci.ficheAppel.id" +
+//                        " and ci.cours.id = :coursId ") nbAbs +
+//                "" +
+//                "" +
+//                "" +
+//                "Absence a, FicheAppel fa, CoursInstance ci" +
+//                " where a.ficheAppel.id = fa.id " +
+//                " and fa.id = ci.ficheAppel.id " +
+//                " and ci.cours.id = :coursId " ;
+//        List<Float> absencesCours = new ArrayList<>();
+//        try (Session session = getSession()){
+//            getTransaction(session);
+//            Query<Float> query = session.createQuery(hql);
+//            query.setParameter("coursId",coursId);
+//            if (!query.getResultList().isEmpty()) {
+//                absencesCours = query.getResultList();
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return absencesCours;
+//    }
+
     public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
         String hql = "delete from Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.id=:ficheAppelId";
         try (Session session = getSession()){

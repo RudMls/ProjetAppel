@@ -4,6 +4,9 @@
 <%@ page import="com.example.projetappel.model.Enseignant" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
+<%
+    Cours cours = (Cours) request.getAttribute("cours");
+%>
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <div class="container-fluid">
@@ -36,7 +39,30 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-info py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="container">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" id="deroulant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">Instances de cours</button>
+                                            <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="deroulant">
+                                                <c:forEach var="coursInstance" items="${requestScope.cours.coursInstances}">
+                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">${coursInstance.dateDebut}</a>
+                                                </c:forEach>
+                                                <!--<button class="dropdown-item" type="button">Bouton</button>
+                                                <span class="dropdown-item-text">Texte</span>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -83,15 +109,15 @@
                         <h6 class="text-primary font-weight-bold m-0">Etudiants avec plus de 3 absences injustifiées</h6>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <c:forEach items="${requestScope.listeEtudiantsAbsInj}" var="etudiants" >
+                        <c:forEach items="${requestScope.nombreAbsencesParEtudiant}" var="etudiants" >
                             <li class="list-group-item">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
-                                        <h6 class="mb-0"><strong><c:out value="${etudiants.getNom()}"/> <c:out value="${etudiants.getPrenom()}"/></strong></h6>
+                                        <h6 class="mb-0"><strong><c:out value="${etudiants.key.getNom()}"/> <c:out value="${etudiants.key.getPrenom()}"/></strong></h6>
                                     </div>
                                     <div class="col-auto">
                                         <span class="text-xs">
-                                            <c:out value="${requestScope.listeNbAbsInj}"/>
+                                            <c:out value="${etudiants.value}"/>
                                         </span>
                                     </div>
                                 </div>
