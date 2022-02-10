@@ -1,11 +1,9 @@
 package com.example.projetappel.controller;
 
-import com.example.projetappel.dao.AbsenceDao;
-import com.example.projetappel.dao.CoursInstanceDao;
-import com.example.projetappel.dao.EtudiantDao;
-import com.example.projetappel.dao.PresenceDao;
+import com.example.projetappel.dao.*;
 import com.example.projetappel.enumtype.Role;
 import com.example.projetappel.model.*;
+import com.example.projetappel.util.FileManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -16,10 +14,12 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
+import static com.example.projetappel.util.Constants.*;
+import static com.example.projetappel.util.Constants.HEADER_ENCODING;
+import static com.example.projetappel.util.ContentType.ANY_IMAGE_TYPE;
+import static com.example.projetappel.util.ContentType.APPLICATION_PDF;
 
 @WebServlet(name = "ProfileController", value = "/compte/profile")
 public class ProfileController extends HttpServlet {
@@ -31,9 +31,6 @@ public class ProfileController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
 
         if ((Role) request.getAttribute("role") == Role.ETUDIANT ) {
             Etudiant etudiant = (Etudiant) request.getAttribute("utilisateur");
@@ -90,34 +87,45 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        File file;
-        HashMap<String, String> erreurs = new HashMap<>();
-
-        String contentType = request.getContentType();
-
-        if (contentType.contains("multipart/form-data")) {
+        if (ServletFileUpload.isMultipartContent(request)) {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             factory.setSizeThreshold(MEMORY_THRESHOLD);
-            factory.setRepository(new File("c:\\temp"));
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setSizeMax(MAX_FILE_SIZE);
-            upload.setHeaderEncoding("UTF-8");
+            factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
+            ServletFileUpload upload = new ServletFileUpload(factory);
+            upload.setFileSizeMax(MAX_FILE_SIZE);
+            upload.setSizeMax(MAX_REQUEST_SIZE);
+            upload.setHeaderEncoding(HEADER_ENCODING);
             try {
-                List fileItems = upload.parseRequest(request);
-                Iterator iterator = fileItems.iterator();
-                while (iterator.hasNext()) {
-                    FileItem fileItem = (FileItem) iterator.next();
-                    if (!fileItem.isFormField()) {
-                        String fieldName = fileItem.getFieldName();
-                        String fileName = fileItem.getName();
-                        boolean isInMemery = fileItem.isInMemory();
-                        long sizzInBytes = fileItem.getSize();
-                        file = new File("");
-                        file = new File("");
+                List<FileItem> formItems = upload.parseRequest(request);
+                if (formItems != null && formItems.size() > 0) {
+                    for (FileItem item : formItems) {
+                        if (!item.isFormField() && Objects.equals(item.getFieldName(), "fichier")) {
+                            String fileName = item.getName();
+                            String fileContentType = item.getContentType();
+                            if (!ANY_IMAGE_TYPE.contains(fileContentType)) {
+                                request.setAttribute("fichier_erreur", "Veuillez déposer un fichier au format \".png ou .jpeg ou .jfif ou .gif\"");
+                                doGet(request, response);
+                                break;
+                            } else {
+                                Utilisateur utilisateur = (Utilisateur) request.getAttribute("utilisateur");
+                                FichierDao fichierDao = new FichierDao();
+                                UtilisateurDao utilisateurDao = new UtilisateurDao();
+                                Fichier fichier = new Fichier(fileName, fileContentType);
+                                fichier.setId(fichierDao.create(fichier));
+                                utilisateur.setFichier(fichier);
+                                utilisateurDao.update(utilisateur);
+                                FileManager.creerFichier(request.getServletContext().getRealPath(""), fichier, item);
+                                response.sendRedirect("/compte/profile");
+                                break;
+                            }
+                        }
                     }
+                } else {
+                    request.setAttribute("fichier_erreur", "Veuillez renseigner une image");
+                    doGet(request, response);
                 }
-            } catch (FileUploadException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
