@@ -24,7 +24,14 @@ public class Presence {
         this.ficheAppel = ficheAppel;
     }
 
-    public Presence(boolean retard, Etudiant etudiant, FicheAppel ficheAppel) {
+    public Presence(Etudiant etudiant, FicheAppel ficheAppel,boolean retard ) {
+        this.retard = retard;
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+    }
+
+    public Presence(int id, boolean retard, Etudiant etudiant, FicheAppel ficheAppel) {
+        this.id = id;
         this.retard = retard;
         this.etudiant = etudiant;
         this.ficheAppel = ficheAppel;

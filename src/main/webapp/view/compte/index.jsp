@@ -44,6 +44,7 @@
                         </c:when>
                         <c:when test = "${requestScope.role== Role.SCOLARITE}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
+
                         </c:when>
 
                     </c:choose>

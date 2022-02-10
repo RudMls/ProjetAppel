@@ -1,10 +1,8 @@
 package com.example.projetappel.dao;
 
-import com.example.projetappel.model.Absence;
-import com.example.projetappel.model.Etudiant;
-import com.example.projetappel.model.FicheAppel;
-import com.example.projetappel.model.Presence;
+import com.example.projetappel.model.*;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.util.ArrayList;
@@ -52,7 +50,6 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
-
     public List<Absence> getAbsTotCours(Integer coursId) {
         String hql = " select a from  Absence a, FicheAppel fa, CoursInstance ci" +
                 " where a.ficheAppel.id = fa.id " +
@@ -71,13 +68,15 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absencesCours;
     }
-
-    public void setAbsenceCours(Etudiant etudiantPrensent, FicheAppel ficheAppel) {
-        Boolean retard =true;
-        AbsenceDao absenceDao = new AbsenceDao();
+    public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
+        String hql = "delete from Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.id=:ficheAppelId";
         try (Session session = getSession()){
-            getTransaction(session);
-            absenceDao.create(new Absence(etudiantPrensent,ficheAppel));
+            Transaction transaction=getTransaction(session);
+            Query query = session.createQuery(hql);
+            query.setParameter("etudiantId", etudiantPresent);
+            query.setParameter("ficheAppelId", ficheAppelId);
+            query.executeUpdate();
+            transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
         }

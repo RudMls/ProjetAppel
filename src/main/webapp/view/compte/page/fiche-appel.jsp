@@ -1,5 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.projetappel.util.FileManager" %>
+<%@ page import="com.example.projetappel.util.Constants" %>
 <%@ page import="com.example.projetappel.model.Absence" %>
 <%@ page import="java.util.ArrayList" %>
 <%
@@ -7,7 +9,7 @@
 %>
 <form action="/compte/cours-instance" method="post">
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Appel pour le cours ${requestScope.coursInstance.getCours().getLibelle()} </h3>
+    <h3 class="text-dark mb-0">Appel pour le cours du ${requestScope.coursInstance.getCours().getLibelle()}</h3>
     <button class="btn btn-success btn-sm d-none d-sm-inline-block" type="submit"
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Enregistrer">Enregistrer
@@ -40,7 +42,7 @@
             <c:forEach items="${requestScope.listEtudiant}" var="etudiant" >
 
                 <tr>
-                    <td><c:out value="${etudiant.getImageUrl()}" /></td>
+                    <td><img class="border rounded-circle img-profile" src="${etudiant.getFichier() != null ? FileManager.getFichier(etudiant.getFichier) : Constants.DEFAULT_IMAGE_URL}"></td>
                     <td>
                         <c:out  value="${etudiant.getNom()}"/>
                         <c:out  value="${etudiant.getPrenom()}"/>
@@ -50,7 +52,7 @@
 
                         <input type="radio"  name="<c:out  value="${etudiant.getId()}"/>" value="present"
                                <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'present' }">checked</c:if>
-                          required/>
+                         />
                     </td>
                     <td>
                         <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent"
