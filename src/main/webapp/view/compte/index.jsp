@@ -33,7 +33,7 @@
                     <c:choose>
                         <c:when test = "${requestScope.role== Role.ETUDIANT}">
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Mes absences/Mes justificatifs</span></a></li>
+                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Absences</span></a></li>
                         </c:when>
                         <c:when test = "${requestScope.role== Role.ENSEIGNANT}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
@@ -44,7 +44,7 @@
                         </c:when>
                         <c:when test = "${requestScope.role== Role.SCOLARITE}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
-
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'scolarite-justificatif' ? 'active' : ''}" href="/compte/scolarite-justificatif"><i class="fas fa-clock"></i><span>Justificatifs</span></a></li>
                         </c:when>
 
                     </c:choose>
@@ -187,10 +187,11 @@
                                 <jsp:include page = "./page/fiche-appel.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'scolarite-justificatif'}">
-                                <jsp:include page = "./page/fiche-appel.jsp"/>
+                                <jsp:include page = "./page/scolarite-justificatif.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'cours-statistiques'}">
-                                <jsp:include page = "./page/cours-statistiques.jsp">
+                                <jsp:include page = "./page/cours-statistiques.jsp"/>
+                                <jsp:include page = "./page/profile-etudiant-cherche.jsp">
                                     <jsp:param name="enseignantId" value="${enseignantId}"/>
                                 </jsp:include>
                             </c:when>

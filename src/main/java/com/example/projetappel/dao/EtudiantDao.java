@@ -156,6 +156,7 @@ public class EtudiantDao extends DAO<Etudiant> {
             }
             return coursEtudiant;
         }
+
     //Cette méthode renvoie la liste des presences pour un étudiant passé en paramètre pour une instance de cours donné
     public List<Presence> getPresenceEtudiantCours (Etudiant etudiant, CoursInstance coursInstance) {
             String hql = " select p from  Presence p" +

@@ -42,7 +42,7 @@ public class CoursStatController extends HttpServlet {
 
 
         request.setAttribute("page","cours-statistiques");
-          request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
 
     @Override
