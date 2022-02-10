@@ -10,7 +10,7 @@ public class Appartenir {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ManyToOne
+    @OneToOne
     private Etudiant etudiant;
 
     @ManyToOne

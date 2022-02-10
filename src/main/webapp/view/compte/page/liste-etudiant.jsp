@@ -1,6 +1,48 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.projetappel.model.Appartenir" %>
+<%@ page import="com.example.projetappel.model.Etudiant" %>
+<%@ page import="com.example.projetappel.util.FileManager" %>
+<%@ page import ="com.example.projetappel.util.Constants" %>
+
+<%
+    ArrayList<Appartenir> etudiants = request.getAttribute("listAbsences") == null ? null : (ArrayList<Appartenir>) request.getAttribute("listAbsences");
+    String realPath = request.getServletContext().getRealPath("");
+%>
+
+<%!
+    String getSource(ArrayList<Etudiant> etudiants) {
+        StringBuilder result = new StringBuilder();
+        String disabled = "";
+        String urlFile;
+        String fileName;
+        try {
+            if (etudiants != null) {
+                for (Etudiant etudiant : etudiants) {
+                    if (etudiant.getFichier() != null) {
+                        urlFile = FileManager.getFichier(etudiant.getFichier());
+                    } else {
+                        urlFile = Constants.DEFAULT_IMAGE_URL;
+                    }
+                    result.append(String.format(
+                            "<tr>" +
+                                "<td><img class='rounded-circle mb-3 mt-4' src='%1$s' width='160' height='160'></td>" +
+                                "<td></td>" +
+                                "<td></td>" +
+                            "</tr>"
+                            , urlFile
+                            , etudiant.getPrenom() + etudiant.getNom()
+                            , etudiant.getAppartenirs().
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result.toString();
+    }
+%>
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Liste des étudiants</h3>
@@ -20,10 +62,11 @@
         </tr>
         </thead>
         <tbody>
+
         <c:forEach items="${requestScope.listInscription}" var="inscrit" >
             <tr>
                 <td>
-                    <img class="rounded-circle mb-3 mt-4" src="<% if (inscrit.getEtudiant().getImageUrl() != null) : inscrit.getEtudiant().getImageUrl() ? src="/assets/compte/img/avatars/avatar1.jpeg"}" width="160" height="160">
+                    <img class="rounded-circle mb-3 mt-4" src="<%= source%>" width="160" height="160">
                 </td>
                 <td>
                     <c:out  value="${inscrit.getEtudiant().getNom()}"/>

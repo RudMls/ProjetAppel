@@ -4,6 +4,7 @@ import com.example.projetappel.dao.AppartenirDao;
 import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.model.Appartenir;
 import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.Utilisateur;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +19,25 @@ public class ListeEtudiantController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AppartenirDao appartenirDao = new AppartenirDao();
-        ArrayList<Appartenir> listInscription = (ArrayList<Appartenir>) appartenirDao.getInscriptions();
+        EtudiantDao etudiantDao = new EtudiantDao();
+        Etudiant etudiant = (Etudiant) request.getAttribute("utilisateur");
+        ArrayList<Appartenir> listInscription = (ArrayList<Appartenir>) appartenirDao.findAll();
         request.setAttribute("listInscription", listInscription);
+
+        String source = "";
+        if (etudiant.getImageUrl() == null) {
+            source = "/assets/compte/img/avatars/avatar1.jpeg";
+        }else {
+            source = etudiant.getImageUrl();
+        }
+        return source;
+
+        String source = (String) etudiantDao.getUrlImg(etudiant);
+        request.setAttribute("source", source);
         request.setAttribute("page","liste-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+
+
     }
 
     @Override

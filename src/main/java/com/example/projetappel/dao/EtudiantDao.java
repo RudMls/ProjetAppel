@@ -201,5 +201,15 @@ public class EtudiantDao extends DAO<Etudiant> {
         return absenceEtudiant;
     }
 
+    public String getUrlImg (Etudiant etudiant) {
+        String source = "";
+        if (etudiant.getImageUrl() == null) {
+            source = "/assets/compte/img/avatars/avatar1.jpeg";
+        }else {
+            source = etudiant.getImageUrl();
+        }
+        return source;
+    }
+
 }
 
