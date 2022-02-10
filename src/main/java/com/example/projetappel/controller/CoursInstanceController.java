@@ -13,6 +13,7 @@ import java.util.Map;
 
 @WebServlet(name = "CoursInstanceController", value = "/compte/cours-instance")
 public class CoursInstanceController extends HttpServlet {
+
     public  String findAppelEtudiant(Etudiant etudiant, CoursInstance coursInstance){
         String statut="";
         EtudiantDao etudiantDao = new EtudiantDao();
@@ -25,6 +26,7 @@ public class CoursInstanceController extends HttpServlet {
         };
         return statut;
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<Etudiant,String> listEtudiantPresence= new HashMap<Etudiant,String>();
