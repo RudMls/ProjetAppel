@@ -2,6 +2,7 @@
 package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
+import com.example.projetappel.model.Cours;
 import com.example.projetappel.model.CoursInstance;
 import com.example.projetappel.model.FicheAppel;
 import org.hibernate.Session;
@@ -67,6 +68,5 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
             e.printStackTrace();
         }
     }
-
 
 }

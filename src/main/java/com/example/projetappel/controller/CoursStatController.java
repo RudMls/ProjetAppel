@@ -28,6 +28,9 @@ public class CoursStatController extends HttpServlet {
         AbsenceDao absenceDao = new AbsenceDao();
         ArrayList<Etudiant> listeEtudiantsAbsInj = (ArrayList<Etudiant>) etudiantDao.getEtudiantAbsInj(coursId);
         request.setAttribute("listeEtudiantsAbsInj", listeEtudiantsAbsInj);
+
+
+
         for (int i = 0; i < listeEtudiantsAbsInj.size(); i++) {
             ArrayList<Integer> listeNbAbsInj = (ArrayList<Integer>) etudiantDao.getNbAbsInj(coursId, listeEtudiantsAbsInj.get(i).getId());
         }
@@ -40,9 +43,8 @@ public class CoursStatController extends HttpServlet {
 
 
 
-
         request.setAttribute("page","cours-statistiques");
-          request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
 
     @Override

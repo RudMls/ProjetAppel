@@ -20,8 +20,6 @@ public class ProfileEtudiantChercheController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
         if (request.getParameter("etudiantId")!=null){
             int etudiantId= Integer.parseInt(request.getParameter("etudiantId"));
             EtudiantDao etudiantDao = new EtudiantDao();
