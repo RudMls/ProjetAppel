@@ -66,7 +66,7 @@ public class CoursStatController extends HttpServlet {
 
         request.setAttribute("nbRetCours", nbRetCours);
         request.setAttribute("nbPresCours", nbPresCours);
-        request.setAttribute("nbEtudAbsCours", nbPresCours);
+        request.setAttribute("nbEtudAbsCours", nbEtudAbsCours);
         request.setAttribute("nombreAbsencesParEtudiant", nombreAbsencesParEtudiant);
         request.setAttribute("cours", cours);
         request.setAttribute("page","cours-statistiques");

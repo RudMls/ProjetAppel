@@ -50,11 +50,7 @@
                                             <button type="button" class="btn btn-secondary dropdown-toggle" id="deroulant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">Instances de cours</button>
                                             <div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="deroulant">
                                                 <c:forEach var="coursInstance" items="${requestScope.cours.coursInstances}">
-                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">
-                                                            ${coursInstance.getCours().getFormation().getLibelle()}
-                                                                groupe ${coursInstance.getGroupe().getLibelle()}
-                                                                    ${coursInstance.getParseDateDebutStat()}
-                                                    </a>
+                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">${coursInstance.getCours().getFormation().getLibelle()} groupe ${coursInstance.getGroupe().getLibelle()} ${coursInstance.getParseDateDebutStat()}</a>
                                                 </c:forEach>
                                             </div>
                                         </div>
@@ -97,8 +93,13 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Présences&quot;,&quot;Absences&quot;,&quot;Retards&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
-                        <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
+                        <%
+                            float nbRetCours = (float) request.getAttribute("nbRetCours");
+                            float nbPresCours = (float) request.getAttribute("nbPresCours");
+                            float nbEtudAbsCours = (float) request.getAttribute("nbEtudAbsCours");
+                        %>
+                        <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Présences&quot;,&quot;Absences&quot;,&quot;Retards&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;<%= nbPresCours%>&quot;,&quot;<%= nbEtudAbsCours%>&quot;,&quot;<%= nbRetCours %>&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
+                        <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Présences</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Absences</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Retards</span></div>
                     </div>
                 </div>
             </div>

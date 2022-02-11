@@ -158,8 +158,7 @@
                                 <jsp:include page = "./page/notif-absence.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'cours-statistiques'}">
-                                <jsp:include page = "./page/cours-statistiques.jsp"/>
-                                <jsp:include page = "./page/profile-etudiant-cherche.jsp">
+                                <jsp:include page = "./page/cours-statistiques.jsp">
                                     <jsp:param name="enseignantId" value="${enseignantId}"/>
                                 </jsp:include>
                             </c:when>

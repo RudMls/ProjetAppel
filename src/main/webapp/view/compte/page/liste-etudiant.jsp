@@ -64,6 +64,13 @@
     <h3 class="text-dark mb-0">Liste des étudiants</h3>
 </div>
 
+<div class="researchbaretud" id="researchbaretud">
+    <form action="">
+        <input type="search" required>
+        <i class="fa fa-search"></i>
+        <a href="javascript:void(0)" id="clear-btn">Clear</a>
+    </form>
+</div>
 
 <div class="table-responsive" id="no-more-tables">
 
