@@ -39,7 +39,6 @@
 </div>
 <input type="hidden" name="coursInstance" value="<c:out  value="${requestScope.coursInstance.getId()}"/>" >
 <div class="table-responsive" id="no-more-tables">
-        <span><%= generaleErreur %></span>
         <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
             <thead class="thead-dark cf" >
             <tr>
@@ -57,8 +56,10 @@
                 <tr>
                     <td><img class="border rounded-circle img-profile" src="${etudiant.getFichier() != null ? FileManager.getFichier(etudiant.getFichier) : Constants.DEFAULT_IMAGE_URL}"></td>
                     <td>
-                        <c:out  value="${etudiant.getNom()}"/>
-                        <c:out  value="${etudiant.getPrenom()}"/>
+                        <a href="/compte/consultation-etudiant?etudiantId=<c:out value="${etudiant.getId()}"/>">
+                            <c:out  value="${etudiant.getNom()}"/>
+                            <c:out  value="${etudiant.getPrenom()}"/>
+                        </a>
                     </td>
                     <td>
                         <input type="hidden" name="etudiantId" value="<c:out  value="${etudiant.getId()}"/>" >
