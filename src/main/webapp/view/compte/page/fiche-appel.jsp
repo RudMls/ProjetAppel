@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.example.projetappel.util.FileManager" %>
+<%@ page import="com.example.projetappel.util.DatePlanning" %>
 <%@ page import="com.example.projetappel.util.Constants" %>
 <%@ page import="com.example.projetappel.model.Absence" %>
 <%@ page import="java.util.ArrayList" %>
@@ -18,10 +19,19 @@
         <c:if test="${requestScope.coursInstance.getFicheAppel().isValidee()}">disabled</c:if>
         name="submit" value="Valider">Valider
     </button>
-    <div class="d-sm-flex justify-content-between align-items-center mb-4">
+    <div class="d-sm-flex justify-content-between align-items-center">
         <button type="submit" name="submit" value="export_pdf" class="btn btn-dark btn-sm d-none d-sm-inline-block" role="button" href="#"><i class="fas fa-download fa-sm text-white-50"></i>Export PDF</button>
     </div>
 </div>
+<%--<div class="card border-primary mb-3" style="max-width: 20rem;">--%>
+<%--    <div class="card-header">>${requestScope.coursInstance.cours.libelle}</div>--%>
+<%--    <div class="card-body">--%>
+<%--        <h4 class="card-title">${requestScope.coursInstance.cours.formation.libelle}</h4>--%>
+<%--        <h4 class="card-title">${requestScope.coursInstance.groupe.libelle}</h4>--%>
+<%--        <p class="card-text">${DatePlanning.getStrFormat(requestScope.coursInstance.dateDebut, "dd/MM/yyyy")}</p>--%>
+<%--        <p class="card-text">${DatePlanning.getStrFormat(requestScope.coursInstance.dateDebut, "HH:mm")} - ${DatePlanning.getStrFormat(requestScope.coursInstance.dateFin, "HH:mm")} </p>--%>
+<%--    </div>--%>
+<%--</div>--%>
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h5>${requestScope.coursInstance.getCours().getFormation().getLibelle()} </br>
         Groupe ${requestScope.coursInstance.getGroupe().getLibelle()} </h5>
@@ -53,17 +63,17 @@
                     <td>
                         <input type="hidden" name="etudiantId" value="<c:out  value="${etudiant.getId()}"/>" >
 
-                        <input type="radio"  name="<c:out  value="${etudiant.getId()}"/>" value="present"
+                        <input type="radio"  name="<c:out  value="${etudiant.getId()}"/>" value="present" ${requestScope.coursInstance.ficheAppel.validee ? "disabled" : ""}
                                <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'present' }">checked</c:if>
                          />
                     </td>
                     <td>
-                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent"
+                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="absent" ${requestScope.coursInstance.ficheAppel.validee ? "disabled" : ""}
                             <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'absent' }">checked</c:if>
                        />
                     </td>
                     <td>
-                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="retard"
+                        <input type="radio" name="<c:out  value="${etudiant.getId()}"/>" value="retard" ${requestScope.coursInstance.ficheAppel.validee ? "disabled" : ""}
                                <c:if test="${requestScope.listEtudiantPresence.get(etudiant) eq 'retard' }">checked</c:if>
                         />
                     </td>

@@ -3,6 +3,7 @@ package com.example.projetappel.util;
 import com.example.projetappel.dao.CoursInstanceDao;
 import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.dao.FicheAppelDao;
+import com.example.projetappel.enumtype.AppelEtat;
 import com.example.projetappel.model.CoursInstance;
 import com.example.projetappel.model.Etudiant;
 import com.example.projetappel.model.FicheAppel;
@@ -77,6 +78,7 @@ public class PDFGenerator {
 
             ImageData ut1ImageData = ImageDataFactory.create(realPath + "image/ut1.png");
             ImageData checkImageData = ImageDataFactory.create(realPath + "image/check.png");
+            ImageData transparentImageData = ImageDataFactory.create(realPath + "image/transparent.png");
             Image ut1Image = new Image(ut1ImageData)
                     .setWidth(65)
                     .setHeight(65)
@@ -85,7 +87,10 @@ public class PDFGenerator {
                     .setWidth(10)
                     .setHeight(10)
                     .setHorizontalAlignment(HorizontalAlignment.CENTER);
-
+            Image transparentImage = new Image(transparentImageData)
+                    .setWidth(10)
+                    .setHeight(10)
+                    .setHorizontalAlignment(HorizontalAlignment.CENTER);
             document = new Document(pdfDoc);
             document.add(ut1Image);
 
@@ -97,6 +102,7 @@ public class PDFGenerator {
             headCells.forEach(table::addCell);
 
             for (int i = 0; i < etudiants.size(); i++) {
+
                 table.addCell(
                         new Cell()
                                 .add(etudiants.get(i).getPrenom() + " " + etudiants.get(i).getNom())
@@ -106,7 +112,9 @@ public class PDFGenerator {
                 );
                 table.addCell(
                         new Cell()
-                                .add(checkImage)
+                                .add(
+                                        Arrays.asList(AppelEtat.PRESENCE, AppelEtat.RETART).contains(AppelManager.getAppelEtat(etudiants.get(i).getId(), ficheAppel.getId())) ? checkImage : transparentImage
+                                )
                                 .setBorder(Border.NO_BORDER)
                                 .setBackgroundColor(i % 2 == 0 ? Color.WHITE : new DeviceRgb(245, 245, 245))
                                 .setTextAlignment(TextAlignment.CENTER)
@@ -114,7 +122,9 @@ public class PDFGenerator {
                 );
                 table.addCell(
                         new Cell()
-                                .add(checkImage)
+                                .add(
+                                        AppelManager.getAppelEtat(etudiants.get(i).getId(), ficheAppel.getId()) == AppelEtat.ABSENCE ? checkImage : transparentImage
+                                )
                                 .setBorder(Border.NO_BORDER)
                                 .setBackgroundColor(i % 2 == 0 ? Color.WHITE : new DeviceRgb(245, 245, 245))
                                 .setTextAlignment(TextAlignment.CENTER)
@@ -122,7 +132,9 @@ public class PDFGenerator {
                 );
                 table.addCell(
                         new Cell()
-                                .add(checkImage)
+                                .add(
+                                        AppelManager.getAppelEtat(etudiants.get(i).getId(), ficheAppel.getId()) == AppelEtat.ABSENCE_JUSTIFIE ? checkImage : transparentImage
+                                )
                                 .setBorder(Border.NO_BORDER)
                                 .setBackgroundColor(i % 2 == 0 ? Color.WHITE : new DeviceRgb(245, 245, 245))
                                 .setTextAlignment(TextAlignment.CENTER)

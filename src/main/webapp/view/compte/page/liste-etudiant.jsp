@@ -25,7 +25,7 @@
                     }
                     result.append(String.format(
                             "<tr>" +
-                                "<td><img class='rounded-circle mb-3 mt-4' src='%1$s' width='160' height='160'></td>" +
+                                "<td><img class='rounded-circle mb-3 mt-4 img-profile' src='%1$s' width='160' height='160'></td>" +
                                 "<td>%2$s</td>" +
                                 "<td>%3$s</td>" +
                                 "<td>%4$s</td>" +

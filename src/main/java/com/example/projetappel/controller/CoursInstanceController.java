@@ -105,7 +105,7 @@ public class CoursInstanceController extends HttpServlet {
                     }
                     break;
                 case "Valider" :
-                    ficheAppel.setValidee(false);
+                    ficheAppel.setValidee(true);
                     ficheAppelDao.update(ficheAppel);
 //                    FicheAppel ficheAppel;
 //                    if(request.getParameter("coursInstance")!= null){
