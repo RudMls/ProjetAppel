@@ -92,8 +92,26 @@ public class PresenceDao extends DAO<Presence>{
         return presencesCours;
     }
 
+    public Presence findByEtudiantFicheAppel(int etudiantId, int ficheAppelId) {
+        Presence presence = null;
+        String hql = "select p from Presence p where p.etudiant.id = :etudiantId and p.ficheAppel.id = :ficheAppelId";
+        try (Session session = getSession()){
+            Transaction transaction=getTransaction(session);
+            Query<Presence> query = session.createQuery(hql);
+            query.setParameter("etudiantId", etudiantId);
+            query.setParameter("ficheAppelId", ficheAppelId);
+            if (!query.getResultList().isEmpty()) {
+                presence = query.uniqueResult();
+            }
+            transaction.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return presence;
+    }
+
     public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
-        String hql = "delete from Presence p  where p.etudiant.id = :etudiantId and p.ficheAppel.id=:ficheAppelId";
+        String hql = "delete Presence p where p.etudiant.id = :etudiantId and p.ficheAppel.id = :ficheAppelId";
         try (Session session = getSession()){
             Transaction transaction=getTransaction(session);
             Query query = session.createQuery(hql);

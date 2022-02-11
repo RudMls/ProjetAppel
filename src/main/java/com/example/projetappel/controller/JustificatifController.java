@@ -75,6 +75,19 @@ public class JustificatifController extends HttpServlet {
                                 absences.forEach(absence -> {
                                     absence.setJustificatif(justificatif);
                                     absenceDao.update(absence);
+                                    //Un mail est envoyé à la scolarité à chaque insertion de justificatif
+                                    String from="ut.capitole.desmob@gmail.com";
+                                    String msg="" +
+                                            "Bonjour,"+
+                                            "\nL'étudiant "+absence.getEtudiant().getPrenom()+" "+absence.getEtudiant().getNom()+" vient d'ajouter un justificatif pour son absence du "+absence.getFicheAppel().getCoursInstance().getParseDateDebut()+" pour le cours "+absence.getFicheAppel().getCoursInstance().getCours().getLibelle()+
+                                            "\nVous pouvez la consulter depuis l'application."
+                                            +"\nCordialement,"+
+                                            "\nDevmob";
+
+                                    String pwd="desmobAppel98";
+                                    String sub="Nouvelle absence pour "+absence.getFicheAppel().getCoursInstance().getCours().getLibelle()+ " du "+absence.getFicheAppel().getCoursInstance().getParseDateDebut();
+                                    String to="ut.capitole.desmob@gmail.com";
+                                    CoursInstanceController.send(from,pwd,to,sub,msg);
                                 });
                                 request.getSession().removeAttribute("absences");
                                 response.sendRedirect("/compte/consultation-etudiant");

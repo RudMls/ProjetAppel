@@ -35,7 +35,6 @@ public class Justificatif {
     public Justificatif() {
     }
 
-
     public Justificatif(Fichier fichier) {
         this.fichier = fichier;
     }
