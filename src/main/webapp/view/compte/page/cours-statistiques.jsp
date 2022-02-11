@@ -1,6 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" language="java" %>
 
+<%
+    Cours cours = (Cours) request.getAttribute("cours");
+%>
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <div class="container-fluid">
@@ -33,7 +36,28 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-md-6 col-xl-3 mb-4">
+                <div class="card shadow border-left-info py-2">
+                    <div class="card-body">
+                        <div class="row align-items-center no-gutters">
+                            <div class="col mr-2">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="container">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-secondary dropdown-toggle" id="deroulant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">Instances de cours</button>
+                                            <div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="deroulant">
+                                                <c:forEach var="coursInstance" items="${requestScope.cours.coursInstances}">
+                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">${coursInstance.getCours().getFormation().getLibelle()} groupe ${coursInstance.getGroupe().getLibelle()} ${coursInstance.getParseDateDebutStat()}</a>
+                                                </c:forEach>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="row">
@@ -54,7 +78,7 @@
                 </div>
             </div>
 
-            <%--<div class="col-lg-5 col-xl-4">
+            <div class="col-lg-5 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Chiffres clés</h6>
@@ -66,11 +90,16 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Présences&quot;,&quot;Absences&quot;,&quot;Retards&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;50&quot;,&quot;30&quot;,&quot;15&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
-                        <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
+                        <%
+                            float nbRetCours = (float) request.getAttribute("nbRetCours");
+                            float nbPresCours = (float) request.getAttribute("nbPresCours");
+                            float nbEtudAbsCours = (float) request.getAttribute("nbEtudAbsCours");
+                        %>
+                        <div class="chart-area"><canvas data-bss-chart="{&quot;type&quot;:&quot;doughnut&quot;,&quot;data&quot;:{&quot;labels&quot;:[&quot;Présences&quot;,&quot;Absences&quot;,&quot;Retards&quot;],&quot;datasets&quot;:[{&quot;label&quot;:&quot;&quot;,&quot;backgroundColor&quot;:[&quot;#4e73df&quot;,&quot;#1cc88a&quot;,&quot;#36b9cc&quot;],&quot;borderColor&quot;:[&quot;#ffffff&quot;,&quot;#ffffff&quot;,&quot;#ffffff&quot;],&quot;data&quot;:[&quot;<%= nbPresCours%>&quot;,&quot;<%= nbEtudAbsCours%>&quot;,&quot;<%= nbRetCours %>&quot;]}]},&quot;options&quot;:{&quot;maintainAspectRatio&quot;:false,&quot;legend&quot;:{&quot;display&quot;:false,&quot;labels&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}},&quot;title&quot;:{&quot;fontStyle&quot;:&quot;normal&quot;}}}"></canvas></div>
+                        <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Présences</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Absences</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Retards</span></div>
                     </div>
                 </div>
-            </div>--%>
+            </div>
 
         </div>
         <div class="row">
@@ -80,15 +109,15 @@
                         <h6 class="text-primary font-weight-bold m-0">Etudiants avec plus de 3 absences injustifiées</h6>
                     </div>
                     <ul class="list-group list-group-flush">
-                        <c:forEach items="${requestScope.listeEtudiantsAbsInj}" var="etudiants" >
+                        <c:forEach items="${requestScope.nombreAbsencesParEtudiant}" var="etudiants" >
                             <li class="list-group-item">
                                 <div class="row align-items-center no-gutters">
                                     <div class="col mr-2">
-                                        <h6 class="mb-0"><strong><c:out value="${etudiants.getNom()}"/> <c:out value="${etudiants.getPrenom()}"/></strong></h6>
+                                        <h6 class="mb-0"><strong><c:out value="${etudiants.key.getNom()}"/> <c:out value="${etudiants.key.getPrenom()}"/></strong></h6>
                                     </div>
                                     <div class="col-auto">
                                         <span class="text-xs">
-                                            <c:out value="${requestScope.listeNbAbsInj}"/>
+                                            <c:out value="${etudiants.value}"/>
                                         </span>
                                     </div>
                                 </div>

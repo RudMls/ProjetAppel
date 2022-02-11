@@ -33,7 +33,7 @@
                     <c:choose>
                         <c:when test = "${requestScope.role== Role.ETUDIANT}">
                         <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
-                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Mes absences/Mes justificatifs</span></a></li>
+                        <li class="nav-item"><a class="nav-link ${requestScope.page eq 'consultation-etudiant' ? 'active' : ''}" href="/compte/consultation-etudiant"><i class="fas fa-clock"></i><span>Absences</span></a></li>
                         </c:when>
                         <c:when test = "${requestScope.role== Role.ENSEIGNANT}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
@@ -45,6 +45,7 @@
                         <c:when test = "${requestScope.role== Role.SCOLARITE}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'formation' ? 'active' : ''}" href="/compte/formation"><i class="fas fa-home"></i><span>Récapitulaif alternance</span></a></li>
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'scolarite-justificatif' ? 'active' : ''}" href="/compte/scolarite-justificatif"><i class="fas fa-clock"></i><span>Justificatifs</span></a></li>
                         </c:when>
 
                     </c:choose>
@@ -74,30 +75,35 @@
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown no-arrow mx-1">
-                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="badge badge-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
+                                    <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="/compte/notification"><span class="badge badge-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-list animated--grow-in">
-                                            <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 12, 2019</span>
-                                                <p>A new monthly report is ready to download!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 7, 2019</span>
-                                                <p>$290.29 has been deposited into your account!</p>
-                                            </div>
-                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
-                                            <div class="mr-3">
-                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
-                                            </div>
-                                            <div><span class="small text-gray-500">December 2, 2019</span>
-                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
-                                            </div>
-                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                            <h6 class="dropdown-header">Vos nouvelles notifications</h6>
+                                            <c:choose>
+                                                <c:when test = "${requestScope.role== Role.ETUDIANT}">
+                                                    <a class="dropdown-item d-flex align-items-center" href="/compte/notification">
+                                                        <div class="mr-3">
+                                                            <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                                        </div>
+                                                        <div><span class="small text-gray-500">December 12, 2019</span>
+                                                            <p>A new monthly report is ready to download!</p>
+                                                        </div>
+                                                    </a>
+                                                    <a class="dropdown-item text-center small text-gray-500" href="/compte/consultation-etudiant">Voir toutes vos absences</a>
+                                                </c:when>
+                                                <c:when test = "${requestScope.role== Role.SCOLARITE}">
+                                                    <a class="dropdown-item d-flex align-items-center" href="/compte/scolarite-justificatif">
+                                                        <div class="mr-3">
+                                                            <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                                        </div>
+                                                        <div><span class="small text-gray-500">December 12, 2019</span>
+                                                            <p>A new monthly report is ready to download!</p>
+                                                        </div>
+                                                    </a>
+                                                    <a class="dropdown-item text-center small text-gray-500" href="/compte/scolarite-justificatift">Voir toutes les absences</a>
+                                                </c:when>
+                                            </c:choose>
+
+
                                         </div>
                                     </div>
                                 </li>
@@ -141,7 +147,7 @@
                                     </div>
                                     <div class="shadow dropdown-list dropdown-menu dropdown-menu-right" aria-labelledby="alertsDropdown"></div>
                                 </li>
-                                <div class="d-none d-sm-block topbar-divider"></div>
+
                                 <li class="nav-item dropdown no-arrow">
                                     <div class="nav-item dropdown no-arrow">
                                         <a class="dropdown-toggle nav-link" aria-expanded="false" data-toggle="dropdown" href="#"><span class="d-none d-lg-inline mr-2 text-gray-600 small">${requestScope.utilisateur.prenom} ${requestScope.utilisateur.nom}</span><img class="border rounded-circle img-profile" src="${requestScope.utilisateur_image}"></a>
@@ -187,7 +193,10 @@
                                 <jsp:include page = "./page/fiche-appel.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'scolarite-justificatif'}">
-                                <jsp:include page = "./page/fiche-appel.jsp"/>
+                                <jsp:include page = "./page/scolarite-justificatif.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'notif-absence'}">
+                                <jsp:include page = "./page/notif-absence.jsp"/>
                             </c:when>
                             <c:when test = "${requestScope.page eq 'cours-statistiques'}">
                                 <jsp:include page = "./page/cours-statistiques.jsp">

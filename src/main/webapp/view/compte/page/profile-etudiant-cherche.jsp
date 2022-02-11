@@ -14,8 +14,8 @@
         <div class="row mb-3">
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
-                                                                   src="/dogs/image2.jpeg" width="160" height="160">
+                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4 img-profile"
+                                                                   src="${requestScope.utilisateur_image}" width="160" height="160">
                     </div>
                 </div>
                 <%
@@ -64,13 +64,13 @@
                                         <div class="col">
                                             <div class="form-group"><label
                                                     for="username"><strong>Statut</strong></label><input
-                                                    class="form-control" type="text" id="username"
+                                                    class="form-control" type="text" id="username" disabled
                                                     placeholder=${requestScope.etudiantId.getTypeEtudiant()} name="username">
                                             </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="email"><strong>Adresse E-mail</strong></label><input
-                                                    class="form-control" type="email" id="email"
+                                                    class="form-control" type="email" id="email" disabled
                                                     placeholder=${requestScope.etudiantId.getEmail()} name="email">
                                             </div>
                                         </div>
@@ -78,12 +78,13 @@
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group"><label for="first_name"><strong>Prénom</strong></label><input
-                                                    class="form-control" type="text" id="first_name" placeholder=${requestScope.etudiantId.getPrenom()}
+                                                    class="form-control" type="text" id="first_name" disabled
+                                                    placeholder=${requestScope.etudiantId.getPrenom()}
                                                     name="first_name"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="last_name"><strong>Nom</strong></label><input
-                                                    class="form-control" type="text" id="last_name"
+                                                    class="form-control" type="text" id="last_name" disabled
                                                     placeholder=${requestScope.etudiantId.getNom()} name="last_name">
                                             </div>
                                         </div>

@@ -17,10 +17,10 @@ public class Etudiant extends Utilisateur implements Serializable {
     @Enumerated(EnumType.STRING)
     private TypeEtudiant typeEtudiant;
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
     private Set<Presence> presences = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
     private Set<Absence> absences = new HashSet<>();
 
     @OneToOne(mappedBy = "etudiant")
