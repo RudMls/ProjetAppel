@@ -33,11 +33,6 @@ public class FakeData implements ServletContextListener {
     public static AbsenceDao absenceDao = new AbsenceDao();
     public static PresenceDao presenceDao = new PresenceDao();
 
-
-    public static void main(String[] args) {
-        generer();
-    }
-
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         generer();

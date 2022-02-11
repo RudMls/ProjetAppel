@@ -22,7 +22,7 @@ public class ListeEtudiantController extends HttpServlet {
         EtudiantDao etudiantDao = new EtudiantDao();
         ArrayList<Etudiant> listInscription = (ArrayList<Etudiant>) appartenirDao.findEtudiant();
         request.setAttribute("listInscription", listInscription);
-        request.setAttribute("page","formation");
+        request.setAttribute("page","liste-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
 
     }

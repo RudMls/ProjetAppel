@@ -224,5 +224,26 @@ public class EtudiantDao extends DAO<Etudiant> {
         return absenceEtudiant;
     }
 
+
+
+    
+
+    public List<Etudiant> findByPrenom(String prenomEtudiant) {
+        String hql = " select e from  Etudiant e" +
+                " where e.prenom like :prenomEtudiant ";
+        List<Etudiant> etudiants = new ArrayList<>();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            Query<Etudiant> query = session.createQuery(hql);
+            query.setParameter("prenomEtudiant","%" + prenomEtudiant + "%");
+            if (!query.getResultList().isEmpty()) {
+                etudiants = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return etudiants;
+    }
+
 }
 

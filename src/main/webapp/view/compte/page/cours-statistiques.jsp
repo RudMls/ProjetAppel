@@ -4,6 +4,7 @@
 
 <%
     Cours cours = (Cours) request.getAttribute("cours");
+    Float txAbsCours = (Float) request.getAttribute("txAbsCours") != null ? (Float) request.getAttribute("txAbsCours") : 0L;
 %>
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
@@ -19,11 +20,8 @@
                             <div class="col mr-2">
                                 <div class="text-uppercase text-info font-weight-bold text-xs mb-1"><span>Nombre moyen d'absences</span></div>
                                 <div class="row no-gutters align-items-center">
-                                    <%
-                                        float txAbsCours = (float) request.getAttribute("txAbsCours");
-                                    %>
                                     <div class="col-auto">
-                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><%= txAbsCours%>%</span></div>
+                                        <div class="text-dark font-weight-bold h5 mb-0 mr-3"><span><%= txAbsCours %>%</span></div>
                                     </div>
                                     <div class="col">
                                         <div class="progress progress-sm">
@@ -130,3 +128,6 @@
         </div>
     </div>
 </div>
+
+
+<script src="/js/cours-statistiques.js"></script>
