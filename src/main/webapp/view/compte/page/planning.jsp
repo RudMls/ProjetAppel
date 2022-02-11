@@ -21,32 +21,18 @@
 <div class="container">
     <div class="p-3" style="background: #f5f5f5;">
         <form method="post">
-
             <div class="row">
-
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-sm-flex justify-content-sm-center justify-content-lg-center justify-content-xl-center">
                     <div class="row">
-                        <div class="col-4 col-sm-4 col-md-4 d-flex d-sm-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center">
-                            <label for="date" class="col-form-label d-md-flex justify-content-md-center align-items-md-center">Date</label>
-                        </div>
-                        <div class="col-6 col-sm-8 col-md-8 d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center">
-                            <input id="date" name="date" type="date" value="<%= date %>">
-                            <button id="rechercher" class="btn btn-primary d-xl-flex" type="submit" name="planning_action" value="search">
-                                <i class="fas fa-search"></i> </button>
-                        </div>
+                        <div class="col-4 col-sm-4 col-md-4 d-flex d-sm-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center"><label for="date" class="col-form-label d-md-flex justify-content-md-center align-items-md-center">Date</label></div>
+                        <div class="col-6 col-sm-8 col-md-8 d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center"><input id="date" name="date" type="date" value="<%= date %>"></div>
                     </div>
                 </div>
-
-
-            <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex d-sm-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center">
-                <div class="test justify-content-center align-items-center justify-content-sm-center align-items-sm-center">
-                <button type="submit" name="planning_action" class="previous" value="previous">&laquo; Précédent</button>
+                <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex d-sm-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center"><button id="rechercher" class="btn btn-primary d-xl-flex" type="submit" name="planning_action" value="search" >Rechercher</button></div>
+                <div class="next_previous">
+                    <button type="submit" name="planning_action" value="previous">Précédent</button>
+                    <button type="submit" name="planning_action" value="next">Suivant</button>
                 </div>
-                <div class="test1 justify-content-center align-items-center justify-content-sm-center align-items-sm-center">
-                <button type="submit" name="planning_action" class="next" value="next">Suivant &raquo;</button>
-                </div>
-            </div>
-
             </div>
         </form>
     </div>

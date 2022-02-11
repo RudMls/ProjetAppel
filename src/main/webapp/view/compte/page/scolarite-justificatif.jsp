@@ -25,10 +25,11 @@
                         urlFile = "";
                         fileName = "";
                     }
+                    disabled = justificatif.isValidee() ? "disabled" : "";
                     result.append(String.format(
                             "<tr>" +
                                     "<th scope='row'>" +
-                                    "<input type='checkbox' name='justificatifs_ids' value='%1$s'/>" +
+                                    "<input type='checkbox' %8$s name='justificatifs_ids' value='%1$s'/>" +
                                     "</th>" +
                                     "<td>%2$s %3$s</td>" +
                                     "<td>%4$s</td>" +
@@ -41,8 +42,8 @@
                             justificatif.getAbsences().get(0).getFicheAppel().getCoursInstance().getCours().getLibelle(),
                             justificatif.getDate(),
                             urlFile,
-                            fileName
-
+                            fileName,
+                            disabled
                     ));
                 }
             }
@@ -58,9 +59,8 @@
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Justificatifs</h3>
-    <button type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
+    <button <%= justificatifs == null || justificatifs.stream().filter(justificatif -> justificatif.isValidee()).c? "disabled" : "" %> type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
 </div>
-
     <div class="table-responsive" id="no-more-tables">
         <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
             <thead class="thead-dark cf" >

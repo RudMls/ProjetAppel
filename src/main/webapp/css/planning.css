@@ -23,6 +23,21 @@ button {
     border-radius: .35rem;
 }
 
+.next_previous {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.next_previous button {
+    background-color: #464646;
+    border: none;
+    margin: 5 10px;
+    color: #FFF;
+    padding: 5px 5px;
+}
+
 /* /////////////////////////////*/
 
 .codyhouse {

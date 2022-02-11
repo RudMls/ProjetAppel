@@ -30,20 +30,20 @@ public class ScolariteJustificatifController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String[] justificatifsIds = request.getParameterValues("justificatifs_ids");
-        ArrayList<Justificatif> justificatifs;
         if (justificatifsIds == null || justificatifsIds.length == 0) {
             doGet(request, response);
         } else {
             JustificatifDao justificatifDao = new JustificatifDao();
-            justificatifs = new ArrayList<>();
-            Justificatif justificatif = new Justificatif();
+            Justificatif justificatif;
             for (String s : Arrays.asList(justificatifsIds)) {
                 justificatif = justificatifDao.find(Integer.parseInt(s));
-                justificatif.setValidee(true);
-                justificatifDao.update(justificatif);
+                if (!justificatif.isValidee()) {
+                    justificatif.setValidee(true);
+                    justificatifDao.update(justificatif);
+                }
             }
-        request.getSession().setAttribute("justificatifs", justificatifs);
-        response.sendRedirect("/compte/justificatif");
+//        request.getSession().setAttribute("justificatifs", justificatifs);
+        response.sendRedirect("/compte/scolarite-justificatif");
         }
     }
 }
