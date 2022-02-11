@@ -13,9 +13,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
+import java.util.*;
 
 import static com.example.projetappel.util.FakeData.SDF;
 
@@ -38,8 +36,9 @@ public class ListeAlternantsController extends HttpServlet {
         PresenceDao presenceDao = new PresenceDao();
         FicheAppelDao ficheAppelDao = new FicheAppelDao();
         CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
-        int nbAbsences = 0;
-        int nbPresences = 0;
+        HashMap <Etudiant,Integer>  listNbAbsenceEtudiant= new HashMap<>();
+        HashMap <Etudiant,Integer>  listNbPresenceEtudiant= new HashMap<>();
+
         Date date = new Date();
         SDF.format(date);
         Calendar calendar = Calendar.getInstance();
@@ -52,34 +51,37 @@ public class ListeAlternantsController extends HttpServlet {
             }
             Date lastDayOfWeek = calendar.getTime();
             for (Etudiant etudiants : listeAlternants) {
+                int nbPresences = 0;
+                int nbAbsences=0;
                 Etudiant etudiantCherche = etudiantDao.find(etudiants.getId());
                 int etudiantId = etudiantCherche.getId();
                 //trouver absences
                 ArrayList<Absence> listeAbsence = (ArrayList<Absence>) absenceDao.getAbsences(etudiantId);
-                for (Absence absence : listeAbsence) {
-                    Date dateCoursInstanceAbsence = absence.getFicheAppel().getCoursInstance().getDateDebut();
-                    if (dateCoursInstanceAbsence != null) {
+                ArrayList<Presence> listePresence = (ArrayList<Presence>) presenceDao.getPresence(etudiantId);
+                if(!listeAbsence.isEmpty()){
+                    for (Absence absence : listeAbsence) {
+                        Date dateCoursInstanceAbsence = absence.getFicheAppel().getCoursInstance().getDateDebut();
                         if (DatePlanning.isWithinRange(dateCoursInstanceAbsence, firstDayOfWeek, lastDayOfWeek)) {
                             nbAbsences++;
                         }
+                        listNbAbsenceEtudiant.put(etudiantCherche,nbAbsences);
                     }
-                }
-                //trouver presences
-                ArrayList<Presence> listePresence = (ArrayList<Presence>) presenceDao.getPresences(etudiantId);
-                for (Presence presence : listePresence) {
-                    Date dateCoursInstancePresence = presence.getFicheAppel().getCoursInstance().getDateDebut();
-                    if (dateCoursInstancePresence != null) {
+                }else if(!listePresence.isEmpty()){
+                    for (Presence presence : listePresence) {
+                        Date dateCoursInstancePresence = presence.getFicheAppel().getCoursInstance().getDateDebut();
                         if (DatePlanning.isWithinRange(dateCoursInstancePresence, firstDayOfWeek, lastDayOfWeek)) {
                             nbPresences++;
                         }
+                        listNbPresenceEtudiant.put(etudiantCherche,nbPresences);
                     }
                 }
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        request.setAttribute("nbAbsences", nbAbsences);
-        request.setAttribute("nbPresences", nbPresences);
+
+        request.setAttribute("listNbAbsenceEtudiant", listNbAbsenceEtudiant);
+        request.setAttribute("listNbPresenceEtudiant", listNbPresenceEtudiant);
         request.setAttribute("listeAlternants", listeAlternants);
         request.setAttribute("page", "liste-alternants");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);

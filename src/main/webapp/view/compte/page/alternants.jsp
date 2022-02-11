@@ -9,7 +9,7 @@
   Time: 17:18
   To change this template use File | Settings | File Templates.
 --%>
-<h3>Récapitulatif des absences et présences pour les alternats</h3>
+<h3>Récapitulatif des absences et présences pour les alternants de cette semaine</h3>
 <div class="table-responsive" id="no-more-tables">
     <table class="table col-sm-12 table-bordered table-striped table-condensed cf">
         <thead class="thead-dark cf" >
@@ -27,16 +27,12 @@
                 <td>
                     <c:out  value="${alternant.getNom()}"/>
                     <c:out  value="${alternant.getPrenom()}"/>
-                    <%
-                        int nbAbsences = (int) request.getAttribute("nbAbsences");
-                        int nbPresences = (int) request.getAttribute("nbPresences");
-                    %>
                 </td>
                 <td>
-                    <p><%=nbPresences%></p>
+                    <p> <c:out  value="${requestScope.listNbPresenceEtudiant.get(alternant) != null ? requestScope.listNbPresenceEtudiant.get(alternant) :0}"/></p>
                 </td>
                 <td>
-                    <p><%=nbAbsences%></p>
+                    <p> <c:out  value="${requestScope.listNbAbsenceEtudiant.get(alternant)!= null ? requestScope.listNbAbsenceEtudiant.get(alternant):0 }"/></p>
                 </td>
             </tr>
         </c:forEach>

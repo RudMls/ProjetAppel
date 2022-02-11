@@ -41,7 +41,7 @@ public class ProfileEtudiantChercheController extends HttpServlet {
 
             //get nombre général de retards d'un étudiant donné
             PresenceDao presenceDao = new PresenceDao();
-            float nbRetards = ((ArrayList<Presence>) presenceDao.getPresences(etudiantCherche.getId())).size();
+            float nbRetards = ((ArrayList<Presence>) presenceDao.getRetard(etudiantCherche.getId())).size();
 
 
             //get taux général d'absences d'un étudiant

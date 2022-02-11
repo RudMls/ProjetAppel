@@ -58,7 +58,7 @@ public class ProfileController extends HttpServlet {
 
             //get nombre général de retards d'un étudiant donné
             PresenceDao presenceDao = new PresenceDao();
-            float nbRetards = ((ArrayList<Presence>) presenceDao.getPresences(etudiant.getId())).size();
+            float nbRetards = ((ArrayList<Presence>) presenceDao.getRetard(etudiant.getId())).size();
 
             //get nombre de retards d'un étudiant doné pour un cours donné
             float nbRetCours = ((ArrayList<Presence>) presenceDao.getPresCours(etudiant.getId(), cours.getId())).size();
