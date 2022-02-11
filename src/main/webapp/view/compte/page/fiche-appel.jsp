@@ -47,7 +47,7 @@
                 <tr>
                     <td><img class="border rounded-circle img-profile" src="${etudiant.getFichier() != null ? FileManager.getFichier(etudiant.getFichier) : Constants.DEFAULT_IMAGE_URL}"></td>
                     <td>
-                        <a href="/compte/profile-etudiant-cherche?etudiantId=<c:out value="${etudiant.getId()}"/>">
+                        <a href="/compte/profile-etudiant-cherche?etudiantId=<c:out value="${etudiant.getId()}"/>&coursId=<c:out value="${requestScope.coursInstance.getCours().getId()}"/>">
                             <c:out  value="${etudiant.getNom()}"/>
                             <c:out  value="${etudiant.getPrenom()}"/>
                         </a>

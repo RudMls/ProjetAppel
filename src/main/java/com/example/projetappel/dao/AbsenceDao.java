@@ -14,7 +14,7 @@ public class AbsenceDao extends DAO<Absence> {
     }
 
     public List<Absence> getAbsences(Integer etudiantId) {
-            String hql = "select a from  Absence a where a.etudiant.id = :etudiantId and a.ficheAppel.validee=true";
+            String hql = "select a from  Absence a where a.etudiant.id = :etudiantId";
         List<Absence> absences = new ArrayList<>();
         try (Session session = getSession()){
             getTransaction(session);

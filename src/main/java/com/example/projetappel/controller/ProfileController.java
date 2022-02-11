@@ -43,18 +43,10 @@ public class ProfileController extends HttpServlet {
             ArrayList<Absence> absences = (ArrayList<Absence>) absenceDao.getAbsences(etudiant.getId());
             float nbAbs = ((ArrayList<Absence>) absenceDao.getAbsences(etudiant.getId())).size();
 
-            //get nombre absences d'un étudiant pour un cours donné
-            ArrayList<Absence> absCours = (ArrayList<Absence>) absenceDao.getAbsCours(etudiant.getId(), cours.getId());
-            float nbAbsCours = ((ArrayList<Absence>) absenceDao.getAbsCours(etudiant.getId(), cours.getId())).size();
-
             //get nombre général d'instances de cours où un étudiant était censé participer
             CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
             ArrayList<CoursInstance> coursInstances = (ArrayList<CoursInstance>) coursInstanceDao.getCoursInstances(etudiant.getId());
             float nbInstances = ((ArrayList<CoursInstance>) coursInstanceDao.getCoursInstances((etudiant.getId()))).size();
-
-            //get nombre d'instances de cours où un étudiant donné était censé participer pour un cours donné
-            ArrayList<CoursInstance> ciCours = (ArrayList<CoursInstance>) coursInstanceDao.getCiCours(etudiant.getId(), cours.getId());
-            float nbInstCours = ((ArrayList<CoursInstance>) coursInstanceDao.getCiCours(etudiant.getId(), cours.getId())).size();
 
             //get nombre général de retards d'un étudiant donné
             PresenceDao presenceDao = new PresenceDao();
@@ -66,18 +58,11 @@ public class ProfileController extends HttpServlet {
 
             //get taux général d'absences d'un étudiant
             float txAbsGen = (nbAbs / nbInstances) * 100;
-            //get taux d'absences d'un étudiant par cours
-            float txAbsCours = (nbAbsCours / nbInstCours) * 100;
             //get taux général de retards d'un étudiant
             float txRetGen = (nbRetards / nbInstances) * 100;
-            //get taux de retards d'un étudiant donné pour un cours donné
-            float txRetCours = (nbRetCours / nbInstCours) * 100;
 
             request.setAttribute("txAbsGen", txAbsGen);
-            request.setAttribute("txAbsCours", txAbsCours);
             request.setAttribute("txRetGen", txRetGen);
-            request.setAttribute("txRetCours", txRetCours);
-
 
         }
 
