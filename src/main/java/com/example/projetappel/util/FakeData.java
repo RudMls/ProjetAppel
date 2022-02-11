@@ -40,7 +40,7 @@ public class FakeData implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-//        generer();
+        generer();
     }
 
     public static void generer() {
@@ -77,12 +77,17 @@ public class FakeData implements ServletContextListener {
     public static void genererEtudiant() {
         String prenom, nom, email;
         TypeEtudiant typeEtudiant;
-        for (int i = 0; i < 50; i++) {
-            if (i % 3 == 0) {
-                typeEtudiant = TypeEtudiant.ALTERNANT;
-            } else {
-                typeEtudiant = TypeEtudiant.INITIAL;
-            }
+        for (int i = 7; i < 30; i++) {
+            typeEtudiant = TypeEtudiant.ALTERNANT;
+            do {
+                prenom = FAKER.name().firstName();
+                nom = FAKER.name().lastName();
+                email = prenom + "." + nom + "@ut-capitole.fr";
+            } while (utilisateurDao.emailExiste(email));
+            etudiantDao.create(new Etudiant(prenom, nom, email, "pwd", typeEtudiant));
+        }
+        for (int i = 30; i < 56; i++) {
+            typeEtudiant = TypeEtudiant.INITIAL;
             do {
                 prenom = FAKER.name().firstName();
                 nom = FAKER.name().lastName();
@@ -123,15 +128,15 @@ public class FakeData implements ServletContextListener {
         for(int i = 15; i < 30; i++){
 
             Etudiant etudiant = etudiantDao.find(i);
-            Groupe groupe1 = groupeDao.find(2);
-            Formation formation1 = formationDao.find(1);
+            Groupe groupe1 = groupeDao.find(1);
+            Formation formation1 = formationDao.find(2);
             appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
         }
 
         for(int i = 30; i < 45; i++){
 
             Etudiant etudiant = etudiantDao.find(i);
-            Groupe groupe1 = groupeDao.find(1);
+            Groupe groupe1 = groupeDao.find(2);
             Formation formation1 = formationDao.find(2);
             appartenirDao.create(new Appartenir(etudiant,groupe1,formation1));
         }

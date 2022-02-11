@@ -14,8 +14,24 @@ public class PresenceDao extends DAO<Presence>{
         super.setEntity(Presence.class);
     }
 
-    public List<Presence> getPresences(Integer etudiantId) {
+    public List<Presence> getRetard(Integer etudiantId) {
         String hql = "select p from  Presence p where p.etudiant.id = :etudiantId and p.retard = true ";
+        List<Presence> presences = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Presence> query = session.createQuery(hql);
+            query.setParameter("etudiantId",etudiantId);
+            if (!query.getResultList().isEmpty()) {
+                presences = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return presences;
+    }
+
+    public List<Presence> getPresence(Integer etudiantId) {
+        String hql = "select p from  Presence p where p.etudiant.id = :etudiantId ";
         List<Presence> presences = new ArrayList<>();
         try (Session session = getSession()){
             getTransaction(session);
