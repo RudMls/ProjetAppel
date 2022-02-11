@@ -1,0 +1,37 @@
+body {
+    background: #47697d;
+}
+
+.list-group {
+    width: 600px !important
+}
+
+.list-group-item {
+    margin-top: 10px;
+    background: #47697d;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out
+}
+
+.list-group-item:hover {
+    transform: scaleX(1.1)
+}
+
+.check {
+    opacity: 0;
+    transition: all 0.6s ease-in-out
+}
+
+.list-group-item:hover .check {
+    opacity: 1
+}
+
+li {
+    text-underline-color: #ffffff;
+    color: white;
+
+}
+
+a:-webkit-any-link {
+    text-decoration: none;
+}

@@ -52,6 +52,46 @@ public class PresenceDao extends DAO<Presence>{
         return presencesCours;
     }
 
+    public List<Presence> getRetCoursTot(Integer coursId) {
+        String hql = " select p from  Presence p, FicheAppel fa, CoursInstance ci" +
+                " where p.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " +
+                " and ci.cours.id = :coursId " +
+                " and p.retard = true " ;
+        List<Presence> presencesCours = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Presence> query = session.createQuery(hql);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                presencesCours = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return presencesCours;
+    }
+
+    public List<Presence> getPresCoursTot(Integer coursId) {
+        String hql = " select p from  Presence p, FicheAppel fa, CoursInstance ci" +
+                " where p.ficheAppel.id = fa.id " +
+                " and fa.id = ci.ficheAppel.id " +
+                " and ci.cours.id = :coursId " +
+                " and p.retard = false " ;
+        List<Presence> presencesCours = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Presence> query = session.createQuery(hql);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                presencesCours = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return presencesCours;
+    }
+
     public void deleteByEtudiantFicheAppel(int etudiantPresent, int ficheAppelId) {
         String hql = "delete from Presence p  where p.etudiant.id = :etudiantId and p.ficheAppel.id=:ficheAppelId";
         try (Session session = getSession()){

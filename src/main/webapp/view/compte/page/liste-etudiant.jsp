@@ -5,7 +5,12 @@
 <%@ page import="com.example.projetappel.model.Etudiant" %>
 <%@ page import="com.example.projetappel.util.FileManager" %>
 <%@ page import ="com.example.projetappel.util.Constants" %>
-
+<style>
+    <%@include file="/css/researchbar.css"%>
+</style>
+<script>
+    <%@include file="/assets/compte/js/researchbar.js"%>
+</script>
 <%
     ArrayList<Etudiant> etudiants = request.getAttribute("listInscription") == null ? null : (ArrayList<Etudiant>) request.getAttribute("listInscription");
     String realPath = request.getServletContext().getRealPath("");
@@ -25,7 +30,7 @@
                     }
                     result.append(String.format(
                             "<tr>" +
-                                "<td><img class='rounded-circle mb-3 mt-4' src='%1$s' width='160' height='160'></td>" +
+                                "<td><img class='border rounded-circle img-profile' src='%1$s' width='160' height='160'></td>" +
                                 "<td>%2$s</td>" +
                                 "<td>%3$s</td>" +
                                 "<td>%4$s</td>" +
@@ -59,6 +64,13 @@
     <h3 class="text-dark mb-0">Liste des étudiants</h3>
 </div>
 
+<div class="researchbaretud" id="researchbaretud">
+    <form action="">
+        <input type="search" required>
+        <i class="fa fa-search"></i>
+        <a href="javascript:void(0)" id="clear-btn">Clear</a>
+    </form>
+</div>
 
 <div class="table-responsive" id="no-more-tables">
 
@@ -77,4 +89,3 @@
         </tbody>
     </table>
 </div>
-</script>

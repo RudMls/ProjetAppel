@@ -122,6 +122,11 @@ public class CoursInstance {
     public String getParseDateDebut(){
        return  new SimpleDateFormat("dd-MMM-yyyy à hh:mm").format(this.getDateDebut());
     }
+
+    public String getParseDateDebutStat(){
+        return  new SimpleDateFormat("dd/MM/yyyy à hh:mm").format(this.getDateDebut());
+    }
+
     public String getParseDateFin(){
         return  "- "+ new SimpleDateFormat("hh:mm").format(this.getDateFin());
     }

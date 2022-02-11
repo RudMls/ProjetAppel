@@ -48,12 +48,14 @@
                                     <div class="container">
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-secondary dropdown-toggle" id="deroulant" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">Instances de cours</button>
-                                            <div class="dropdown-menu dropdown-menu-md-right" aria-labelledby="deroulant">
+                                            <div class="dropdown-menu dropdown-menu-md-left" aria-labelledby="deroulant">
                                                 <c:forEach var="coursInstance" items="${requestScope.cours.coursInstances}">
-                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">${coursInstance.dateDebut}</a>
+                                                    <a class="dropdown-item" href="/compte/cours-instance?id=${coursInstance.id}">
+                                                            ${coursInstance.getCours().getFormation().getLibelle()}
+                                                                groupe ${coursInstance.getGroupe().getLibelle()}
+                                                                    ${coursInstance.getParseDateDebutStat()}
+                                                    </a>
                                                 </c:forEach>
-                                                <!--<button class="dropdown-item" type="button">Bouton</button>
-                                                <span class="dropdown-item-text">Texte</span>-->
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +85,7 @@
                 </div>
             </div>
 
-            <%--<div class="col-lg-5 col-xl-4">
+            <div class="col-lg-5 col-xl-4">
                 <div class="card shadow mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h6 class="text-primary font-weight-bold m-0">Chiffres clés</h6>
@@ -99,7 +101,7 @@
                         <div class="text-center small mt-4"><span class="mr-2"><i class="fas fa-circle text-primary"></i>&nbsp;Direct</span><span class="mr-2"><i class="fas fa-circle text-success"></i>&nbsp;Social</span><span class="mr-2"><i class="fas fa-circle text-info"></i>&nbsp;Refferal</span></div>
                     </div>
                 </div>
-            </div>--%>
+            </div>
 
         </div>
         <div class="row">
