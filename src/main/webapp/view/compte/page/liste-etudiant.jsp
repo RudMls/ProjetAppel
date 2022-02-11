@@ -49,6 +49,7 @@
                             , etudiant.getPrenom() + " " +etudiant.getNom()
                             , etudiant.getAppartenir().getFormation().getLibelle()
                             , etudiant.getAppartenir().getGroupe().getLibelle()
+                            , etudiant.getId()
                     ));
                 }
             }

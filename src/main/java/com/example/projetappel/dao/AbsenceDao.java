@@ -28,6 +28,22 @@ public class AbsenceDao extends DAO<Absence> {
         }
         return absences;
     }
+    public List<Absence> findByEtudiant(Integer etudiantId) {
+        String hql = "select a from Absence a, FicheAppel f where a.ficheAppel.id = f.id and a.etudiant.id = :etudiantId and f.validee = true";
+        List<Absence> absences = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<Absence> query = session.createQuery(hql);
+            query.setParameter("etudiantId",etudiantId);
+            if (!query.getResultList().isEmpty()) {
+                absences = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return absences;
+    }
+
 
 
     public List<Absence> getAbsCours(Integer etudiantId, Integer coursId) {

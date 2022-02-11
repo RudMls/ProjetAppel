@@ -32,6 +32,10 @@ public class CoursInstanceController extends HttpServlet {
         return statut;
     }
 
+    public void enregistrer() {
+
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Map<Etudiant,String> listEtudiantPresence= new HashMap<Etudiant,String>();

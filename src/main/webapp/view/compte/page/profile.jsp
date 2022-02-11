@@ -100,24 +100,24 @@
                                         <div class="col">
                                             <div class="form-group"><label
                                                     for="username"><strong>Statut</strong></label><input
-                                                    class="form-control" type="text" id="username"
+                                                    class="form-control" type="text" id="username" disabled
                                                     placeholder=${requestScope.role} name="username"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="email"><strong>Adresse E-mail</strong></label><input
-                                                    class="form-control" type="email" id="email"
+                                                    class="form-control" type="email" id="email" disabled
                                                     placeholder=${requestScope.utilisateur.email} name="email"></div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group"><label for="first_name"><strong>Prénom</strong></label><input
-                                                    class="form-control" type="text" id="first_name" placeholder=${requestScope.utilisateur.prenom}
-                                                    name="first_name"></div>
+                                                    class="form-control" type="text" id="first_name" disabled
+                                                    placeholder=${requestScope.utilisateur.prenom} name="first_name"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="last_name"><strong>Nom</strong></label><input
-                                                    class="form-control" type="text" id="last_name"
+                                                    class="form-control" type="text" id="last_name" disabled
                                                     placeholder=${requestScope.utilisateur.nom} name="last_name"></div>
                                         </div>
                                     </div>

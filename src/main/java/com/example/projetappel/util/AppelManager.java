@@ -12,12 +12,12 @@ public class AppelManager {
     public static PresenceDao presenceDao = new PresenceDao();
 
     public static AppelEtat getAppelEtat(int etudiantId, int ficheAppelId) {
-        AppelEtat appelEtat = null;
+        AppelEtat appelEtat = AppelEtat.NON_NOTIFIE;
         Absence absence = absenceDao.findByEtudiantFicheAppel(etudiantId, ficheAppelId);
         Presence presence = presenceDao.findByEtudiantFicheAppel(etudiantId, ficheAppelId);
         if (absence != null) {
             appelEtat = AppelEtat.ABSENCE;
-            if (absence.getJustificatif().isValidee()) {
+            if (absence.getJustificatif() != null && absence.getJustificatif().isValidee()) {
                 appelEtat = AppelEtat.ABSENCE_JUSTIFIE;
             }
         } else if (presence != null) {
