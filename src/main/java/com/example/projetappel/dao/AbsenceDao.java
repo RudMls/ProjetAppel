@@ -29,7 +29,6 @@ public class AbsenceDao extends DAO<Absence> {
         return absences;
     }
 
-
     public List<Absence> getAbsCours(Integer etudiantId, Integer coursId) {
         String hql = " select a from  Absence a, FicheAppel fa, CoursInstance ci" +
                      " where a.ficheAppel.id = fa.id " +

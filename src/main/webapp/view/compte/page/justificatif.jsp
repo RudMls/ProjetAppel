@@ -11,7 +11,6 @@
     <a href="/compte/consultation-etudiant" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" >Retour</a>
 </div>
 
-
 <div class="container">
     <div class="row justify-content-center" style="padding-top: 35px;">
         <div class="col-md-12 col-lg-10">

@@ -40,7 +40,6 @@
             </thead>
             <tbody>
             <c:forEach items="${requestScope.listEtudiant}" var="etudiant" >
-
                 <tr>
                     <td><img class="border rounded-circle img-profile" src="${etudiant.getFichier() != null ? FileManager.getFichier(etudiant.getFichier) : Constants.DEFAULT_IMAGE_URL}"></td>
                     <td>

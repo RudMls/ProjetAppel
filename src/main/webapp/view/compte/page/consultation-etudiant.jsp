@@ -76,10 +76,7 @@
             </thead>
             <tbody>
             <%= getResult(absences, realPath) %>
-
             </tbody>
-
-
         </table>
     </div>
 </form>

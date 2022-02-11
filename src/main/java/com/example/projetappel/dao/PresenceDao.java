@@ -77,7 +77,6 @@ public class PresenceDao extends DAO<Presence>{
             e.printStackTrace();
         }
 
-
     }
 
 

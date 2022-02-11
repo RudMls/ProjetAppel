@@ -69,4 +69,20 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
         }
     }
 
+    public List<CoursInstance> getCoursInstanceFiche(FicheAppel ficheAppel) {
+        String hql = "select c from  CoursInstance c where c.ficheAppel = :ficheAppel";
+        List<CoursInstance> coursInstances = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<CoursInstance> query = session.createQuery(hql);
+            query.setParameter("ficheAppel",ficheAppel);
+            if (!query.getResultList().isEmpty()) {
+                coursInstances = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coursInstances;
+    }
+
 }

@@ -44,7 +44,7 @@
                         </c:when>
                         <c:when test = "${requestScope.role== Role.SCOLARITE}">
                             <li class="nav-item"><a class="nav-link ${requestScope.page eq 'accueil' ? 'active' : ''}" href="/compte/accueil"><i class="fas fa-home"></i><span>Accueil</span></a></li>
-
+                            <li class="nav-item"><a class="nav-link ${requestScope.page eq 'formation' ? 'active' : ''}" href="/compte/formation"><i class="fas fa-home"></i><span>Récapitulaif alternance</span></a></li>
                         </c:when>
 
                     </c:choose>
@@ -192,6 +192,14 @@
                             <c:when test = "${requestScope.page eq 'cours-statistiques'}">
                                 <jsp:include page = "./page/cours-statistiques.jsp">
                                     <jsp:param name="enseignantId" value="${enseignantId}"/>
+                                </jsp:include>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'formation'}">
+                                <jsp:include page = "./page/formation.jsp"/>
+                            </c:when>
+                            <c:when test = "${requestScope.page eq 'liste-alternants'}">
+                                <jsp:include page = "./page/alternants.jsp">
+                                    <jsp:param name="formationId" value="${formationId}"/>
                                 </jsp:include>
                             </c:when>
                         </c:choose>
