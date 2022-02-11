@@ -58,8 +58,7 @@
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Justificatifs</h3>
-    <button type="submit"
-            class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
+    <button type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
 </div>
 
     <div class="table-responsive" id="no-more-tables">
