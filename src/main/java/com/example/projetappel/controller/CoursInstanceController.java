@@ -131,8 +131,7 @@ public class CoursInstanceController extends HttpServlet {
                         String to="ut.capitole.desmob@gmail.com";
                         send(from,pwd,to,sub,msg);
                     }
-                    response.sendRedirect("/compte/planning");
-
+                    response.sendRedirect("/compte/cours-instance?id="+coursInstanceId);
                     break;
                 case "export_pdf" :
                     ArrayList<Etudiant> listEtudiant =(ArrayList<Etudiant>) etudiantDao.getEtudiantCoursInstance(coursInstanceId);

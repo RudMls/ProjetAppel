@@ -29,10 +29,12 @@
                     <c:out  value="${alternant.getPrenom()}"/>
                 </td>
                 <td>
-                    <p> <c:out  value="${requestScope.listNbPresenceEtudiant.get(alternant) != null ? requestScope.listNbPresenceEtudiant.get(alternant) :0}"/></p>
+                    <p> <span class="labelHidden" >Nombre de présence :</span>
+                    <c:out  value="${requestScope.listNbPresenceEtudiant.get(alternant) != null ? requestScope.listNbPresenceEtudiant.get(alternant) :0}"/></p>
                 </td>
                 <td>
-                    <p> <c:out  value="${requestScope.listNbAbsenceEtudiant.get(alternant)!= null ? requestScope.listNbAbsenceEtudiant.get(alternant):0 }"/></p>
+                    <p><span class="labelHidden" >Nombre d'absence :</span>
+                    <c:out  value="${requestScope.listNbAbsenceEtudiant.get(alternant)!= null ? requestScope.listNbAbsenceEtudiant.get(alternant):0 }"/></p>
                 </td>
             </tr>
         </c:forEach>
