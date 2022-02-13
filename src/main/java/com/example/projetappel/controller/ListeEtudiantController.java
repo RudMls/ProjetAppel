@@ -4,6 +4,7 @@ import com.example.projetappel.dao.AppartenirDao;
 import com.example.projetappel.dao.EtudiantDao;
 import com.example.projetappel.model.Appartenir;
 import com.example.projetappel.model.Etudiant;
+import com.example.projetappel.model.Utilisateur;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,10 +19,12 @@ public class ListeEtudiantController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AppartenirDao appartenirDao = new AppartenirDao();
-        ArrayList<Appartenir> listInscription = (ArrayList<Appartenir>) appartenirDao.getInscriptions();
+        EtudiantDao etudiantDao = new EtudiantDao();
+        ArrayList<Etudiant> listInscription = (ArrayList<Etudiant>) appartenirDao.findEtudiant();
         request.setAttribute("listInscription", listInscription);
         request.setAttribute("page","liste-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
+
     }
 
     @Override

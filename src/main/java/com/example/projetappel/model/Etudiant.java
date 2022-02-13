@@ -14,20 +14,17 @@ import java.util.Set;
 @PrimaryKeyJoinColumn
 public class Etudiant extends Utilisateur implements Serializable {
 
-
-    private String imageUrl;
-
     @Enumerated(EnumType.STRING)
     private TypeEtudiant typeEtudiant;
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
     private Set<Presence> presences = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", fetch = FetchType.EAGER)
     private Set<Absence> absences = new HashSet<>();
 
-    @OneToMany(mappedBy = "etudiant")
-    private Set<Appartenir> appartenirs = new HashSet<>();
+    @OneToOne(mappedBy = "etudiant")
+    private Appartenir appartenir;
 
     public Etudiant() {}
 
@@ -35,26 +32,14 @@ public class Etudiant extends Utilisateur implements Serializable {
         super(id, prenom, nom, email, password);
     }
 
-    public Etudiant(int id, String prenom, String nom, String email, String password, String imageUrl, TypeEtudiant typeEtudiant) {
+    public Etudiant(int id, String prenom, String nom, String email, String password, TypeEtudiant typeEtudiant) {
         super(id, prenom, nom, email, password);
-        this.imageUrl = imageUrl;
         this.typeEtudiant = typeEtudiant;
     }
 
     public Etudiant(String prenom, String nom, String email, String password, TypeEtudiant typeEtudiant) {
         super(prenom, nom, email, password);
         this.typeEtudiant = typeEtudiant;
-    }
-
-
-
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
     }
 
     public TypeEtudiant getTypeEtudiant() {
@@ -81,11 +66,11 @@ public class Etudiant extends Utilisateur implements Serializable {
         this.absences = absences;
     }
 
-    public Set<Appartenir> getAppartenirs() {
-        return appartenirs;
+    public Appartenir getAppartenir() {
+        return appartenir;
     }
 
-    public void setAppartenirs(Set<Appartenir> appartenirs) {
-        this.appartenirs = appartenirs;
+    public void setAppartenir(Appartenir appartenir) {
+        this.appartenir = appartenir;
     }
 }

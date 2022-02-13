@@ -19,7 +19,22 @@ public class Presence {
 
     public Presence() {}
 
-    public Presence(Boolean retard , Etudiant etudiant, FicheAppel ficheAppel) {
+    public Presence(Etudiant etudiant, FicheAppel ficheAppel) {
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+    }
+
+    public Presence(Etudiant etudiant, FicheAppel ficheAppel,boolean retard ) {
+        this.retard = retard;
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
+    }
+
+    public Presence(int id, boolean retard, Etudiant etudiant, FicheAppel ficheAppel) {
+        this.id = id;
+        this.retard = retard;
+        this.etudiant = etudiant;
+        this.ficheAppel = ficheAppel;
     }
 
     public int getId() {
@@ -53,4 +68,5 @@ public class Presence {
     public void setFicheAppel(FicheAppel ficheAppel) {
         this.ficheAppel = ficheAppel;
     }
+
 }

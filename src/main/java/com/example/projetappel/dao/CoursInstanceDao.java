@@ -2,7 +2,9 @@
 package com.example.projetappel.dao;
 
 import com.example.projetappel.model.Absence;
+import com.example.projetappel.model.Cours;
 import com.example.projetappel.model.CoursInstance;
+import com.example.projetappel.model.FicheAppel;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -34,7 +36,24 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
         return coursInstances;
     }
 
-    public List<CoursInstance> getCiCours(Integer etudiantId, Integer coursId) {
+/*    public List<CoursInstance> getCoursInstances(Integer coursId) {
+        String hql = "select ci from  CoursInstance ci " +
+                " where ci.cours.id = :coursId ";
+        List<CoursInstance> coursInstances = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<CoursInstance> query = session.createQuery(hql);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                coursInstances = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coursInstances;
+    }*/
+
+    /*public List<CoursInstance> getCiCours(Integer etudiantId, Integer coursId) {
         String hql = "select ci from  CoursInstance ci, Appartenir a, Groupe g " +
                 " where a.etudiant.id = :etudiantId " +
                 " and ci.cours.id = :coursId " +
@@ -46,6 +65,51 @@ public class CoursInstanceDao extends DAO<CoursInstance> {
             Query<CoursInstance> query = session.createQuery(hql);
             query.setParameter("etudiantId",etudiantId);
             query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                coursInstances = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coursInstances;
+    }*/
+
+    public List<CoursInstance> getCiCours(Integer coursId) {
+        String hql = "select ci from  CoursInstance ci " +
+                " where ci.cours.id = :coursId ";
+        List<CoursInstance> coursInstances = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<CoursInstance> query = session.createQuery(hql);
+            query.setParameter("coursId",coursId);
+            if (!query.getResultList().isEmpty()) {
+                coursInstances = query.getResultList();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return coursInstances;
+    }
+
+    public void updateFicheAppel(CoursInstance coursInstanceChoose, FicheAppel ficheAppel) {
+        CoursInstance coursInstance = new CoursInstance();
+        CoursInstanceDao coursInstanceDao = new CoursInstanceDao();
+        try (Session session = getSession()) {
+            getTransaction(session);
+            coursInstanceChoose.setFicheAppel(ficheAppel);
+            coursInstanceDao.update(coursInstanceChoose);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<CoursInstance> getCoursInstanceFiche(FicheAppel ficheAppel) {
+        String hql = "select c from  CoursInstance c where c.ficheAppel = :ficheAppel";
+        List<CoursInstance> coursInstances = new ArrayList<>();
+        try (Session session = getSession()){
+            getTransaction(session);
+            Query<CoursInstance> query = session.createQuery(hql);
+            query.setParameter("ficheAppel",ficheAppel);
             if (!query.getResultList().isEmpty()) {
                 coursInstances = query.getResultList();
             }

@@ -1,6 +1,10 @@
 package com.example.projetappel.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Cours {
@@ -11,6 +15,13 @@ public class Cours {
 
     @Column(nullable = false)
     private String libelle;
+
+    @OneToMany(
+            mappedBy = "cours",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER
+    )
+    private List<CoursInstance> coursInstances = new ArrayList<>();
 
     @ManyToOne
     private Formation formation;
@@ -43,4 +54,12 @@ public class Cours {
     public Formation getFormation() {return formation;}
 
     public void setFormation(Formation formation) {this.formation = formation;}
+
+    public List<CoursInstance> getCoursInstances() {
+        return coursInstances;
+    }
+
+    public void setCoursInstances(List<CoursInstance> coursInstances) {
+        this.coursInstances = coursInstances;
+    }
 }

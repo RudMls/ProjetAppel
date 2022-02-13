@@ -28,9 +28,11 @@
                         <div class="col-6 col-sm-8 col-md-8 d-flex d-sm-flex d-md-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-md-center align-items-md-center"><input id="date" name="date" type="date" value="<%= date %>"></div>
                     </div>
                 </div>
-                <button type="submit" name="planning_action" value="previous">Précédent</button>
-                <button type="submit" name="planning_action" value="next">Après</button>
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-flex d-sm-flex justify-content-center align-items-center justify-content-sm-center align-items-sm-center justify-content-lg-center justify-content-xl-center"><button id="rechercher" class="btn btn-primary d-xl-flex" type="submit" name="planning_action" value="search" >Rechercher</button></div>
+                <div class="next_previous">
+                    <button type="submit" name="planning_action" value="previous">Précédent</button>
+                    <button type="submit" name="planning_action" value="next">Suivant</button>
+                </div>
             </div>
         </form>
     </div>
@@ -67,8 +69,8 @@
             <c:forEach var="coursInstances" items="${requestScope.coursInstanceFilter}">
                 <li class="events-group">
                     <div class="top-info">
-                        <span>${DatePlanning.getDayOfWeek(coursInstances.key)}</span>
-                        <span></span>
+                        <span>${DatePlanning.getDayOfWeek(DatePlanning.getWeektoMillis(coursInstances.key))}</span>
+                        <small>${DatePlanning.getStringToLong(coursInstances.key, "dd/MM")}</small>
                     </div>
                     <ul>
                         <c:forEach var="coursInstance" items="${coursInstances.value}">
@@ -78,12 +80,9 @@
                                 </a>
                             </li>
                         </c:forEach>
-
                     </ul>
                 </li>
-
             </c:forEach>
-
 
 <%--            <li class="events-group">--%>
 <%--                <div class="top-info"><span>Tuesday</span></div>--%>

@@ -14,61 +14,58 @@
         <div class="row mb-3">
             <div class="col-lg-4">
                 <div class="card mb-3">
-                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4"
-                                                                   src="/dogs/image2.jpeg" width="160" height="160">
+                    <div class="card-body text-center shadow"><img class="rounded-circle mb-3 mt-4 img-profile"
+                                                                   src="${requestScope.utilisateur_image}" width="160" height="160">
                     </div>
                 </div>
-
-                        <%
-                            float txAbsGen = (float) request.getAttribute("txAbsGen");
-                            float txAbsCours = (float) request.getAttribute("txAbsCours");
-                            float txRetGen = (float) request.getAttribute("txRetGen");
-                            float txRetCours = (float) request.getAttribute("txRetCours");
-                        %>
-                        <div class="card shadow mb-4">
-                            <div class="card-header py-3">
-                                <h6 class="text-primary font-weight-bold m-0">Statistiques de l'Étudiant</h6>
-                            </div>
-                            <div class="card-body">
-                                <h4 class="small font-weight-bold">Taux général d'absences
-                                    <span class="float-right">
-                                            <%= txAbsGen%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-danger" aria-valuenow="<%= txAbsGen%>%" aria-valuemin="0" aria-valuemax="100"
-                                         style="width: <%= txAbsGen%>%;"><span class="sr-only"><%= txAbsGen%>%</span></div>
-                                </div>
-
-                                <h4 class="small font-weight-bold">Taux d'absences de Nom Matière
-                                    <span class="float-right">
-                                            <%= txAbsCours%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-warning" aria-valuenow="<%= txAbsCours%>%" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: <%= txAbsCours%>%;"><span class="sr-only"><%= txAbsCours%>%</span></div>
-                                </div>
-
-                                <h4 class="small font-weight-bold">Taux général de retards
-                                    <span class="float-right">
-                                            <%= txRetGen%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-primary" aria-valuenow="<%= txRetGen%>" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: <%= txRetGen%>%;"><span class="sr-only"><%= txRetGen%>%</span></div>
-                                </div>
-
-                                <h4 class="small font-weight-bold">Taux de retards de Nom Matière
-                                    <span class="float-right">
-                                            <%= txRetCours%>%
-                                        </span></h4>
-                                <div class="progress progress-sm mb-3">
-                                    <div class="progress-bar bg-info" aria-valuenow="<%= txRetCours%>" aria-valuemin="0"
-                                         aria-valuemax="100" style="width: <%= txRetCours%>%;"><span class="sr-only"><%= txRetCours%>%</span></div>
-                                </div>
+                <%
+                    Float txAbsGen = (Float) request.getAttribute("txAbsGen") ;
+                    Float txAbsCours = (Float) request.getAttribute("txAbsCours");
+                    Float txRetGen = (Float) request.getAttribute("txRetGen");
+                    Float txRetCours = (Float) request.getAttribute("txRetCours");
+                %>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="text-primary font-weight-bold m-0">Statistiques de l'Étudiant</h6>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Taux général d'absence<span class="float-right"><%= txAbsGen %>%</span></h4>
+                        <div class="progress progress-sm mb-3">
+                            <div class="progress-bar bg-danger" aria-valuenow="<%= txAbsGen%>%" aria-valuemin="0" aria-valuemax="100" style="width: <%= txAbsGen%>%;">
+                                <span class="sr-only"><%= txAbsGen%>%</span>
                             </div>
                         </div>
+                        <c:if test="${ requestScope.cours != null}">
+                            <h4 class="small font-weight-bold">Taux d'absences de ${requestScope.cours.libelle}
+                                <span class="float-right">${requestScope.txAbsCours}%</span>
+                            </h4>
+                            <div class="progress progress-sm mb-3">
+                                <div class="progress-bar bg-warning" aria-valuenow="<%= txAbsCours%>%" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: <%= txAbsCours%>%;"><span class="sr-only"><%= txAbsCours%>%</span></div>
+                            </div>
+                        </c:if>
 
 
+                        <h4 class="small font-weight-bold">Taux général de retards
+                            <span class="float-right"><%= txRetGen%>%</span>
+                        </h4>
+                        <div class="progress progress-sm mb-3">
+                            <div class="progress-bar bg-primary" aria-valuenow="<%= txRetGen%>" aria-valuemin="0"
+                                 aria-valuemax="100" style="width: <%= txRetGen%>%;"><span class="sr-only"><%= txRetGen%>%</span>
+                            </div>
+                        </div>
+                        <c:if test="${ requestScope.cours != null}">
+                            <h4 class="small font-weight-bold">Taux de retards ${requestScope.cours.libelle}
+                                <span class="float-right">
+                                            ${requestScope.txRetCours}%
+                                        </span></h4>
+                            <div class="progress progress-sm mb-3">
+                                <div class="progress-bar bg-info" aria-valuenow="<%= txRetCours%>" aria-valuemin="0"
+                                     aria-valuemax="100" style="width: <%= txRetCours%>%;"><span class="sr-only"><%= txRetCours%>%</span></div>
+                            </div>
+                        </c:if>
+                    </div>
+                </div>
             </div>
             <div class="col-lg-8">
                 <div class="row">
@@ -84,31 +81,34 @@
                                         <div class="col">
                                             <div class="form-group"><label
                                                     for="username"><strong>Statut</strong></label><input
-                                                    class="form-control" type="text" id="username"
-                                                    placeholder=${requestScope.etudiantId.getTypeEtudiant()} name="username"></div>
+                                                    class="form-control" type="text" id="username" disabled
+                                                    placeholder="${requestScope.etudiant.getTypeEtudiant()}" name="username">
+                                            </div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="email"><strong>Adresse E-mail</strong></label><input
-                                                    class="form-control" type="email" id="email"
-                                                    placeholder=${requestScope.etudiantId.getEmail()} name="email"></div>
+                                                    class="form-control" type="email" id="email" disabled
+                                                    placeholder="${requestScope.etudiant.getEmail()}" name="email">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="col">
                                             <div class="form-group"><label for="first_name"><strong>Prénom</strong></label><input
-                                                    class="form-control" type="text" id="first_name" placeholder=${requestScope.etudiantId.getPrenom()}
+                                                    class="form-control" type="text" id="first_name" disabled
+                                                    placeholder="${requestScope.etudiant.getPrenom()}"
                                                     name="first_name"></div>
                                         </div>
                                         <div class="col">
                                             <div class="form-group"><label for="last_name"><strong>Nom</strong></label><input
-                                                    class="form-control" type="text" id="last_name"
-                                                    placeholder=${requestScope.etudiantId.getNom()} name="last_name"></div>
+                                                    class="form-control" type="text" id="last_name" disabled
+                                                    placeholder="${requestScope.etudiant.getNom()}" name="last_name">
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

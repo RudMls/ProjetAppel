@@ -1,5 +1,8 @@
 package com.example.projetappel.model;
 
+import com.example.projetappel.dao.CoursInstanceDao;
+import org.hibernate.Session;
+
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,7 +35,13 @@ public class CoursInstance {
     @OneToOne
     private FicheAppel ficheAppel;
 
-    public CoursInstance() {}
+    public CoursInstance(Date dateDebut, Date dateFin, Cours cours, Enseignant enseignant, Groupe groupe) {
+        this.dateDebut = dateDebut;
+        this.dateFin = dateFin;
+        this.cours = cours;
+        this.enseignant = enseignant;
+        this.groupe = groupe;
+    }
 
     public CoursInstance(int id, Date dateDebut, Date dateFin, Cours cours) {
         this.id = id;
@@ -48,6 +57,10 @@ public class CoursInstance {
         this.enseignant = enseignant;
         this.groupe = groupe;
         this.ficheAppel = ficheAppel;
+    }
+
+    public CoursInstance() {
+
     }
 
     public int getId() {
@@ -109,7 +122,13 @@ public class CoursInstance {
     public String getParseDateDebut(){
        return  new SimpleDateFormat("dd-MMM-yyyy à hh:mm").format(this.getDateDebut());
     }
+
+    public String getParseDateDebutStat(){
+        return  new SimpleDateFormat("dd/MM/yyyy à hh:mm").format(this.getDateDebut());
+    }
+
     public String getParseDateFin(){
         return  "- "+ new SimpleDateFormat("hh:mm").format(this.getDateFin());
     }
+
 }
