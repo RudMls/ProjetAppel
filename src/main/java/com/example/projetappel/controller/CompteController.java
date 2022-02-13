@@ -21,16 +21,6 @@ public class CompteController extends HttpServlet {
         Utilisateur user= (Utilisateur) request.getAttribute("utilisateur");
         Integer userId = user.getId();
 
-//        If (user instanceof Enseignant) {
-//            EnseignantDao enseignantDao = new EnseignantDao();
-//            ArrayList<Cours> coursEnseignant = (ArrayList<Cours>) enseignantDao.findCours(userId);
-//            request.setAttribute("listCours", coursEnseignant);
-//        } else if (user instanceof Etudiant) {
-//            EtudiantDao etudiantDao = new EtudiantDao();
-//            ArrayList<Cours> coursEtudiant = (ArrayList<Cours>) etudiantDao.findCours(userId);
-//            request.setAttribute("listCours", coursEtudiant);
-//        }
-
         request.setAttribute("page", "accueil");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
     }
@@ -40,20 +30,5 @@ public class CompteController extends HttpServlet {
 
     }
 
-//    Utilisateur user= (Utilisateur) request.getAttribute("utilisateur");
-//    Integer userId = user.getId();
-//    AbsenceDao absenceDao= new AbsenceDao();
-//    ArrayList<Absence> absences = (ArrayList<Absence>) absenceDao.getAbsences(userId);
-//        request.setAttribute("listAbsences", absences);
-//        request.setAttribute("page","consultation-etudiant");
-//        request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);
-//
-//}
-//
-//    @Override
-//    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//
-//
-//    }
 
 }

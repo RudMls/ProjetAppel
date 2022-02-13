@@ -14,16 +14,18 @@ public class Main {
 
     public static void main(String[] args) throws ParseException {
 
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(simpleDateFormat.parse("12-02-2022"));
+//        System.out.println("12-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
+//        calendar.setTime(simpleDateFormat.parse("02-02-2022"));
+//        System.out.println("02-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(simpleDateFormat.parse("12-02-2022"));
-        System.out.println("12-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
-        calendar.setTime(simpleDateFormat.parse("02-02-2022"));
-        System.out.println("02-02-2022 = " + calendar.getTimeInMillis() + " " + DatePlanning.getWeektoMillis(calendar.getTimeInMillis()));
 
+        int test = Integer.parseInt("2", 2);
 
-
+        System.out.println(test);
         //System.out.println(DatePlanning.getWeektoMillis(1643756400000L));
 
     }

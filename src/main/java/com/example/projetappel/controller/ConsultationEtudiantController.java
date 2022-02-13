@@ -29,10 +29,6 @@ public class ConsultationEtudiantController extends HttpServlet {
                 .filter(absence -> absence.getFicheAppel().isValidee())
                 .collect(Collectors.toCollection(ArrayList::new));
 
-//        Integer userId = user.getId();
-//        AbsenceDao absenceDao= new AbsenceDao();
-//        ArrayList<Absence> absences = (ArrayList<Absence>) absenceDao.getAbsences(userId);
-
         request.setAttribute("listAbsences", absences);
         request.setAttribute("page","consultation-etudiant");
         request.getRequestDispatcher("/view/compte/index.jsp").forward(request, response);

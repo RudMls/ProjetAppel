@@ -6,9 +6,7 @@ import static com.example.projetappel.util.ContentType.*;
 import com.example.projetappel.dao.AbsenceDao;
 import com.example.projetappel.dao.FichierDao;
 import com.example.projetappel.dao.JustificatifDao;
-import com.example.projetappel.enumtype.Role;
 import com.example.projetappel.model.*;
-import com.example.projetappel.service.GoogleDriveService;
 import com.example.projetappel.util.FileManager;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -105,48 +103,4 @@ public class JustificatifController extends HttpServlet {
         }
     }
 
-    private void processRequest() {
-
-
-//        String uploadPath = getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY;
-//        File uploadDir = new File(uploadPath);
-//        if (!uploadDir.exists()) uploadDir.mkdir();
-//
-//        File file;
-//        HashMap<String, String> erreurs = new HashMap<>();
-//        String libelle = request.getParameter("libelle");
-//
-//        if (libelle == null || libelle.isEmpty()) {
-//            erreurs.put("libelle_erreur", "Veillez renseigner le libellé");
-//        }
-//
-//        String contentType = request.getContentType();
-//
-//        if (contentType.contains("multipart/form-data")) {
-//            DiskFileItemFactory factory = new DiskFileItemFactory();
-//            factory.setSizeThreshold(MEMORY_THRESHOLD);
-//            factory.setRepository(new File("c:\\temp"));
-//            ServletFileUpload upload = new ServletFileUpload(factory);
-//            upload.setSizeMax(MAX_FILE_SIZE);
-//            upload.setHeaderEncoding("UTF-8");
-//
-//            try {
-//                List fileItems = upload.parseRequest(request);
-//                Iterator iterator = fileItems.iterator();
-//                while (iterator.hasNext()) {
-//                    FileItem fileItem = (FileItem) iterator.next();
-//                    if (!fileItem.isFormField()) {
-//                        String fieldName = fileItem.getFieldName();
-//                        String fileName = fileItem.getName();
-//                        boolean isInMemery = fileItem.isInMemory();
-//                        long sizzInBytes = fileItem.getSize();
-//                        file = new File("");
-//                        file = new File("");
-//                    }
-//                }
-//            } catch (FileUploadException e) {
-//                e.printStackTrace();
-//            }
-//        }
-    }
 }

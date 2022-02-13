@@ -1,8 +1,5 @@
 package com.example.projetappel.util;
 
-
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -16,7 +13,6 @@ public class DateValidatorUsingDateFormat {
 
     public boolean isValid(String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat(this.DATE_FORMAT);
-//        sdf.setLenient(false);
         try {
             sdf.parse(dateStr);
         } catch (ParseException e) {

@@ -34,8 +34,6 @@ public class CoursStatController extends HttpServlet {
         ArrayList<Etudiant> listeEtudiantsAbsInj = (ArrayList<Etudiant>) etudiantDao.getEtudiantAbsInj(coursId);
         request.setAttribute("listeEtudiantsAbsInj", listeEtudiantsAbsInj);
 
-
-
         for (int i = 0; i < listeEtudiantsAbsInj.size(); i++) {
             ArrayList<Integer> listeNbAbsInj = (ArrayList<Integer>) etudiantDao.getNbAbsInj(coursId, listeEtudiantsAbsInj.get(i).getId());
         }
@@ -46,18 +44,13 @@ public class CoursStatController extends HttpServlet {
         float txAbsCours = (nbEtudAbsCours / (nbEtudPresCours + nbEtudAbsCours)) * 100 ;
         request.setAttribute("txAbsCours", txAbsCours);
 
-//                ArrayList<CoursInstance> coursInstanceFiltre = coursInstances.stream()
-//                        .filter(coursInstance -> datePlanning.isWithinRange(date, firstDayOfWeek, lastDayOfWeek))
-//                        .collect(Collectors.toCollection(ArrayList::new));
-//                responseJSON.setBody(coursInstancesResponse);
-//                json = gson.toJson(responseJSON);
 
         HashMap<Etudiant, Integer> nombreAbsencesParEtudiant = new HashMap<>();
 
         ArrayList<Etudiant> etudiants = new ArrayList<>(etudiantDao.findAll());
 ;
         for (Etudiant etudiant : etudiants) {
-            if (etudiant.getAbsences().size() > 1 ) {
+            if (etudiant.getAbsences().size() > 3 ) {
                 nombreAbsencesParEtudiant.put(etudiant, etudiant.getAbsences().size());
             }
         }

@@ -6,7 +6,6 @@
 
 <%
     ArrayList<Justificatif> justificatifs = request.getAttribute("justificatifs") == null ? null : (ArrayList<Justificatif>) request.getAttribute("justificatifs");
-    String realPath = request.getServletContext().getRealPath("");
 %>
 
 <%!
@@ -59,7 +58,7 @@
 
 <div class="d-sm-flex justify-content-between align-items-center mb-4">
     <h3 class="text-dark mb-0">Justificatifs</h3>
-    <button <%= justificatifs == null || justificatifs.stream().filter(justificatif -> justificatif.isValidee()).c? "disabled" : "" %> type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
+    <button <%= justificatifs == null || justificatifs.isEmpty() ? "disabled" : "" %> type="submit" class="btn btn-primary btn-sm d-none d-sm-inline-block" role="button" href="#">Valider</button>
 </div>
     <div class="table-responsive" id="no-more-tables">
         <table class="table col-sm-12 table-bordered table-striped table-condensed cf">

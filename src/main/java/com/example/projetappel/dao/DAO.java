@@ -120,8 +120,8 @@ public abstract class DAO<T> {
 
 
     /**
-     *
-     * @return
+     * Petmet d'avoir accès à tous les objet T de la base de données.
+     * @return Une liste d'object
      */
     public List<T> findAll() {
         List<T> entities;
